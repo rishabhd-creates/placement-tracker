@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>10-Month Placement Tracker — Java-first (MS · JPMC · Deloitte)</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#1a1d23;--mu:#5b6270;--ac:#0b5cff;--ok:#12805c;--bd:#dfe3ea;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12151a;--card:#1b2027;--tx:#e8ebf0;--mu:#9aa3b2;--ac:#6ea0ff;--ok:#4cc9a0;--bd:#2c333d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12151a;--card:#1b2027;--tx:#e8ebf0;--mu:#9aa3b2;--ac:#6ea0ff;--ok:#4cc9a0;--bd:#2c333d;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:960px;margin:0 auto;padding:14px}h1{font-size:20px;margin:0 0 4px}h2{font-size:16px;margin:0 0 8px}
+.mu{color:var(--mu);font-size:13px}.c{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin:12px 0}
+.r{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+button,select,textarea{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:6px 10px}
+button{cursor:pointer}button.p{background:var(--ac);color:#fff;border-color:var(--ac)}button.on{outline:2px solid var(--ac)}button.dn{border-color:var(--ok);color:var(--ok);font-weight:600}
+a.b{display:inline-block;padding:6px 12px;border-radius:8px;border:1px solid var(--ac);color:var(--ac);text-decoration:none;font-weight:600;font-size:13px}
+.h{display:flex;gap:10px;padding:10px 0;border-top:1px solid var(--bd)}.h:first-of-type{border-top:0}.h input{width:20px;height:20px;margin-top:3px;flex:none}
+textarea{width:100%;min-height:110px;resize:vertical}.bar{height:10px;background:var(--bd);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ok)}
+table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:6px;border-top:1px solid var(--bd);text-align:left}
+button.bn{padding:6px 12px;border-radius:8px;border:1px solid var(--ok);color:var(--ok);font-weight:600;font-size:13px}.nt{padding:8px 10px;border:1px solid var(--bd);border-radius:8px;margin:6px 0;font-size:14px}.nt.cur{border-color:var(--ac)}.tg{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;background:var(--bd)}
+</style></head><body><div class="w" id="app"></div>
+<script>
+const R={
+java:["Java Programming (MOOC.fi)","https://java-programming.mooc.fi/","HackerRank Java","https://www.hackerrank.com/domains/java"],
+coll:["Java Collections tutorial","https://docs.oracle.com/javase/tutorial/collections/","HackerRank Java","https://www.hackerrank.com/domains/java"],
+py:["CS50P Python","https://cs50.harvard.edu/python/","Kaggle Python","https://www.kaggle.com/learn/python"],
+nc:["NeetCode roadmap","https://neetcode.io/roadmap","NeetCode 150","https://neetcode.io/practice"],
+sql:["SQLBolt","https://sqlbolt.com/","HackerRank SQL","https://www.hackerrank.com/domains/sql"],
+sqa:["Mode SQL tutorial","https://mode.com/sql-tutorial/","LeetCode Database","https://leetcode.com/problemset/database/"],
+db:["GeeksforGeeks DBMS","https://www.geeksforgeeks.org/dbms/","DBMS questions","https://www.geeksforgeeks.org/dbms-gq/"],
+os:["GeeksforGeeks OS","https://www.geeksforgeeks.org/operating-systems/","OS questions","https://www.geeksforgeeks.org/operating-systems-gq/"],
+cn:["GeeksforGeeks Networks","https://www.geeksforgeeks.org/computer-networks/","CN questions","https://www.geeksforgeeks.org/computer-networks-gq/"],
+git:["GitHub Docs","https://docs.github.com/en/get-started","GitHub Skills","https://skills.github.com/"],
+web:["MDN Learn Web Dev","https://developer.mozilla.org/en-US/docs/Learn","freeCodeCamp","https://www.freecodecamp.org/learn/"],
+spr:["Spring Guides","https://spring.io/guides","Spring Initializr","https://start.spring.io/"],
+pd:["Kaggle Pandas","https://www.kaggle.com/learn/pandas","Kaggle Data Cleaning","https://www.kaggle.com/learn/data-cleaning"],
+ex:["Microsoft Excel help","https://support.microsoft.com/en-us/excel","Excel formulas","https://support.microsoft.com/en-us/excel/get-started/overview-of-formulas-in-excel"],
+bi:["Microsoft Learn Power BI","https://learn.microsoft.com/en-us/training/powerplatform/power-bi","MS Learn Data Analyst","https://learn.microsoft.com/en-us/training/career-paths/data-analyst"],
+st:["Khan Academy Statistics","https://www.khanacademy.org/math/statistics-probability","OpenIntro Statistics","https://www.openintro.org/book/os/"],
+ml:["Kaggle Intro to ML","https://www.kaggle.com/learn/intro-to-machine-learning","Scikit-learn guide","https://scikit-learn.org/stable/user_guide.html"],
+fin:["Khan Academy Finance","https://www.khanacademy.org/economics-finance-domain/core-finance","Investopedia","https://www.investopedia.com/"],
+apt:["IndiaBix aptitude","https://www.indiabix.com/","IndiaBix tests","https://www.indiabix.com/online-test/aptitude-test/"],
+hr:["STAR method guide","https://www.themuse.com/advice/star-interview-method","Pramp mock interviews","https://www.pramp.com/"],
+co:["Morgan Stanley Careers","https://www.morganstanley.com/careers","JPMorgan Careers","https://careers.jpmorgan.com/"],
+dl:["Deloitte India Careers","https://www2.deloitte.com/in/en/careers.html","Deloitte Careers (global)","https://www.deloitte.com/global/en/careers.html"]};
+const M=["Java Foundations + OOP","Advanced Java + Banking Project","SQL + DBMS","Python + Aptitude","DSA I (Java)","DSA II (Java)","OS + Networks + Git + Agile","Web + APIs + Projects","Analyst Skills + Finance + Aptitude","Company Prep + Mocks + Applications"];
+const G=["Write clean Java OOP programs","Collections, exceptions, streams; Banking project on GitHub","Interview-level SQL and DBMS answers","Python fluency + aptitude speed","Solve Easy/Medium arrays to heaps in Java","Graphs, DP, backtracking; 90-min mocks","Explain OS, CN, Git and Agile clearly","Two projects live (e-commerce app, finance dashboard)","Excel/Power BI, finance basics, aptitude tests","Mocks passed, resume ready, applications sent"];
+const D=["arrays basics,strings basics,hashing basics,two pointers","arrays + prefix sums,strings + hashing,sorting + binary search,recursion basics","arrays + hashing,two pointers,sliding window,binary search","hashing,two pointers,sliding window,stack","hash maps,two pointers + sliding window,linked list,stack + queue","trees DFS/BFS,BST + LCA,heaps + top-K,tries + intervals","graphs BFS/DFS,topological sort + union-find,Dijkstra + greedy,backtracking","DP 1-D,DP 2-D,bit manipulation + math,mixed medium set","mixed arrays/strings,mixed trees/graphs,mixed DP,timed OA set","top-75 revision,weak-pattern revision,company-style OA sets,final mock sprint"].map(x=>x.split(","));
+const U=[
+["Java setup (JDK, IDE), syntax, data types, I/O|java","Operators, conditions, switch|java","Loops, patterns, break/continue|java","Methods, overloading, scope|java","Arrays and 2-D arrays|java","Strings, StringBuilder, string methods|java","Classes, objects, constructors, this, static|java","Encapsulation, packages, access modifiers|java","Inheritance, super, method overriding|java","Polymorphism, abstract classes, interfaces|java","Project: console ATM / calculator in Java|java","Month review: 15 Java problems on HackerRank|java"],
+["Exceptions: try/catch, custom exceptions|java","Collections: ArrayList, LinkedList|coll","Collections: HashMap, HashSet, TreeMap|coll","Generics, Iterator, Comparable/Comparator|coll","Lambdas and Streams|coll","File I/O and serialisation|java","Multithreading basics, synchronised|java","JDBC: connect Java to a database|java","SOLID principles and common design patterns|java","Git/GitHub: repos, commits, branches, README|git","Project: Banking Management System (Java + SQL)|java","Project: finish, test, push to GitHub|git"],
+["SQL: SELECT, WHERE, ORDER BY, LIMIT|sql","SQL: aggregates, GROUP BY, HAVING|sql","SQL: CASE, NULLs, string/date functions|sql","SQL: INNER, LEFT, RIGHT, FULL, SELF joins|sql","SQL: subqueries and EXISTS|sqa","SQL: CTEs|sqa","SQL: window functions (RANK, LAG, LEAD)|sqa","DBMS: keys, constraints, ER diagrams|db","DBMS: normalisation 1NF–BCNF|db","DBMS: ACID, transactions, locking|db","DBMS: indexing, views, query optimisation|db","SQL interview set: Nth highest, duplicates, retention|sqa"],
+["Python syntax, data types, conditions, loops|py","Lists, tuples, sets, dictionaries|py","Functions, comprehensions, lambda|py","Python OOP and exceptions|py","Python for DSA: collections, heapq, sorting|py","Pandas basics: DataFrame, filter, groupby|pd","Quant aptitude: percentages, ratio, profit-loss|apt","Quant: time-work, speed, averages, mixtures|apt","Quant: probability, permutations, combinations|apt","Logical reasoning: series, puzzles, seating|apt","Verbal: reading comprehension, grammar|apt","Timed aptitude mock (60 min) and analysis|apt"],
+["Time/space complexity and Java collections for DSA|nc","Arrays and strings: patterns|nc","Hash map and set patterns|nc","Two pointers|nc","Sliding window|nc","Binary search and prefix sums|nc","Linked list: reverse, cycle, merge|nc","Stack and monotonic stack|nc","Queue and deque|nc","Recursion and sorting algorithms|nc","Mixed timed set: 4 problems, 90 min|nc","Month review: redo every wrong problem|nc"],
+["Trees: traversals, DFS/BFS|nc","BST: insert, validate, LCA|nc","Heaps, priority queue, top-K|nc","Graphs: BFS, DFS, islands|nc","Topological sort and Union-Find|nc","Dijkstra and shortest paths|nc","Greedy and intervals|nc","Backtracking: subsets, permutations, N-Queens|nc","DP 1-D: stairs, robber, coin change|nc","DP 2-D: knapsack, LCS, grid paths|nc","Mock online assessment: 3 problems, 90 min|nc","Month review: redo every wrong problem|nc"],
+["OS: process, thread, PCB, context switch|os","OS: CPU scheduling algorithms|os","OS: synchronisation, semaphores, deadlock|os","OS: memory, paging, virtual memory|os","OS: file systems, Linux commands, shell|os","CN: OSI and TCP/IP models|cn","CN: TCP vs UDP, IP addressing, subnetting|cn","CN: HTTP/HTTPS, DNS, DHCP, REST|cn","Git advanced: merge, rebase, pull requests|git","SDLC, Agile, Scrum, testing basics|git","Core CS quiz: OOP, DBMS, OS, CN|db","Weak-area revision and notes cleanup|db"],
+["HTML: structure, forms, semantic tags|web","CSS: box model, flexbox, responsive layout|web","JavaScript: variables, functions, DOM|web","JavaScript: events, fetch, JSON|web","REST API concepts and Postman|spr","Spring Boot: first REST API|spr","Spring Boot + database (JPA)|spr","Project: E-commerce backend (Java, SQL, APIs)|spr","Project: E-commerce frontend (HTML/CSS/JS)|web","Project: connect, test, document|spr","Deploy frontend with GitHub Pages + README|git","Project demo practice (5-minute walkthrough)|hr"],
+["Excel: lookups, SUMIFS, pivot tables|ex","Excel: charts, dashboards, data cleaning|ex","Power BI: import, visuals, slicers|bi","Power BI: model, DAX basics|bi","Statistics: mean, SD, probability, hypothesis tests|st","Finance basics: markets, banking, statements|fin","Finance: ratios, time value of money, risk|fin","Current affairs: markets, RBI, fintech|fin","ML intro: regression, classification, metrics|ml","Project: financial data analysis (Python + SQL + Power BI)|bi","Data interpretation + puzzles aptitude test|apt","Business problem solving: KPIs and case thinking|hr"],
+["Morgan Stanley: role research, process, coding practice|co","Morgan Stanley: Java, DSA, DBMS interview Q&A|co","JPMorgan: SEP / Code for Good research and practice|co","JPMorgan: coding test + Superday practice|co","Deloitte: aptitude, technical and communication rounds|dl","Deloitte: case, analytics and HR interview practice|dl","Resume: ATS format, action + metric bullets|hr","Resume: projects, GitHub, LinkedIn polish|hr","STAR stories + HR answers + self-introduction|hr","Mock technical interview (peer or Pramp)|hr","Applications: careers pages, referrals, off-campus drives|co","Final self-audit, weak areas, buffer and rest|hr"]];
+const N=[[
+"JDK/JRE/JVM, install JDK 21 + IDE, program structure, data types, casting, Scanner input|10 small programs (swap, interest, converter); compile once with javac/java",
+"Arithmetic, relational, logical, bitwise operators, precedence, if/else, ternary, switch|Even/odd, leap year, largest of three, grade calculator, menu calculator",
+"for, while, do-while, break/continue, nested loops, reading patterns by row and column|Factorial, Fibonacci, prime, palindrome, digit sum, 10 patterns",
+"Method syntax, return types, pass-by-value, overloading, scope, first recursion|Utility class (isPrime, gcd, power); overloaded area(); recursive factorial",
+"Arrays, Arrays class (sort, fill, copyOf), 2-D and jagged arrays|Max, second largest, reverse, rotate, matrix add and transpose",
+"String immutability, string pool, equals vs ==, common methods, StringBuilder|Reverse, palindrome, vowel count, anagram, character frequency",
+"Class vs object, constructors, this, static variables, methods and blocks|Build Student, BankAccount and a static Counter",
+"Access modifiers, getters/setters with validation, packages, immutable classes|Employee with validated salary; split a project into packages",
+"extends, super, constructor chaining, @Override, Object class methods, final|Vehicle to Car/Bike; Shape hierarchy with area()",
+"Compile-time vs runtime polymorphism, casting, abstract classes, interfaces, default methods|Payment interface (UPI, Card); abstract Shape subclasses",
+"Plan classes and menu; build deposit, withdraw, balance check|Add PIN check, validation, exceptions, README",
+"Solve 15 HackerRank Java problems without hints|Redo every wrong one; explain the four OOP pillars aloud"],[
+"try/catch/finally, checked vs unchecked, throw vs throws, custom exceptions, try-with-resources|InsufficientBalanceException; input-validation loop",
+"Collections hierarchy, List, ArrayList vs LinkedList, iteration, Collections.sort|Student list manager; remove duplicates; merge sorted lists",
+"hashCode/equals, HashMap internals (buckets, collisions, load factor), HashSet, LinkedHashMap, TreeMap|Word frequency, first non-repeating char, two-sum with HashMap",
+"Generic classes and methods, bounded types, Iterator, Comparable vs Comparator|Generic Pair; sort employees by salary then name",
+"Functional interfaces, lambdas, method references, filter/map/reduce/collect, Optional|Rewrite five loops as streams; group transactions by type",
+"File, BufferedReader/Writer, java.nio Files, Serializable, transient|Save and load accounts to a file; summarise a CSV",
+"Thread vs Runnable, lifecycle, start vs run, race conditions, synchronized, ExecutorService intro|Two threads on one counter, with and without synchronized",
+"JDBC architecture, drivers, Connection, PreparedStatement, ResultSet, SQL injection|Install MySQL/PostgreSQL; Java CRUD on one table",
+"One example of each SOLID principle; Singleton, Factory, Builder, Observer, Strategy|Refactor the ATM to use Strategy for payments",
+"git init/add/commit/branch/push/pull, .gitignore, README in Markdown|Push the ATM project with 5+ meaningful commits and a README",
+"Design entities (Customer, Account, Transaction), tables and use cases|Build create account, deposit, withdraw, transfer with JDBC and custom exceptions",
+"Add transaction history and login; write a few JUnit tests|README with screenshots; push; practise a 2-minute project explanation"],[
+"SELECT, DISTINCT, WHERE with AND/OR/IN/BETWEEN/LIKE, ORDER BY, LIMIT|SQLBolt lessons 1-6; 10 easy HackerRank SQL queries",
+"COUNT, SUM, AVG, MIN, MAX, GROUP BY, HAVING, WHERE vs HAVING|Sales per city; customers with 3+ orders; average salary per department",
+"CASE WHEN, IS NULL, COALESCE, string and date functions|Grade bands with CASE; handle NULL prices; extract month and year",
+"INNER, LEFT, RIGHT, FULL, CROSS and SELF joins drawn on paper|Customers without orders; employees with managers; 3-table joins",
+"Scalar and correlated subqueries, IN vs EXISTS, subqueries in FROM|Employees above department average; customers who ordered every month",
+"WITH clauses, multiple CTEs, recursive CTE intro|Rewrite five subqueries as CTEs; org chart with a recursive CTE",
+"ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD, PARTITION BY, running totals|Top 3 salaries per department; month-over-month change",
+"Primary, candidate, super, foreign keys; constraints; ER diagrams and cardinality|ER diagram for a library and a bank; write the CREATE TABLEs",
+"Anomalies, functional dependencies, 1NF, 2NF, 3NF, BCNF, denormalisation|Normalise a messy orders table step by step",
+"ACID, COMMIT/ROLLBACK, isolation levels, dirty/non-repeatable/phantom reads, deadlocks|Write a transfer transaction; explain each isolation level aloud",
+"B-tree indexes, clustered vs non-clustered, EXPLAIN, views, stored procedures, triggers|Add an index and compare EXPLAIN; create a view",
+"Nth highest salary, duplicates, employee earning more than manager, top N per group|Consecutive-day logins, retention, then a timed set of 5 questions"],[
+"Install Python 3, variables, types, input, if/elif, loops, range, f-strings (compare with Java)|Rewrite five Month 1 Java programs in Python",
+"List methods and slicing, mutability, tuples, set operations, dict iteration, Counter|Word frequency; group words by length; dedupe keeping order",
+"Default args, *args/**kwargs, list and dict comprehensions, lambda, map/filter|Rewrite five loops as comprehensions; sort dicts with a lambda key",
+"Classes, __init__, self, inheritance, __str__, try/except/finally, raise|Port BankAccount from Java to Python with custom exceptions",
+"deque, Counter, defaultdict, heapq, sorted with key, bisect|Top-K frequent, merge intervals, sliding window with deque",
+"Series, DataFrame, read_csv, head/info, filtering, groupby, sort_values, missing values|Clean a Kaggle dataset and answer 5 questions with groupby",
+"Percentage shortcuts, ratio and proportion, profit, loss and discount|30 IndiaBix questions, 1 minute each",
+"Work-rate method, relative speed, trains and boats, weighted average, alligation|30 mixed questions; note the formula you forgot after each miss",
+"Basic probability, nPr and nCr, restricted arrangements, dice/cards/coins|25 questions; explain two solutions aloud",
+"Number and letter series, blood relations, directions, linear and circular seating|20 timed puzzles",
+"Reading comprehension, error spotting, sentence correction, synonyms and antonyms|4 passages and 30 grammar questions",
+"Take a full 60-minute aptitude mock in one sitting|Analyse every wrong or skipped question; list weak topics"],[
+"Big-O (O(1), O(n), O(log n), O(n^2)), best/average/worst case, space; ArrayList, HashMap, ArrayDeque, PriorityQueue APIs|State the complexity of 10 code snippets; solve 3 easy array problems",
+"Traversal, in-place edits, frequency arrays, prefix tricks|Two Sum, Best Time to Buy Stock, Valid Anagram, Product of Array Except Self",
+"Frequency map, seen set, grouping by key|Group Anagrams, Contains Duplicate, Longest Consecutive Sequence, Top K Frequent",
+"Opposite-end and same-direction pointers on sorted data|Valid Palindrome, 3Sum, Container With Most Water, Remove Duplicates",
+"Fixed and variable windows, when to shrink|Longest Substring Without Repeating, Max Sum Subarray of size K, Minimum Window Substring (try)",
+"Binary search template, search on answer, prefix sum arrays|Binary Search, Search in Rotated Array, Koko Eating Bananas, Subarray Sum Equals K",
+"Node class, pointer rewiring, fast/slow pointers|Reverse List, Detect Cycle, Merge Two Sorted Lists, Remove Nth From End",
+"LIFO, bracket matching, next greater element, monotonic stack|Valid Parentheses, Min Stack, Daily Temperatures, Next Greater Element",
+"ArrayDeque, queue using stacks, sliding-window maximum|Queue using Stacks, Sliding Window Maximum, Number of Recent Calls",
+"Base case, call stack, merge sort, quick sort, stability|Memoised Fibonacci; write Merge Sort and Quick Sort from scratch",
+"Pick 4 unseen Easy/Medium problems; time-box 25 min each, then read a hint|Write the pattern behind each solved problem",
+"List every problem you got wrong this month; label each by pattern|Re-solve each one from scratch without notes"],[
+"TreeNode, inorder/preorder/postorder, level order, depth|Max Depth, Invert Tree, Level Order Traversal, Same Tree",
+"BST property, insert/search/delete, inorder gives sorted order|Validate BST, LCA of BST, Kth Smallest, Insert into BST",
+"Min/max heap, PriorityQueue with Comparator, top-K pattern|Kth Largest, Top K Frequent, Merge K Sorted Lists, Last Stone Weight",
+"Adjacency list, BFS/DFS, visited set, grid as a graph|Number of Islands, Clone Graph, Rotting Oranges, Flood Fill",
+"In-degree (Kahn), directed cycle detection, Union-Find with path compression|Course Schedule, Number of Provinces, Redundant Connection",
+"Weighted graphs, Dijkstra with PriorityQueue, when BFS is enough|Network Delay Time, Path with Minimum Effort, Cheapest Flights (try)",
+"Greedy choice, sort by start/end, merge intervals|Merge Intervals, Non-overlapping Intervals, Jump Game, Meeting Rooms",
+"Choose-explore-unchoose, pruning|Subsets, Permutations, Combination Sum, N-Queens (try)",
+"States, transitions, memoisation vs tabulation|Climbing Stairs, House Robber, Coin Change, Longest Increasing Subsequence",
+"2-D tables, 0/1 knapsack, LCS, grid DP|Unique Paths, Longest Common Subsequence, 0/1 Knapsack, Edit Distance (try)",
+"Take 3 unseen Medium problems in one 90-minute sitting, no hints|Review each solution and note time spent per problem",
+"List every problem you got wrong this month; label each by pattern|Re-solve each one from scratch without notes"],[
+"Program vs process, process states, PCB, thread vs process, context switch cost|Answer 10 interview questions aloud; draw the state diagram",
+"FCFS, SJF, Round Robin, priority; turnaround and waiting time|Solve 5 scheduling numericals by hand",
+"Critical section, mutex, semaphore, producer-consumer, 4 deadlock conditions|Explain deadlock with an example; prevention vs avoidance; one Banker's algorithm numerical",
+"Paging, segmentation, page tables, page faults, FIFO and LRU replacement|5 FIFO/LRU numericals; explain thrashing",
+"File system basics, inodes, permissions; ls, cd, grep, chmod, ps, kill, cat|Run 20 Linux commands in a terminal; write a small shell script",
+"7 OSI layers, TCP/IP layers, what each layer does, encapsulation|Draw both models; explain what happens when you type a URL",
+"TCP handshake, UDP, IPv4, CIDR, subnet masks|5 subnetting numericals; TCP vs UDP table",
+"HTTP methods and status codes, TLS basics, DNS resolution, DHCP, REST principles|Call a public API with curl or dev tools; explain GET vs POST",
+"Merge vs rebase, conflicts, stash, pull requests, branching strategies|Create a conflict on purpose and resolve it; open a PR on your own repo",
+"SDLC phases, waterfall vs Agile, Scrum roles and events, unit vs integration testing|Write 8 interview answers; write two JUnit tests",
+"Quiz yourself on OOP, DBMS, OS, CN: 40 questions in 60 minutes|Mark gaps by subject",
+"Re-read notes for your three weakest topics|Write a one-page summary of each and answer 5 questions aloud"],[
+"HTML structure, headings, links, images, lists, tables, forms, semantic tags|Build a personal profile page and a signup form",
+"Selectors, box model, flexbox, grid basics, media queries|Make the profile page responsive; build a card layout",
+"let/const, functions, arrays and objects, DOM selection and updates|Build a to-do list that adds and removes items",
+"Event listeners, fetch, promises and async/await, JSON parse/stringify|Fetch a free public API and render the results",
+"Resources, methods, status codes, JSON bodies, authentication basics|Call 5 public APIs in Postman; document one",
+"Spring Initializr, project layout, @RestController, @GetMapping/@PostMapping|Build Hello and a simple Todo API",
+"Entities, repositories, Spring Data JPA, H2 vs MySQL|Add a database to the Todo API with full CRUD",
+"Design entities (User, Product, Order) and endpoints; start Product and User APIs|Add the Order API, validation and error handling",
+"Build product list, cart and checkout pages calling the backend|Add search, filter, loading and error states",
+"Fix CORS; test every endpoint in Postman; add validation messages|Write the README (setup, API list, screenshots) and push",
+"GitHub Pages setup, relative paths, README structure|Deploy, test the live link, add links to your resume",
+"Write a 5-minute script: problem, stack, architecture, challenge, result|Record yourself twice and refine; prepare 5 follow-up answers"],[
+"XLOOKUP/VLOOKUP, SUMIFS, COUNTIFS, pivot tables|Build a sales summary with a pivot from a free dataset",
+"Charts, slicers, remove duplicates, text-to-columns, conditional formatting|Clean a messy sheet and build a one-page dashboard",
+"Power BI Desktop, get data, Power Query basics, visuals, slicers|Build a 3-page report from a CSV",
+"Relationships, star schema, measures, CALCULATE, SUM, DIVIDE|Write 5 measures (total sales, YoY, margin)",
+"Mean, median, SD, normal distribution, probability, hypothesis tests, p-value|Solve 15 problems; compute the stats in Python on a dataset",
+"Banking, capital markets, stocks, bonds, mutual funds, three financial statements|Read one annual report summary; explain the P&L and balance sheet in your own words",
+"Liquidity and profitability ratios, NPV, compounding, risk vs return|Compute ratios for a listed company; 10 time-value-of-money numericals",
+"Repo rate, inflation, Sensex/Nifty, UPI, recent fintech news|Write a one-page weekly summary; prepare 5 talking points",
+"Regression, classification, train-test split, accuracy, precision, recall, RMSE|Fit a scikit-learn model on a Kaggle dataset",
+"Pick a dataset (stocks or loans), clean with Pandas, query with SQL|Build the Power BI dashboard and write your findings",
+"Table, bar and line chart questions, percentage-change shortcuts|3 timed data-interpretation sets; 10 puzzles",
+"KPI trees; clarify, break down, analyse, recommend; common business metrics|Solve 3 cases aloud, e.g. why did app signups fall?"],[
+"Read the careers page for roles, eligibility and listed stages|Solve 3 coding problems; write your target-role summary",
+"List 30 likely questions across Java, DSA, SQL and OOP|Answer 15 aloud, timed",
+"Read the careers page for the Software Engineer Program and Code for Good; note the stages|Practise 3 coding problems; plan a short team-project pitch",
+"Timed coding rounds and behavioural questions|2 timed coding sets; 5 STAR answers",
+"Read the careers page for the listed rounds; revise aptitude, technical and communication basics|One aptitude mock, 10 technical questions, one email-writing exercise",
+"Case structure, analytics scenarios, SQL and Excel questions|2 cases aloud; 5 HR answers",
+"One page, single column, clear sections, action + metric bullets|Draft your resume; get one person to review it",
+"Project bullets, pinned GitHub repos, READMEs, LinkedIn headline|Update resume, GitHub and LinkedIn",
+"STAR method; tell me about yourself, strengths, weaknesses, why this company|Write 6 STAR stories; record your intro",
+"Schedule a peer or Pramp mock; prepare a project walkthrough|Do the mock; write feedback and a fix list",
+"Careers pages, LinkedIn referrals, off-campus drives, a tracking sheet|Send applications; follow up politely",
+"Score yourself 1-5 on every subject|Revise the weakest two; then rest"]];
+let nv=true;function tn(){nv=!nv;draw()}
+function nb(p,a,b,c){const n=N[a][b*3+(c>>1)].split("|");return `<h2 style="margin-top:12px">📝 Notes: what to cover</h2><div class="nt ${p.B?"":"cur"}"><b>Part 1 · Learn / start</b>${p.B?"":" (today)"}<br>${n[0]}</div><div class="nt ${p.B?"cur":""}"><b>Part 2 · Practise / build</b>${p.B?" (today)":""}<br>${n[1]}</div>`}
+const S="msjpmdt10b";let st={d:{},w:{},s:{}};
+try{st=Object.assign(st,JSON.parse(localStorage.getItem(S)||"{}"))}catch(e){}
+function sv(){try{localStorage.setItem(S,JSON.stringify(st))}catch(e){}}
+let m=0,w=0,d=0,tab="day";
+const K=(a,b,c)=>`m${a}w${b}d${c}`;
+const pl=(a,b,c)=>{const u=U[a][b*3+(c>>1)].split("|");return{t:u[0],k:u[1],B:c%2==1}};
+const dd=(a,b,c)=>{const x=st.d[K(a,b,c)];return !!x&&!!x.h&&x.h.filter(Boolean).length==3};
+const MK=["Coding OA: 2 problems, 60 min","SQL + DBMS quiz, 45 min","Aptitude test, 45 min","Mixed: 1 coding problem + 10 aptitude questions"];
+function hrs(p,a,b,c){const t=p.t,pj=/^Project|^Mock|^Month review|^Final/.test(t);
+const h3=c==5?["Hour 3 — WEEKLY MOCK","Timed mock: "+MK[b]+". Review every mistake after. Log your score in the notes."]:["Hour 3 — DSA + REVISION","DSA focus: "+D[a][b]+". Solve 2–3 problems (Java). Then redo 2 wrong problems from last week."];
+if(pj)return p.B?[["Hour 1 — REVIEW","Review yesterday’s work on: "+t+". Fix errors first."],["Hour 2 — BUILD","Continue: "+t+". Finish the next major section."],h3]:[["Hour 1 — LEARN","Study the tools/concepts needed for: "+t+"."],["Hour 2 — BUILD","Start: "+t+". Build the first working section yourself."],h3];
+if(!p.B)return[["Hour 1 — LEARN","Study: "+t+". Use Learn and YouTube. Write 5–10 notes and 3 examples."],["Hour 2 — PRACTICE","Do 5+ exercises or questions on "+t+" yourself, no copying. Try 20 min before any hint."],h3];
+return[["Hour 1 — REVISE","Explain "+t+" aloud from memory, then check notes and fix gaps."],["Hour 2 — INDEPENDENT PRACTICE + MINI TASK","Do 5–10 fresh questions on "+t+". Then write and answer 3 interview questions on it."],h3]}
+function go(a,b,c){m=a;w=b;d=c;tab="day";draw()}
+function gm(v){go(+v,0,0)}
+function nx(s){let a=m,b=w,c=d+s;if(c>5){c=0;b++}if(c<0){c=5;b--}if(b>3){b=0;a++}if(b<0){b=3;a--}if(a<0||a>9)return;go(a,b,c)}
+function nxt(){for(let a=0;a<10;a++)for(let b=0;b<4;b++)for(let c=0;c<6;c++)if(!dd(a,b,c))return go(a,b,c)}
+function gx(){const k=K(m,w,d);return st.d[k]=st.d[k]||{h:[0,0,0],n:""}}
+function th(i){const x=gx();x.h[i]=!x.h[i];sv();draw()}
+function fin(){const x=gx(),a=x.h.every(Boolean);x.h=[!a,!a,!a];sv();draw()}
+function nt(v){gx().n=v;sv()}
+function wn(v){st.w[m+"_"+w]=v;sv()}
+function sc(i){const k=m+"_"+w+"_"+i;st.s[k]=!st.s[k];sv()}
+function tb(t){tab=t;draw()}
+const pc=(n,t)=>Math.round(n/t*100);
+function wkH(a,b){let n=0;for(let c=0;c<6;c++){const e=st.d[K(a,b,c)];if(e&&e.h)n+=e.h.filter(Boolean).length}return n}
+function wkDone(a,b){let n=0;for(let c=0;c<6;c++)if(dd(a,b,c))n++;return n}
+function imp(){try{const o=JSON.parse(document.getElementById("bk").value);if(!o.d)throw 0;st=o;sv();alert("Progress imported");draw()}catch(e){alert("Invalid backup text")}}
+function esc(s){return(s||"").replace(/</g,"&lt;")}
+function draw(){
+let h=`<h1>🎯 10-Month Placement Tracker — Java-first</h1><div class="mu">Morgan Stanley · JPMorgan Chase · Deloitte · 3 h/day · 6 days/week · Sunday buffer · daily DSA · weekly mock</div>
+<div class="c"><div class="r"><select onchange="gm(this.value)">${M.map((x,i)=>`<option value="${i}" ${i==m?"selected":""}>Month ${i+1} — ${x}</option>`).join("")}</select>
+<button onclick="nxt()" class="p">Jump to next incomplete day</button><button onclick="tb('dash')" class="${tab=="dash"?"on":""}">📊 Dashboard + Backup</button></div>
+<div class="mu" style="margin-top:8px">🎯 Month goal: ${G[m]} · This week: ${wkH(m,w)}/18 hours</div>
+<div class="r" style="margin-top:8px">${[0,1,2,3].map(b=>`<button class="${b==w&&tab!="dash"?"on":""} ${wkDone(m,b)==6?"dn":""}" onclick="go(m,${b},0)">Week ${b+1} (${wkDone(m,b)}/6)</button>`).join("")}</div>
+<div class="r" style="margin-top:8px">${[0,1,2,3,4,5].map(c=>`<button class="${c==d&&tab=="day"?"on":""} ${dd(m,w,c)?"dn":""}" onclick="go(m,w,${c})">Day ${c+1}${c==5?" (mock)":""}${dd(m,w,c)?" ✓":""}</button>`).join("")}<button class="${tab=="sun"?"on":""}" onclick="tb('sun')">☀ Sunday</button></div></div>`;
+if(tab=="day"){const p=pl(m,w,d),x=st.d[K(m,w,d)]||{h:[0,0,0],n:""},r=R[p.k],g=m*24+w*6+d+1;
+h+=`<div class="c"><h2>DAY ${g} / 240 · Month ${m+1} · Week ${w+1} · Day ${d+1}</h2><span class="tg">${p.B?"Part 2 of 2 — practise and apply":"Part 1 of 2 — learn and practise"}</span><p style="font-size:17px;margin:8px 0"><b>Focus: ${p.t}</b></p>
+<div class="r"><a class="b" target="_blank" rel="noopener" href="${r[1]}">📖 Learn: ${r[0]}</a><a class="b" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(p.t.replace(/^[A-Za-z /]+: /,"")+" tutorial")}">▶ YouTube</a><a class="b" target="_blank" rel="noopener" href="${r[3]}">🧪 Practice: ${r[2]}</a>${d==5||m==4||m==5?`<a class="b" target="_blank" rel="noopener" href="${R.nc[3]}">🧩 DSA: NeetCode 150</a>`:""}<button class="bn" onclick="tn()">📝 Notes ${nv?"▲":"▼"}</button></div>${nv?nb(p,m,w,d):""}</div>
+<div class="c"><h2>⏱ Exact 3-hour routine</h2>${hrs(p,m,w,d).map((q,i)=>`<label class="h"><input type="checkbox" ${x.h[i]?"checked":""} onchange="th(${i})"><span><b>${q[0]}</b><br>${q[1]}</span></label>`).join("")}
+<div class="r"><button onclick="fin()">${x.h.every(Boolean)?"Undo day complete":"✅ Mark all 3 hours done"}</button></div></div>
+<div class="c"><h2>📝 What I learned today</h2><textarea oninput="nt(this.value)" placeholder="Learned · confused me · mistakes · 3 key points · revise tomorrow">${esc(x.n)}</textarea></div>
+<div class="r"><button onclick="nx(-1)">◀ Previous day</button><button class="p" onclick="nx(1)">Next day ▶</button></div>`}
+if(tab=="sun"){const L=["Catch up on any missed weekday","Redo every question you got wrong this week","Review notes without videos (active recall)","Write 5 interview questions from this week and answer aloud","Update GitHub and resume with this week’s work","Plan next week’s 6 days","If all done: REST fully"];
+h+=`<div class="c"><h2>☀ Sunday — Buffer / revision (Month ${m+1}, Week ${w+1})</h2><div class="mu">Weekly target: ${wkH(m,w)}/18 hours, ${wkDone(m,w)}/6 days. Do not double next week’s load to compensate.</div>${L.map((q,i)=>`<label class="h"><input type="checkbox" ${st.s[m+"_"+w+"_"+i]?"checked":""} onchange="sc(${i})"><span>${q}</span></label>`).join("")}</div>
+<div class="c"><h2>Weekly review</h2><textarea oninput="wn(this.value)" placeholder="Wins · weak topics · what to fix next week">${esc(st.w[m+"_"+w])}</textarea></div>`}
+if(tab=="dash"){let t=0;const rows=M.map((x,a)=>{let n=0,hh=0;for(let b=0;b<4;b++){n+=wkDone(a,b);hh+=wkH(a,b)}t+=n;return`<tr><td>${a+1}. ${x}</td><td>${n}/24</td><td>${hh}/72</td><td style="width:22%"><div class="bar"><i style="width:${pc(n,24)}%"></i></div></td></tr>`}).join("");
+h+=`<div class="c"><h2>📊 Overall: ${t}/240 days (${pc(t,240)}%)</h2><div class="bar"><i style="width:${pc(t,240)}%"></i></div></div><div class="c" style="overflow-x:auto"><table><tr><th>Month</th><th>Days</th><th>Hours</th><th></th></tr>${rows}</table></div>
+<div class="c"><h2>💾 Backup / restore</h2><div class="mu">Copy this text and keep it safe. To restore on another device, paste it here and press Import.</div><textarea id="bk">${esc(JSON.stringify(st))}</textarea><div class="r" style="margin-top:8px"><button class="p" onclick="imp()">Import pasted backup</button></div></div>
+<div class="c"><h2>Company links</h2><div class="r"><a class="b" target="_blank" rel="noopener" href="${R.co[1]}">Morgan Stanley</a><a class="b" target="_blank" rel="noopener" href="${R.co[3]}">JPMorgan Chase</a><a class="b" target="_blank" rel="noopener" href="${R.dl[1]}">Deloitte India</a></div></div>`}
+document.getElementById("app").innerHTML=h}
+draw();
+</script></body></html>
