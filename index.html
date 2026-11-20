@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>10-Month Placement Tracker — Java-first (MS · JPMC · Deloitte)</title>
+<title>10-Month Placement Tracker — Java-first</title>
 <style>
 :root{--bg:#f6f7f9;--card:#fff;--tx:#1a1d23;--mu:#5b6270;--ac:#0b5cff;--ok:#12805c;--bd:#dfe3ea;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12151a;--card:#1b2027;--tx:#e8ebf0;--mu:#9aa3b2;--ac:#6ea0ff;--ok:#4cc9a0;--bd:#2c333d;color-scheme:dark}}
@@ -96,10 +96,10 @@ ml:["Kaggle Intro to ML","https://www.kaggle.com/learn/intro-to-machine-learning
 fin:["Khan Academy Finance","https://www.khanacademy.org/economics-finance-domain/core-finance","Investopedia","https://www.investopedia.com/"],
 apt:["IndiaBix aptitude","https://www.indiabix.com/","IndiaBix tests","https://www.indiabix.com/online-test/aptitude-test/"],
 hr:["STAR method guide","https://www.themuse.com/advice/star-interview-method","Pramp mock interviews","https://www.pramp.com/"],
-co:["Morgan Stanley Careers","https://www.morganstanley.com/careers","JPMorgan Careers","https://careers.jpmorgan.com/"],
-dl:["Deloitte India Careers","https://www2.deloitte.com/in/en/careers.html","Deloitte Careers (global)","https://www.deloitte.com/global/en/careers.html"]};
-const M=["Java Foundations + OOP","Advanced Java + Banking Project","SQL + DBMS","Python + Aptitude","DSA I (Java)","DSA II (Java)","OS + Networks + Git + Agile","Web + APIs + Projects","Analyst Skills + Finance + Aptitude","Company Prep + Mocks + Applications"];
-const G=["Write clean Java OOP programs","Collections, exceptions, streams; Banking project on GitHub","Interview-level SQL and DBMS answers","Python fluency + aptitude speed","Solve Easy/Medium arrays to heaps in Java","Graphs, DP, backtracking; 90-min mocks","Explain OS, CN, Git and Agile clearly","Two projects live (e-commerce app, finance dashboard)","Excel/Power BI, finance basics, aptitude tests","Mocks passed, resume ready, applications sent"];
+co:["Campus hiring on LinkedIn Jobs","https://www.linkedin.com/jobs/","Naukri Campus","https://www.naukri.com/campus"],
+dl:["Graduate and analyst openings","https://www.linkedin.com/jobs/search/?keywords=graduate%20analyst","Internshala","https://internshala.com/"]};
+const M=["Java Foundations + OOP","Advanced Java + Banking Project","SQL + DBMS (basic to advanced)","Python (data focus) + Aptitude","DSA I (Java)","DSA II (Java)","OS + Networks + Git + Agile","Web + APIs + Projects","Analyst Skills + Finance + Aptitude","Company Prep + Mocks + Applications"];
+const G=["Write clean Java OOP programs and explain all four pillars with your own example","Collections, HashMap internals, streams, exceptions, threads basics; Banking project on GitHub","SQL from basic to advanced: joins, CTEs, window functions, indexing, transactions; 100 problems","Python for data (collections, OOP, NumPy and pandas start) + aptitude speed","Solve Easy/Medium arrays to heaps in Java; study Java concurrency and JVM memory on the side","Graphs, DP, backtracking; 150 to 200 problems; 90-min mocks; modern Java and testing on the side","Explain OS, networks, Git and Agile clearly","Spring Boot + JPA backend with tests; two projects explained in 5 and 15 minutes","Advanced pandas, statistics, Power BI, finance basics; analytics project with findings","Mocks passed, resume ready, applications sent"];
 const D=["arrays basics,strings basics,hashing basics,two pointers","arrays + prefix sums,strings + hashing,sorting + binary search,recursion basics","arrays + hashing,two pointers,sliding window,binary search","hashing,two pointers,sliding window,stack","hash maps,two pointers + sliding window,linked list,stack + queue","trees DFS/BFS,BST + LCA,heaps + top-K,tries + intervals","graphs BFS/DFS,topological sort + union-find,Dijkstra + greedy,backtracking","DP 1-D,DP 2-D,bit manipulation + math,mixed medium set","mixed arrays/strings,mixed trees/graphs,mixed DP,timed OA set","top-75 revision,weak-pattern revision,company-style OA sets,final mock sprint"].map(x=>x.split(","));
 const U=[
 ["Java setup (JDK, IDE), syntax, data types, I/O|java","Operators, conditions, switch|java","Loops, patterns, break/continue|java","Methods, overloading, scope|java","Arrays and 2-D arrays|java","Strings, StringBuilder, string methods|java","Classes, objects, constructors, this, static|java","Encapsulation, packages, access modifiers|java","Inheritance, super, method overriding|java","Polymorphism, abstract classes, interfaces|java","Project: console ATM / calculator in Java|java","Month review: 15 Java problems on HackerRank|java"],
@@ -111,7 +111,7 @@ const U=[
 ["OS: process, thread, PCB, context switch|os","OS: CPU scheduling algorithms|os","OS: synchronisation, semaphores, deadlock|os","OS: memory, paging, virtual memory|os","OS: file systems, Linux commands, shell|os","CN: OSI and TCP/IP models|cn","CN: TCP vs UDP, IP addressing, subnetting|cn","CN: HTTP/HTTPS, DNS, DHCP, REST|cn","Git advanced: merge, rebase, pull requests|git","SDLC, Agile, Scrum, testing basics|git","Core CS quiz: OOP, DBMS, OS, CN|db","Weak-area revision and notes cleanup|db"],
 ["HTML: structure, forms, semantic tags|web","CSS: box model, flexbox, responsive layout|web","JavaScript: variables, functions, DOM|web","JavaScript: events, fetch, JSON|web","REST API concepts and Postman|spr","Spring Boot: first REST API|spr","Spring Boot + database (JPA)|spr","Project: E-commerce backend (Java, SQL, APIs)|spr","Project: E-commerce frontend (HTML/CSS/JS)|web","Project: connect, test, document|spr","Deploy frontend with GitHub Pages + README|git","Project demo practice (5-minute walkthrough)|hr"],
 ["Excel: lookups, SUMIFS, pivot tables|ex","Excel: charts, dashboards, data cleaning|ex","Power BI: import, visuals, slicers|bi","Power BI: model, DAX basics|bi","Statistics: mean, SD, probability, hypothesis tests|st","Finance basics: markets, banking, statements|fin","Finance: ratios, time value of money, risk|fin","Current affairs: markets, RBI, fintech|fin","ML intro: regression, classification, metrics|ml","Project: financial data analysis (Python + SQL + Power BI)|bi","Data interpretation + puzzles aptitude test|apt","Business problem solving: KPIs and case thinking|hr"],
-["Morgan Stanley: role research, process, coding practice|co","Morgan Stanley: Java, DSA, DBMS interview Q&A|co","JPMorgan: SEP / Code for Good research and practice|co","JPMorgan: coding test + Superday practice|co","Deloitte: aptitude, technical and communication rounds|dl","Deloitte: case, analytics and HR interview practice|dl","Resume: ATS format, action + metric bullets|hr","Resume: projects, GitHub, LinkedIn polish|hr","STAR stories + HR answers + self-introduction|hr","Mock technical interview (peer or Pramp)|hr","Applications: careers pages, referrals, off-campus drives|co","Final self-audit, weak areas, buffer and rest|hr"]];
+["Target role: research, hiring process, coding practice|co","Technology role: Java, DSA, DBMS interview Q&A|co","Early-career programs and hackathons: research and practice|co","Coding test + multi-interview final-day practice|co","Analyst/consulting track: aptitude, technical, communication rounds|dl","Analyst/consulting track: case, analytics and HR practice|dl","Resume: ATS format, action + metric bullets|hr","Resume: projects, GitHub, LinkedIn polish|hr","STAR stories + HR answers + self-introduction|hr","Mock technical interview (peer or Pramp)|hr","Applications: careers pages, referrals, off-campus drives|co","Final self-audit, weak areas, buffer and rest|hr"]];
 const N=[[
 "JDK/JRE/JVM, install JDK 21 + IDE, program structure, data types, casting, Scanner input|10 small programs (swap, interest, converter); compile once with javac/java",
 "Arithmetic, relational, logical, bitwise operators, precedence, if/else, ternary, switch|Even/odd, leap year, largest of three, grade calculator, menu calculator",
@@ -223,7 +223,7 @@ const N=[[
 "KPI trees; clarify, break down, analyse, recommend; common business metrics|Solve 3 cases aloud, e.g. why did app signups fall?"],[
 "Read the careers page for roles, eligibility and listed stages|Solve 3 coding problems; write your target-role summary",
 "List 30 likely questions across Java, DSA, SQL and OOP|Answer 15 aloud, timed",
-"Read the careers page for the Software Engineer Program and Code for Good; note the stages|Practise 3 coding problems; plan a short team-project pitch",
+"Read the careers pages for early-career engineering programs and hackathons; note the stages|Practise 3 coding problems; plan a short team-project pitch",
 "Timed coding rounds and behavioural questions|2 timed coding sets; 5 STAR answers",
 "Read the careers page for the listed rounds; revise aptitude, technical and communication basics|One aptitude mock, 10 technical questions, one email-writing exercise",
 "Case structure, analytics scenarios, SQL and Excel questions|2 cases aloud; 5 HR answers",
@@ -648,10 +648,362 @@ function renderCareerOS(){
 function careerReset(id){if(!confirm('Reset this module checklist? Your notes and activity log will be kept.'))return;careerState(id).done=[];sv();draw()}
 // ===== END CAREER_OS_30_FEATURES =====
 
+const EXPERT=[
+["☕ Java: advanced","Write, explain and defend production-style Java",[
+["Write OOP programs and explain all four pillars with your own project example","1"],
+["Explain how HashMap works internally (hashing, buckets, collisions, resize)","2"],
+["Use collections, generics and Streams fluently and pick the right collection for a task","2"],
+["Apply SOLID and four design patterns (Singleton, Factory, Strategy, Observer) in code","2"],
+["➕ Write thread-safe code: synchronized, locks, ExecutorService, concurrent collections, CompletableFuture","5–6"],
+["➕ Explain JVM memory areas, the Java memory model and garbage collection","5–6"],
+["➕ Use modern Java: records, sealed classes, pattern matching, switch expressions, virtual threads","6"],
+["➕ Write unit tests with JUnit and Mockito and build with Maven","8"],
+["Build a Spring Boot REST service with JPA/Hibernate, validation, error handling and tests","8"]]],
+["🗄 SQL: advanced","Answer any interview or analyst SQL question and design a schema",[
+["Write multi-table queries with every join type and subqueries without help","3"],
+["Use CTEs and window functions (RANK, DENSE_RANK, ROW_NUMBER, LAG, LEAD)","3"],
+["➕ Window frames: running totals and moving averages","3"],
+["➕ Recursive CTEs for hierarchies and sequences","3"],
+["➕ Pivoting and conditional aggregation","3"],
+["➕ Explain B-tree indexes, choose indexes for a query and read an execution plan","3"],
+["➕ Explain transaction isolation levels, locking and deadlocks","3"],
+["➕ Write views, stored procedures and triggers","3"],
+["Design a normalised schema (up to BCNF) and a star schema (fact and dimension tables)","3"],
+["Solve the classic set: Nth highest, duplicates, retention, consecutive days","3"],
+["Solve 100 SQL problems on LeetCode or HackerRank","3–9"],
+["➕ Optimise a slow query on a real dataset and explain what changed","9"],
+["➕ Explain when NoSQL fits better than SQL","3"]]],
+["🐍 Python: data focus","Take a messy dataset to clear, explained findings",[
+["Write clean Python: collections, functions, comprehensions, OOP, exceptions","4"],
+["➕ Use generators, decorators and context managers","4"],
+["➕ NumPy arrays and vectorised operations","4"],
+["pandas in depth: filter, groupby, merge, reshape, time series, cleaning","4, 9"],
+["Visualise data with matplotlib or seaborn","9"],
+["Statistics: distributions, correlation, hypothesis tests, A/B testing","9"],
+["➕ Fit a simple scikit-learn model and choose the right metric","9"],
+["Clean, analyse and explain a messy dataset in plain language","9"]]],
+["🧩 DSA in Java","Strong problem solving under a timer",[
+["Explain time and space complexity for any solution","5"],
+["Apply array, string, hashing, two-pointer, sliding-window and binary-search patterns","5"],
+["Linked lists, stacks, queues and recursion","5"],
+["Trees, BST, heaps, graphs, topological sort, union-find, Dijkstra","6"],
+["Greedy, backtracking and dynamic programming (1-D and 2-D)","6"],
+["150 to 200 problems solved","5–10"],
+["At least 40 Medium problems solved cleanly in about 30 minutes each","6"],
+["Pass three timed 90-minute mocks and re-solve every miss","6"]]],
+["⚙ CS core","Explain the fundamentals clearly",[
+["OS: processes, threads, scheduling, deadlock, memory and paging","7"],
+["Networks: OSI and TCP/IP, TCP vs UDP, HTTP/HTTPS, DNS, subnetting","7"],
+["Git: branches, merge, rebase, pull requests","7"],
+["SDLC, Agile and Scrum","7"],
+["REST API design and testing with Postman","8"],
+["➕ Low-level design: design classes for a parking lot or a library","8"]]],
+["🧰 Projects and proof","Work you can show and defend",[
+["Console ATM and Banking Management System on GitHub","2"],
+["E-commerce backend and frontend deployed, with README and a 5-minute demo","8"],
+["Financial data analysis project (SQL + Python + Power BI) with written findings","9"],
+["Excel or Power BI dashboard with DAX basics","9"],
+["Resume with action + metric bullets; GitHub and LinkedIn polished","10"]]],
+["🎤 Interview readiness","Ready to speak, not just to know",[
+["Self-introduction, three STAR stories and common HR answers rehearsed","10"],
+["Explain any project for 5 minutes and for 15 minutes","8–10"],
+["Finance basics: markets, banking, ratios, time value of money","9"],
+["Three or more mock technical interviews","10"],
+["Applications sent to target companies and tracked","10"]]]
+];
+const ADV={};
+ADV["1_2"]=`<h3>Window frames</h3><p>A frame says which rows around the current row the function can see: <b>fn() OVER (PARTITION BY ... ORDER BY ... ROWS BETWEEN start AND end)</b>. Bounds: UNBOUNDED PRECEDING, n PRECEDING, CURRENT ROW, n FOLLOWING, UNBOUNDED FOLLOWING.</p><pre class='cd'>-- Running total per customer
+SELECT customer_id, order_date, amount,
+  SUM(amount) OVER (PARTITION BY customer_id ORDER BY order_date
+    ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS running_total
+FROM orders;
+
+-- 7-day moving average
+SELECT day, sales,
+  AVG(sales) OVER (ORDER BY day ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS ma7
+FROM daily_sales;</pre><ul><li><b>ROWS</b> counts physical rows. <b>RANGE</b> groups rows with equal ORDER BY values (peers) together.</li><li>With ORDER BY and no frame, the default is RANGE UNBOUNDED PRECEDING to CURRENT ROW, so duplicate dates get the same running total. Write ROWS explicitly.</li><li><b>LAST_VALUE trap:</b> the default frame stops at the current row, so LAST_VALUE returns the current row. Add ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING.</li></ul><p><b>Practise:</b> running balance of an account; 3-month moving average; percentage of the partition total using SUM() OVER (PARTITION BY ...).</p>`;
+ADV["1_3"]=`<h3>Recursive CTEs</h3><p>A recursive CTE has an <b>anchor</b> (starting rows), then UNION ALL, then a <b>recursive part</b> that reads the CTE itself. It repeats until the recursive part returns no rows.</p><pre class='cd'>-- Org chart: every employee with their level
+WITH RECURSIVE chain AS (
+  SELECT id, name, manager_id, 1 AS lvl
+  FROM employees WHERE manager_id IS NULL
+  UNION ALL
+  SELECT e.id, e.name, e.manager_id, c.lvl + 1
+  FROM employees e JOIN chain c ON e.manager_id = c.id
+)
+SELECT * FROM chain ORDER BY lvl;
+
+-- Numbers 1 to 10
+WITH RECURSIVE n AS (
+  SELECT 1 AS x
+  UNION ALL
+  SELECT x + 1 FROM n WHERE x &lt; 10
+)
+SELECT x FROM n;</pre><ul><li>Always include a stopping condition, or the query loops forever.</li><li>Cyclic data (A reports to B, B to A) also loops. Track visited ids or cap the level.</li><li>PostgreSQL and MySQL 8 use WITH RECURSIVE. SQL Server uses WITH without the RECURSIVE keyword.</li></ul><p><b>Practise:</b> all subordinates of a manager; category trees; generate a date series; find the path from the top to one employee.</p>`;
+ADV["1_4"]=`<h3>Pivoting and conditional aggregation</h3><p>Pivoting turns row values into columns. The portable way is <b>conditional aggregation</b>: an aggregate wrapped around CASE.</p><pre class='cd'>SELECT product,
+  SUM(CASE WHEN month = 'Jan' THEN amount ELSE 0 END) AS jan,
+  SUM(CASE WHEN month = 'Feb' THEN amount ELSE 0 END) AS feb,
+  COUNT(CASE WHEN amount &gt; 1000 THEN 1 END)          AS big_orders
+FROM sales
+GROUP BY product;</pre><ul><li>PostgreSQL also has <b>SUM(amount) FILTER (WHERE month = 'Jan')</b>. SQL Server and Oracle have a PIVOT keyword.</li><li><b>Unpivot</b> (columns to rows): SELECT product, 'Jan', jan FROM t UNION ALL SELECT product, 'Feb', feb FROM t.</li><li>The column list must be known when you write the query. Dynamic pivots need dynamic SQL.</li></ul><p><b>Practise:</b> pass/fail count per subject; orders per status per month; gender or region split in one row.</p>`;
+ADV["1_5"]=`<h3>Indexes and execution plans</h3><p>An index is a sorted structure (usually a <b>B-tree</b>) that lets the database jump to rows in O(log n) instead of scanning the whole table. It helps equality, range filters, joins and ORDER BY.</p><ul><li><b>Composite index</b> (a, b, c) follows the leftmost-prefix rule: it helps filters on a, on a and b, but not on b alone. Put equality columns first, then range, then sort.</li><li><b>Covering index:</b> contains every column the query needs, so the table is not touched.</li><li><b>Cost:</b> extra storage and slower INSERT, UPDATE and DELETE. Do not index every column.</li><li><b>Index is skipped</b> when you wrap the column in a function (WHERE LOWER(email) = ...), use a leading wildcard (LIKE '%abc'), compare mismatched types, or the column has very few distinct values.</li></ul><pre class='cd'>CREATE INDEX idx_orders_cust_date ON orders (customer_id, order_date);
+EXPLAIN ANALYZE
+SELECT * FROM orders WHERE customer_id = 42 AND order_date &gt;= '2026-01-01';</pre><p><b>Reading a plan (PostgreSQL):</b> look for <b>Seq Scan</b> (full table) versus <b>Index Scan</b>; compare estimated rows with actual rows; find the node with the highest time. EXPLAIN shows the plan, EXPLAIN ANALYZE also runs the query.</p><p><b>Practise:</b> create a table with 100,000 rows, time a query, add an index, compare the plans.</p>`;
+ADV["1_6"]=`<h3>Isolation levels and locking</h3><p>Isolation controls what a transaction can see from other transactions running at the same time. Problems it prevents:</p><ul><li><b>Dirty read:</b> reading another transaction's uncommitted change.</li><li><b>Non-repeatable read:</b> the same row read twice gives different values.</li><li><b>Phantom read:</b> the same query returns new rows the second time.</li></ul><table><tr><th>Level</th><th>Dirty</th><th>Non-repeatable</th><th>Phantom (standard)</th></tr><tr><td>Read Uncommitted</td><td>Possible</td><td>Possible</td><td>Possible</td></tr><tr><td>Read Committed</td><td>No</td><td>Possible</td><td>Possible</td></tr><tr><td>Repeatable Read</td><td>No</td><td>No</td><td>Possible</td></tr><tr><td>Serializable</td><td>No</td><td>No</td><td>No</td></tr></table><p>Higher isolation means fewer anomalies but more blocking or retries. Typical defaults: PostgreSQL, SQL Server and Oracle use Read Committed; MySQL InnoDB uses Repeatable Read. Some engines prevent more than the standard requires, so check your database.</p><ul><li><b>Locks:</b> shared (read) and exclusive (write). <b>SELECT ... FOR UPDATE</b> locks the rows you read so no one changes them before you update.</li><li><b>Deadlock:</b> T1 locks A then wants B; T2 locks B then wants A. The database aborts one. Prevent it by locking in a consistent order and keeping transactions short, and retry the aborted one.</li></ul>`;
+ADV["1_7"]=`<h3>Views, stored procedures and triggers</h3><ul><li><b>View:</b> a saved query you use like a table. Simplifies joins and limits which columns users can see. A <b>materialised view</b> stores the result and must be refreshed (PostgreSQL, Oracle).</li><li><b>Stored procedure:</b> reusable logic stored in the database, called by name.</li><li><b>Trigger:</b> code that runs automatically on INSERT, UPDATE or DELETE.</li></ul><pre class='cd'>CREATE VIEW active_customers AS
+SELECT id, name, city FROM customers WHERE status = 'ACTIVE';
+
+-- MySQL procedure: money transfer in one transaction
+DELIMITER //
+CREATE PROCEDURE transfer(IN a INT, IN b INT, IN amt DECIMAL(10,2))
+BEGIN
+  START TRANSACTION;
+  UPDATE accounts SET balance = balance - amt WHERE id = a;
+  UPDATE accounts SET balance = balance + amt WHERE id = b;
+  COMMIT;
+END //
+DELIMITER ;
+
+-- MySQL trigger: audit salary changes
+CREATE TRIGGER log_salary AFTER UPDATE ON employees
+FOR EACH ROW
+  INSERT INTO salary_log (emp_id, old_salary, new_salary)
+  VALUES (OLD.id, OLD.salary, NEW.salary);</pre><p>Syntax differs between MySQL, PostgreSQL and SQL Server, so learn the idea and check your database's manual. <b>Caution:</b> triggers hide logic and are hard to debug; use them for auditing, not business rules. <b>Interview:</b> procedure vs function (a function returns a value and can be used inside a query); trigger vs constraint.</p>`;
+ADV["1_8"]=`<h3>Star schema</h3><p>Transactional (OLTP) databases are normalised to avoid redundancy. Analytics (OLAP) databases use a <b>star schema</b> so reports need fewer joins.</p><ul><li><b>Fact table:</b> one row per event at a chosen <b>grain</b> (for example, one sale line). Holds measures (quantity, revenue) and foreign keys.</li><li><b>Dimension tables:</b> descriptive context (dim_date, dim_product, dim_store, dim_customer). Denormalised and wide.</li><li><b>Surrogate keys:</b> simple integer keys in dimensions instead of business keys.</li></ul><pre class='cd'>SELECT d.month, p.category, SUM(f.revenue) AS revenue
+FROM fact_sales f
+JOIN dim_date d    ON f.date_key = d.date_key
+JOIN dim_product p ON f.product_key = p.product_key
+GROUP BY d.month, p.category;</pre><p><b>Practise:</b> sketch a star schema for a bank (fact_transactions with date, account, branch) and write three reports on it. Power BI models in Month 9 use the same idea.</p>`;
+ADV["1_11"]=`<h3>Optimising a slow query</h3><ol><li><b>Measure:</b> run EXPLAIN ANALYZE and note the total time and the slowest step.</li><li><b>Diagnose:</b> full table scans, large sorts, and estimated rows far from actual rows (stale statistics).</li><li><b>Fix one thing at a time:</b> add or reshape an index; select only the columns you need; filter before joining; replace a correlated subquery with a join or window function; avoid DISTINCT as a bug cover-up.</li><li><b>Measure again</b> and write down before and after.</li></ol><pre class='cd'>-- Slow: function on the column blocks the index
+WHERE YEAR(order_date) = 2026
+-- Fast: range on the raw column
+WHERE order_date &gt;= '2026-01-01' AND order_date &lt; '2027-01-01'</pre><p>For deep pages, use keyset pagination (WHERE id &gt; last_seen ORDER BY id LIMIT 20) instead of a large OFFSET. <b>Portfolio task:</b> load a dataset with around a million rows, find a slow query, fix it, and write a short before and after note for your GitHub README.</p>`;
+ADV["1_12"]=`<h3>SQL vs NoSQL</h3><table><tr><th>Type</th><th>Example</th><th>Good for</th></tr><tr><td>Document</td><td>MongoDB</td><td>Flexible, nested records (profiles, catalogues)</td></tr><tr><td>Key-value</td><td>Redis</td><td>Caching, sessions, counters</td></tr><tr><td>Wide-column</td><td>Cassandra</td><td>Huge write volumes across many servers</td></tr><tr><td>Graph</td><td>Neo4j</td><td>Relationships (social networks, fraud rings)</td></tr></table><ul><li><b>Choose SQL</b> for structured data, relationships, multi-row transactions and complex queries or reporting. Banks usually lean here.</li><li><b>Choose NoSQL</b> for a changing schema, very large scale, simple access by key, or caching.</li><li><b>ACID</b> (SQL focus: correctness) vs <b>BASE</b> (many NoSQL systems: availability, eventual consistency). <b>CAP:</b> during a network partition, a distributed system must trade consistency against availability.</li></ul><p><b>Interview line:</b> there is no best database; the choice follows the data shape and the access pattern. Many systems use both.</p>`;
+ADV["0_4"]=`<h3>Concurrency</h3><p><b>Race condition:</b> two threads change shared data at once. count++ is read, add, write, so updates get lost.</p><pre class='cd'>// Fixes for a shared counter
+synchronized void inc() { count++; }            // intrinsic lock
+AtomicInteger count = new AtomicInteger();      // lock-free
+count.incrementAndGet();
+
+ReentrantLock lock = new ReentrantLock();
+lock.lock();
+try { count++; } finally { lock.unlock(); }     // always unlock in finally</pre><ul><li><b>volatile:</b> guarantees visibility of a variable across threads, not atomicity. Good for a stop flag, not for a counter.</li><li><b>synchronized vs ReentrantLock:</b> the lock adds tryLock, timeouts, fairness and interruptible waits, but you must unlock manually.</li></ul><p><b>Executors:</b> do not create raw threads in real code. Use a pool.</p><pre class='cd'>ExecutorService pool = Executors.newFixedThreadPool(4);
+Future&lt;Integer&gt; f = pool.submit(() -&gt; compute());
+int result = f.get();            // blocks until done
+pool.shutdown();
+
+CompletableFuture&lt;String&gt; cf = CompletableFuture
+    .supplyAsync(() -&gt; fetchUser())
+    .thenApply(u -&gt; u.getName())
+    .exceptionally(ex -&gt; "unknown");
+System.out.println(cf.join());</pre><ul><li><b>Concurrent collections:</b> ConcurrentHashMap (fine-grained, scales better than Collections.synchronizedMap), CopyOnWriteArrayList (many reads, few writes), BlockingQueue (producer-consumer).</li><li><b>Deadlock:</b> two threads each hold a lock the other needs. Lock in one fixed order and keep critical sections short.</li><li><b>Pool size rule of thumb:</b> CPU-bound work, about the number of cores; I/O-bound work, more.</li></ul><p><b>Practise:</b> two threads incrementing a counter 100,000 times each (see the wrong total, then fix it three ways); producer-consumer with ArrayBlockingQueue; fetch three results in parallel and combine them with CompletableFuture.</p>`;
+ADV["0_5"]=`<h3>JVM memory and garbage collection</h3><table><tr><th>Area</th><th>Holds</th></tr><tr><td>Heap</td><td>All objects and arrays. Split into a young generation (Eden plus two survivor spaces) and an old generation.</td></tr><tr><td>Stack (one per thread)</td><td>Method frames: local primitives and references.</td></tr><tr><td>Metaspace</td><td>Class metadata (replaced PermGen in Java 8).</td></tr><tr><td>PC register, native stack</td><td>Current instruction; native method calls.</td></tr></table><ul><li><b>Garbage collection</b> removes objects no longer reachable from <b>GC roots</b> (stack variables, static fields, active threads).</li><li><b>Generational idea:</b> most objects die young. New objects go to Eden; a minor GC copies survivors to a survivor space; objects that live long enough move to the old generation, which is cleaned less often by a longer major or full GC.</li><li><b>Collectors:</b> Serial (small apps), Parallel (throughput), <b>G1</b> (default in modern Java, balanced pauses), <b>ZGC</b> and Shenandoah (very low pauses).</li><li><b>Memory leak in Java:</b> objects stay referenced when they are no longer needed (static lists, caches that never evict, unremoved listeners). The GC cannot free them.</li><li><b>OutOfMemoryError:</b> heap full. <b>StackOverflowError:</b> too-deep recursion.</li></ul><p><b>Class loading:</b> load, link (verify, prepare, resolve), initialise. Loaders: bootstrap, platform, application. <b>JIT:</b> the JVM starts by interpreting bytecode and compiles frequently run code to machine code.</p><p><b>Java Memory Model:</b> defines when one thread's writes are visible to another. A <b>happens-before</b> relationship is created by synchronized, volatile, Thread.start and join.</p><p><b>Practise:</b> run a program with -Xmx64m and keep adding to a static list until OutOfMemoryError; open it in VisualVM; explain in your own words why the list was never collected. Useful flags: -Xms, -Xmx, -XX:+PrintGCDetails (older) or -Xlog:gc.</p>`;
+ADV["0_6"]=`<h3>Modern Java (use JDK 21)</h3><pre class='cd'>// record (16): immutable data class; constructor, getters, equals, hashCode, toString for free
+record Point(int x, int y) { }
+Point p = new Point(2, 3);   p.x();
+
+// sealed types (17): a closed set of subtypes
+sealed interface Shape permits Circle, Square { }
+record Circle(double r) implements Shape { }
+record Square(double side) implements Shape { }
+
+// pattern matching for instanceof (16)
+if (obj instanceof String s &amp;&amp; !s.isEmpty()) { System.out.println(s.length()); }
+
+// switch expression (14): returns a value, no fall-through
+int days = switch (month) {
+    case 2 -&gt; 28;
+    case 4, 6, 9, 11 -&gt; 30;
+    default -&gt; 31;
+};
+
+// pattern matching for switch (21): exhaustive with sealed types
+double area = switch (shape) {
+    case Circle c -&gt; Math.PI * c.r() * c.r();
+    case Square q -&gt; q.side() * q.side();
+};
+
+var list = new ArrayList&lt;String&gt;();      // local type inference (10)</pre><ul><li><b>Text blocks (15):</b> multi-line strings written between triple quotes. Handy for SQL and JSON.</li><li><b>Virtual threads (21):</b> very cheap threads managed by the JVM. Good for many blocking I/O tasks, not for CPU-heavy work.</li></ul><pre class='cd'>try (var ex = Executors.newVirtualThreadPerTaskExecutor()) {
+    for (int i = 0; i &lt; 1000; i++) ex.submit(() -&gt; handleRequest());
+}</pre><p><b>Interview:</b> record vs normal class (records are shallowly immutable and carry data); why sealed plus switch is safer (the compiler checks every case is covered); platform vs virtual threads. <b>Practise:</b> rewrite your Banking project's transaction types as a sealed interface with records, and process them with a pattern switch.</p>`;
+ADV["0_7"]=`<h3>Maven, JUnit and Mockito</h3><p><b>Maven</b> builds the project and downloads dependencies from pom.xml (groupId, artifactId, version, dependencies). Layout: src/main/java for code, src/test/java for tests. Lifecycle: validate, compile, test, package, verify, install, deploy.</p><pre class='cd'>mvn clean test      # run all tests
+mvn package         # build the jar</pre><p><b>JUnit 5:</b> arrange, act, assert.</p><pre class='cd'>class BankAccountTest {
+    BankAccount acc;
+    @BeforeEach void setUp() { acc = new BankAccount(1000); }
+
+    @Test void depositIncreasesBalance() {
+        acc.deposit(500);
+        assertEquals(1500, acc.getBalance());
+    }
+    @Test void withdrawTooMuchThrows() {
+        assertThrows(InsufficientFundsException.class, () -&gt; acc.withdraw(5000));
+    }
+    @ParameterizedTest
+    @ValueSource(ints = {0, -5})
+    void invalidDepositRejected(int amt) {
+        assertThrows(IllegalArgumentException.class, () -&gt; acc.deposit(amt));
+    }
+}</pre><p><b>Mockito</b> replaces a dependency (database, email service) with a fake so you test one class alone.</p><pre class='cd'>@ExtendWith(MockitoExtension.class)
+class TransferServiceTest {
+    @Mock AccountRepository repo;
+    @InjectMocks TransferService service;
+
+    @Test void transferSavesBothAccounts() {
+        when(repo.findById(1L)).thenReturn(Optional.of(new Account(1L, 1000)));
+        when(repo.findById(2L)).thenReturn(Optional.of(new Account(2L, 0)));
+        service.transfer(1L, 2L, 300);
+        verify(repo, times(2)).save(any(Account.class));
+    }
+}</pre><ul><li>Test normal, edge (zero, empty, null, boundary) and failure cases.</li><li>A unit test checks one class with fakes; an integration test checks several real parts together.</li></ul><p><b>Practise:</b> get at least 10 tests passing on your Banking project and run them with mvn test.</p>`;
+ADV["0_8"]=`<h3>Spring Boot REST service</h3><p><b>Layers:</b> Controller (HTTP) calls Service (business rules) calls Repository (database). Create the project at start.spring.io with Spring Web, Spring Data JPA, Validation and a database driver (H2 to start, then MySQL or PostgreSQL).</p><pre class='cd'>@Entity
+public class Student {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
+    @NotBlank private String name;
+    // constructors, getters, setters
+}
+
+public interface StudentRepository extends JpaRepository&lt;Student, Long&gt; { }
+
+@RestController
+@RequestMapping("/api/students")
+class StudentController {
+    private final StudentService service;
+    StudentController(StudentService service) { this.service = service; }   // constructor injection
+
+    @GetMapping("/{id}")
+    Student get(@PathVariable Long id) { return service.find(id); }
+
+    @PostMapping
+    ResponseEntity&lt;Student&gt; create(@Valid @RequestBody Student s) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(s));
+    }
+}
+
+@RestControllerAdvice
+class ApiErrors {
+    @ExceptionHandler(NotFoundException.class)
+    ResponseEntity&lt;String&gt; notFound(NotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+}</pre><ul><li><b>IoC and dependency injection:</b> Spring creates and wires objects (beans) for you. Prefer constructor injection. Stereotypes: @Component, @Service, @Repository, @Controller.</li><li><b>Auto-configuration:</b> Boot configures beans from the dependencies on your classpath. Settings go in application.properties.</li><li><b>Return DTOs, not entities,</b> when exposing data, so the database shape does not leak into your API.</li><li><b>Status codes:</b> 200 OK, 201 Created, 400 bad input, 404 not found, 500 server error.</li><li><b>JPA N+1 problem:</b> loading a list and then one extra query per item for a relationship. Fix with a join fetch or an entity graph.</li><li><b>Tests:</b> @WebMvcTest for controllers (with a mocked service), @DataJpaTest for repositories.</li></ul><p><b>Practise:</b> build Students CRUD end to end, test it in Postman, add validation and a clean error response, write 6 tests, push to GitHub with a README.</p>`;
+ADV["2_1"]=`<h3>Generators, decorators and context managers</h3><p><b>Generators</b> produce values one at a time with <b>yield</b>, so they use almost no memory and can be infinite. They are one-pass: once consumed, they are empty.</p><pre class='cd'>def read_big(path):
+    with open(path) as f:
+        for line in f:
+            yield line.strip()          # one line at a time
+
+def fib():
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a + b
+
+squares = (x * x for x in range(10**6))   # generator expression
+next(squares)                             # 0</pre><p><b>Decorators</b> wrap a function to add behaviour without editing it. A decorator takes a function and returns a function.</p><pre class='cd'>import time, functools
+
+def timer(fn):
+    @functools.wraps(fn)                  # keeps the original name and docstring
+    def wrapper(*args, **kwargs):
+        t = time.perf_counter()
+        result = fn(*args, **kwargs)
+        print(f"{fn.__name__} took {time.perf_counter() - t:.4f}s")
+        return result
+    return wrapper
+
+@timer
+def slow_sum(n):
+    return sum(range(n))</pre><p>Built-in ones to know: @property, @staticmethod, @classmethod, and @functools.lru_cache (memoisation, great for recursion and DP).</p><p><b>Context managers</b> guarantee set-up and clean-up, even if an error occurs. The with statement calls __enter__ and __exit__.</p><pre class='cd'>from contextlib import contextmanager
+
+@contextmanager
+def timed(label):
+    t = time.perf_counter()
+    try:
+        yield
+    finally:
+        print(label, round(time.perf_counter() - t, 4))
+
+with timed("load"):
+    data = list(range(10**6))</pre><p><b>Interview:</b> generator vs list (lazy vs stored in memory); yield vs return (yield pauses and resumes); why functools.wraps; what a closure is (an inner function remembering variables of the outer one); why with open(...) is safer than open and close.</p><p><b>Practise:</b> a generator that yields a CSV file in chunks of 1000 rows; a retry decorator that tries a function 3 times; a context manager that opens and closes a database connection.</p>`;
+ADV["2_2"]=`<h3>NumPy</h3><p>A NumPy array stores one data type in a compact block of memory and does maths in compiled code. <b>Vectorised operations</b> on a whole array are often 10 to 100 times faster than Python loops.</p><pre class='cd'>import numpy as np
+a = np.array([[1, 2, 3], [4, 5, 6]])
+
+a.shape                   # (2, 3)
+a * 10                    # every element, no loop
+a.sum(axis=0)             # down the rows: column sums [5 7 9]
+a.mean(axis=1)            # across the columns: row means [2. 5.]
+a[a &gt; 2]                  # boolean mask: [3 4 5 6]
+np.where(a % 2 == 0, "even", "odd")
+a.reshape(3, 2)
+
+np.arange(0, 10, 2)       # 0 2 4 6 8
+np.linspace(0, 1, 5)      # 5 evenly spaced points
+rng = np.random.default_rng(42)
+rng.normal(0, 1, size=1000)</pre><ul><li><b>axis:</b> axis=0 collapses rows (gives one value per column); axis=1 collapses columns (one value per row).</li><li><b>Broadcasting:</b> shapes are compared from the right; two dimensions match when they are equal or one is 1. So (2, 3) minus (3,) subtracts the column means from every row.</li><li><b>Missing values:</b> np.nan breaks sums and means; use np.nanmean, np.nansum.</li><li>Slices are <b>views</b> (they share memory); use .copy() when you need an independent array.</li></ul><pre class='cd'># Standardise every column (z-score) with broadcasting
+z = (a - a.mean(axis=0)) / a.std(axis=0)</pre><p><b>Practise:</b> time a Python loop against a vectorised sum on 10 million numbers; standardise a matrix; replace all negative values with 0; compute the correlation between two arrays with np.corrcoef.</p>`;
+ADV["2_3"]=`<h3>pandas in depth</h3><pre class='cd'>import pandas as pd
+df = pd.read_csv("orders.csv", parse_dates=["order_date"])
+df.info(); df.describe()
+
+# Clean
+df = df.drop_duplicates()
+df["amount"] = df["amount"].fillna(df["amount"].median())
+df["city"] = df["city"].str.strip().str.title()
+
+# Select and filter (use parentheses around each condition)
+big = df[(df["amount"] &gt; 1000) &amp; (df["region"] == "West")]
+df.loc[df["amount"] &lt; 0, "amount"] = 0       # .loc avoids SettingWithCopy problems
+
+# Group
+summary = (df.groupby("region")
+             .agg(orders=("order_id", "count"),
+                  revenue=("amount", "sum"),
+                  avg=("amount", "mean"))
+             .sort_values("revenue", ascending=False))
+df["share"] = df["amount"] / df.groupby("region")["amount"].transform("sum")   # like a window function
+
+# Join
+full = df.merge(customers, on="customer_id", how="left", validate="m:1")
+
+# Reshape
+pivot = df.pivot_table(index="region", columns="category", values="amount", aggfunc="sum", fill_value=0)
+long = pivot.reset_index().melt(id_vars="region")
+
+# Time series
+monthly = df.set_index("order_date")["amount"].resample("MS").sum()
+df["amount"].rolling(7).mean()</pre><table><tr><th>SQL</th><th>pandas</th></tr><tr><td>WHERE</td><td>boolean filter or .query()</td></tr><tr><td>GROUP BY</td><td>.groupby().agg()</td></tr><tr><td>JOIN</td><td>.merge(how=...)</td></tr><tr><td>Window function</td><td>.transform(), .rolling(), .rank()</td></tr><tr><td>CASE WHEN</td><td>np.where or np.select</td></tr></table><ul><li><b>loc</b> selects by label, <b>iloc</b> by position.</li><li>Avoid iterrows and row-by-row apply on big data; use vectorised column operations.</li><li>Always check shape and row counts before and after a merge. Duplicated keys silently multiply rows; the validate argument catches that.</li></ul><p><b>Practise:</b> redo your SQL practice queries in pandas on one dataset and check that both give the same answer; clean a messy CSV (mixed date formats, duplicates, blanks, wrong types) and write down every decision you made.</p>`;
+ADV["2_4"]=`<h3>Visualising data</h3><table><tr><th>Question</th><th>Chart</th></tr><tr><td>How does it change over time?</td><td>Line</td></tr><tr><td>How do categories compare?</td><td>Bar (sorted)</td></tr><tr><td>What is the spread?</td><td>Histogram, box plot</td></tr><tr><td>Are two numbers related?</td><td>Scatter</td></tr><tr><td>Parts of a whole?</td><td>Stacked bar (pie only for 2 to 4 slices)</td></tr></table><pre class='cd'>import matplotlib.pyplot as plt
+import seaborn as sns
+
+monthly.plot(kind="line", title="Monthly revenue")
+plt.xlabel("Month"); plt.ylabel("Revenue (INR)")
+plt.tight_layout(); plt.show()
+
+sns.boxplot(data=df, x="region", y="amount")
+sns.heatmap(df.corr(numeric_only=True), annot=True, cmap="coolwarm")</pre><ul><li>Give each chart one message and a title that states it ("West region revenue fell in Q3").</li><li>Label axes with units, sort bars, start bar charts at zero, avoid 3D and too many colours, and check that colours work for colour-blind readers.</li></ul><p><b>Practise:</b> take one dataset, make three charts that each answer a different question, and write one sentence under each.</p>`;
+ADV["2_5"]=`<h3>Statistics for analysts</h3><ul><li><b>Descriptive:</b> mean, median, standard deviation, percentiles. Use the median when data is skewed. <b>Outlier rule:</b> a value beyond 1.5 times the IQR from the quartiles is a candidate outlier; investigate before removing.</li><li><b>Correlation</b> (Pearson r) runs from -1 to 1 and measures linear association. <b>Correlation is not causation.</b></li><li><b>Normal distribution:</b> about 68%, 95% and 99.7% of values lie within 1, 2 and 3 standard deviations. <b>Central limit theorem:</b> sample means become roughly normal as the sample grows.</li></ul><p><b>Hypothesis test steps:</b> state H0 (no effect) and H1; choose a significance level (usually 0.05); compute the test statistic and p-value; decide.</p><ul><li><b>p-value:</b> the probability of seeing data at least this extreme if H0 were true. It is <b>not</b> the probability that H0 is true.</li><li><b>Type I error:</b> a false positive (probability is the significance level). <b>Type II error:</b> a false negative. <b>Power</b> is the chance of detecting a real effect.</li><li><b>95% confidence interval:</b> if you repeated the study many times, about 95% of such intervals would contain the true value.</li></ul><table><tr><th>Question</th><th>Test</th></tr><tr><td>Two group means differ?</td><td>t-test</td></tr><tr><td>Three or more group means differ?</td><td>ANOVA</td></tr><tr><td>Two categorical variables related?</td><td>Chi-square</td></tr><tr><td>Two conversion rates differ?</td><td>Two-proportion z-test</td></tr></table><pre class='cd'>from scipy import stats
+t, p = stats.ttest_ind(group_a, group_b, equal_var=False)   # Welch t-test
+r, p = stats.pearsonr(x, y)
+chi2, p, dof, expected = stats.chi2_contingency(table)</pre><p><b>A/B testing:</b> randomly split users, fix the metric and sample size before you start, do not stop the moment the result looks good (peeking inflates false positives), and ask whether the difference is big enough to matter, not just statistically significant.</p><p><b>Practise:</b> compare two groups in a dataset with a t-test and write your conclusion in two sentences a manager could understand.</p>`;
+ADV["2_6"]=`<h3>Machine learning with scikit-learn</h3><p><b>Workflow:</b> define the question and the target; split into train and test sets; preprocess; fit on the training data; evaluate on the test data; compare against a simple baseline.</p><pre class='cd'>from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y)
+
+model = Pipeline([("scale", StandardScaler()),
+                  ("clf", LogisticRegression(max_iter=1000))])
+model.fit(X_train, y_train)
+print(classification_report(y_test, model.predict(X_test)))
+print(cross_val_score(model, X_train, y_train, cv=5, scoring="f1").mean())</pre><ul><li><b>Data leakage:</b> information from the test set leaking into training (for example, scaling on the full data). A Pipeline fits the scaler on training data only.</li><li><b>Overfitting:</b> great on training data, poor on new data. <b>Underfitting:</b> poor on both. Cross-validation helps you spot it.</li></ul><table><tr><th>Task</th><th>Models to start with</th><th>Metrics</th></tr><tr><td>Regression (predict a number)</td><td>LinearRegression, RandomForestRegressor</td><td>MAE, RMSE, R-squared</td></tr><tr><td>Classification (predict a class)</td><td>LogisticRegression, DecisionTree, RandomForest</td><td>Precision, recall, F1, ROC-AUC</td></tr></table><p><b>Choosing the metric:</b> accuracy misleads on imbalanced data (a model that says "no fraud" every time can be 99% accurate). <b>Precision:</b> of the cases flagged, how many were right (matters when false alarms are costly, such as spam filters). <b>Recall:</b> of the real cases, how many were found (matters when misses are costly, such as fraud or disease).</p><p><b>Practise:</b> use a churn or Titanic dataset; build a baseline that always predicts the majority class; beat it with logistic regression and a random forest; justify your metric in one sentence.</p>`;
+function exToggle(i,j){st.ex=st.ex||{};const k=i+"_"+j;st.ex[k]=!st.ex[k];sv();draw()}
+function expertCard(){st.ex=st.ex||{};let tot=0,dn=0;
+const sec=EXPERT.map(([nm,goal,items],i)=>{let c=0;items.forEach((it,j)=>{tot++;if(st.ex[i+"_"+j]){c++;dn++}});
+return `<div class="c"><h2>${nm}</h2><div class="mu">${goal} · ${c}/${items.length} done</div><div class="bar" style="margin:6px 0"><i style="width:${pc(c,items.length)}%"></i></div>${items.map((it,j)=>`<label class="h"><input type="checkbox" ${st.ex[i+"_"+j]?"checked":""} onchange="exToggle(${i},${j})"><span>${esc(it[0])} <span class="tg">Month ${it[1]}</span></span></label>${ADV[i+"_"+j]?`<details style="margin:0 0 8px 30px"><summary><b>📘 Lesson</b></summary>${ADV[i+"_"+j]}</details>`:""}`).join("")}</div>`}).join("");
+return `<div class="c"><h2>🏁 Final outcomes after 10 months: ${dn}/${tot} (${pc(dn,tot)}%)</h2><div class="bar"><i style="width:${pc(dn,tot)}%"></i></div><p class="mu">This is what you should be able to do at the end. Tick an item only when you can do or explain it without help. Items marked ➕ go beyond the lessons built into this tracker, so they are the advanced layer: open the 📘 Lesson where one is provided, and use official docs for the rest. Month tags follow this tracker's order.</p></div>${sec}`}
 function draw(){
-let h=`<header class="hero"><div class="hero-kicker"><span class="live-dot"></span> YOUR CAREER COMMAND CENTRE <span class="hero-pill">10 MONTH PLAN</span></div><h1>🎯 Placement Roadmap</h1><p class="hero-sub">Java-first preparation for Morgan Stanley, JPMorgan Chase &amp; Deloitte</p><div class="hero-meta"><span>⏱ 3 hours / day</span><span>📅 6 study days / week</span><span>☀ Sunday buffer</span><span>🧩 Daily DSA + weekly mock</span></div></header>
+let h=`<header class="hero"><div class="hero-kicker"><span class="live-dot"></span> YOUR CAREER COMMAND CENTRE <span class="hero-pill">10 MONTH PLAN</span></div><h1>🎯 Placement Roadmap</h1><p class="hero-sub">Java and SQL depth, data-focused Python, built for technology, banking and consulting roles</p><div class="hero-meta"><span>⏱ 3 hours / day</span><span>📅 6 study days / week</span><span>☀ Sunday buffer</span><span>🧩 Daily DSA + weekly mock</span></div></header>
 <div class="c"><div class="r"><select onchange="gm(this.value)">${M.map((x,i)=>`<option value="${i}" ${i==m?"selected":""}>Month ${i+1} — ${x}</option>`).join("")}</select>
-<button onclick="nxt()" class="p">Jump to next incomplete day</button><button onclick="tb('dash')" class="${tab=="dash"?"on":""}">📊 Dashboard + Backup</button><button onclick="tb('tools')" class="${tab=="tools"?"on":""}">🚀 Placement Tools</button><button onclick="tb('career')" class="${tab=="career"?"on":""}">🧭 Career OS · 30 tools</button><button onclick="tb('tools');st.toolView='studio';sv();draw()" class="${tab=="tools"&&st.toolView=="studio"?"on":""}">💻 Code Studio</button><button onclick="tb('tools');st.toolView='arena';sv();draw()" class="${tab=="tools"&&st.toolView=="arena"?"on":""}">⌨ Code Arena</button></div>
+<button onclick="nxt()" class="p">Jump to next incomplete day</button><button onclick="tb('dash')" class="${tab=="dash"?"on":""}">📊 Dashboard + Backup</button><button onclick="tb('tools')" class="${tab=="tools"?"on":""}">🚀 Placement Tools</button><button onclick="tb('career')" class="${tab=="career"?"on":""}">🧭 Career OS · 30 tools</button><button onclick="tb('tools');st.toolView='studio';sv();draw()" class="${tab=="tools"&&st.toolView=="studio"?"on":""}">💻 Code Studio</button><button onclick="tb('tools');st.toolView='arena';sv();draw()" class="${tab=="tools"&&st.toolView=="arena"?"on":""}">⌨ Code Arena</button><button onclick="tb('expert')" class="${tab=="expert"?"on":""}">🏁 Final Outcomes</button></div>
 <div class="mu" style="margin-top:8px">🎯 Month goal: ${G[m]} · This week: ${wkH(m,w)}/18 hours</div>
 <div class="r" style="margin-top:8px">${[0,1,2,3].map(b=>`<button class="${b==w&&tab!="dash"?"on":""} ${wkDone(m,b)==6?"dn":""}" onclick="go(m,${b},0)">Week ${b+1} (${wkDone(m,b)}/6)</button>`).join("")}</div>
 <div class="r" style="margin-top:8px">${[0,1,2,3,4,5].map(c=>`<button class="${c==d&&tab=="day"?"on":""} ${dd(m,w,c)?"dn":""}" onclick="go(m,w,${c})">Day ${c+1}${c==5?" (mock)":""}${dd(m,w,c)?" ✓":""}</button>`).join("")}<button class="${tab=="sun"?"on":""}" onclick="tb('sun')">☀ Sunday</button></div></div>`;
@@ -666,9 +1018,10 @@ if(tab=="sun"){const L=["Catch up on any missed weekday","Redo every question yo
 h+=`<div class="c"><h2>☀ Sunday — Buffer / revision (Month ${m+1}, Week ${w+1})</h2><div class="mu">Weekly target: ${wkH(m,w)}/18 hours, ${wkDone(m,w)}/6 days. Do not double next week’s load to compensate.</div>${L.map((q,i)=>`<label class="h"><input type="checkbox" ${st.s[m+"_"+w+"_"+i]?"checked":""} onchange="sc(${i})"><span>${q}</span></label>`).join("")}</div>
 <div class="c"><h2>Weekly review</h2><textarea oninput="wn(this.value)" placeholder="Wins · weak topics · what to fix next week">${esc(st.w[m+"_"+w])}</textarea></div>`}
 if(tab=="dash"){let t=0;const rows=M.map((x,a)=>{let n=0,hh=0;for(let b=0;b<4;b++){n+=wkDone(a,b);hh+=wkH(a,b)}t+=n;return`<tr><td>${a+1}. ${x}</td><td>${n}/24</td><td>${hh}/72</td><td style="width:22%"><div class="bar"><i style="width:${pc(n,24)}%"></i></div></td></tr>`}).join("");
-h+=`<div class="c"><h2>📊 Overall: ${t}/240 days (${pc(t,240)}%)</h2><div class="bar"><i style="width:${pc(t,240)}%"></i></div></div>${sbc()}<div class="c" style="overflow-x:auto"><table><tr><th>Month</th><th>Days</th><th>Hours</th><th></th></tr>${rows}</table></div>
+h+=`<div class="c"><h2>📊 Overall: ${t}/240 days (${pc(t,240)}%)</h2><div class="bar"><i style="width:${pc(t,240)}%"></i></div></div>${sbc()}<div class="c"><div class="r"><b>🏁 Final outcomes</b><button onclick="tb('expert')">Open checklist</button></div></div><div class="c" style="overflow-x:auto"><table><tr><th>Month</th><th>Days</th><th>Hours</th><th></th></tr>${rows}</table></div>
 <div class="c"><h2>💾 Backup / restore</h2><div class="mu">Copy this text and keep it safe. To restore on another device, paste it here and press Import.</div><textarea id="bk">${esc(JSON.stringify(st))}</textarea><div class="r" style="margin-top:8px"><button class="p" onclick="imp()">Import pasted backup</button></div></div>
-<div class="c"><h2>Company links</h2><div class="r"><a class="b" target="_blank" rel="noopener" href="${R.co[1]}">Morgan Stanley</a><a class="b" target="_blank" rel="noopener" href="${R.co[3]}">JPMorgan Chase</a><a class="b" target="_blank" rel="noopener" href="${R.dl[1]}">Deloitte India</a></div></div>`}
+<div class="c"><h2>Company links</h2><div class="r"><a class="b" target="_blank" rel="noopener" href="${R.co[1]}">Campus hiring</a><a class="b" target="_blank" rel="noopener" href="${R.co[3]}">Job boards</a><a class="b" target="_blank" rel="noopener" href="${R.dl[1]}">Graduate roles</a></div></div>`}
+if(tab=="expert"){h+=expertCard()}
 if(tab=="tools"){
 const view=st.toolView||"overview";
 const nav=[ ["overview","Overview"],["mistakes","Mistake Book"],["revision","Revision Queue"],["apps","Applications"],["projects","Projects"],["cards","Flashcards"],["arena","Code Arena"],["studio","💻 Code Studio"],["interview","🎤 Interview Lab"],["analytics","📈 Performance Analytics"],["focus","Focus Timer"] ];
@@ -2380,5 +2733,408 @@ function startTimer(){if(focusInterval)return;focusInterval=setInterval(()=>{if(
 function pauseTimer(){if(focusInterval){clearInterval(focusInterval);focusInterval=null}}
 function resetTimer(){pauseTimer();focusSeconds=25*60;paintTimer()}
 
+/* PACK M6-LESSONS: Month 6 (DSA II in Java), topics 1-12. */
+FN["5_0"]=`<h3>1. Terms</h3><p>A tree has a <b>root</b>; nodes with no children are <b>leaves</b>. <b>Depth</b> = edges from the root; <b>height</b> = longest path down. In a binary tree each node has at most two children.</p><pre class='cd'>class TreeNode { int val; TreeNode left, right; TreeNode(int v) { val = v; } }</pre>
+<h3>2. DFS traversals (recursive)</h3><pre class='cd'>void inorder(TreeNode n, List&lt;Integer&gt; out) {      // left, node, right
+    if (n == null) return;
+    inorder(n.left, out); out.add(n.val); inorder(n.right, out);
+}
+// preorder: node, left, right    postorder: left, right, node</pre><table><tr><th>Order</th><th>Use</th></tr><tr><td>Inorder</td><td>Sorted output for a BST</td></tr><tr><td>Preorder</td><td>Copy or serialise a tree</td></tr><tr><td>Postorder</td><td>Delete a tree, compute from children first</td></tr></table>
+<h3>3. BFS: level order</h3><pre class='cd'>Queue&lt;TreeNode&gt; q = new ArrayDeque&lt;&gt;(); q.offer(root);
+while (!q.isEmpty()) {
+    int size = q.size();                         // nodes in this level
+    List&lt;Integer&gt; level = new ArrayList&lt;&gt;();
+    for (int i = 0; i &lt; size; i++) {
+        TreeNode n = q.poll(); level.add(n.val);
+        if (n.left != null) q.offer(n.left);
+        if (n.right != null) q.offer(n.right);
+    }
+    res.add(level);
+}</pre>
+<h3>4. Classic problems</h3><pre class='cd'>int maxDepth(TreeNode n) { return n == null ? 0 : 1 + Math.max(maxDepth(n.left), maxDepth(n.right)); }
+TreeNode invert(TreeNode n) { if (n == null) return null; TreeNode t = n.left; n.left = invert(n.right); n.right = invert(t); return n; }
+boolean same(TreeNode a, TreeNode b) {
+    if (a == null || b == null) return a == b;
+    return a.val == b.val &amp;&amp; same(a.left, b.left) &amp;&amp; same(a.right, b.right);
+}</pre>
+<h3>5. Complexity</h3><p>Every traversal is O(n) time. Recursion uses O(h) stack: O(log n) if balanced, O(n) if skewed. BFS uses O(width) for the queue.</p><ul><li>Check null first in every recursive method.</li><li>Level order needs the size loop to separate levels.</li></ul>`;
+
+FN["5_1"]=`<h3>1. BST property</h3><p>For every node: all values in the left subtree are smaller, all in the right subtree are larger. <b>Inorder traversal of a BST is sorted.</b> Search, insert and delete cost O(h): O(log n) balanced, O(n) skewed. Java's TreeMap is a balanced (red-black) tree.</p>
+<h3>2. Search and insert</h3><pre class='cd'>TreeNode insert(TreeNode n, int v) {
+    if (n == null) return new TreeNode(v);
+    if (v &lt; n.val) n.left = insert(n.left, v); else n.right = insert(n.right, v);
+    return n;
+}</pre>
+<h3>3. Delete (three cases)</h3><pre class='cd'>TreeNode delete(TreeNode n, int k) {
+    if (n == null) return null;
+    if (k &lt; n.val) n.left = delete(n.left, k);
+    else if (k &gt; n.val) n.right = delete(n.right, k);
+    else {
+        if (n.left == null) return n.right;           // 0 or 1 child
+        if (n.right == null) return n.left;
+        TreeNode s = n.right; while (s.left != null) s = s.left;   // inorder successor
+        n.val = s.val; n.right = delete(n.right, s.val);
+    }
+    return n;
+}</pre>
+<h3>4. Validate BST (carry bounds)</h3><pre class='cd'>boolean valid(TreeNode n, long lo, long hi) {
+    if (n == null) return true;
+    if (n.val &lt;= lo || n.val &gt;= hi) return false;
+    return valid(n.left, lo, n.val) &amp;&amp; valid(n.right, n.val, hi);
+}  // call valid(root, Long.MIN_VALUE, Long.MAX_VALUE)</pre><p>Checking only a node against its direct children is wrong: a deeper node can break the rule.</p>
+<h3>5. LCA in a BST</h3><pre class='cd'>while (root != null) {
+    if (p.val &lt; root.val &amp;&amp; q.val &lt; root.val) root = root.left;
+    else if (p.val &gt; root.val &amp;&amp; q.val &gt; root.val) root = root.right;
+    else return root;                    // the split point
+}</pre>
+<h3>6. Kth smallest</h3><pre class='cd'>Deque&lt;TreeNode&gt; st = new ArrayDeque&lt;&gt;(); TreeNode cur = root;
+while (cur != null || !st.isEmpty()) {
+    while (cur != null) { st.push(cur); cur = cur.left; }
+    cur = st.pop(); if (--k == 0) return cur.val;
+    cur = cur.right;
+}</pre>`;
+
+FN["5_2"]=`<h3>1. Heap basics</h3><p>A heap is a complete binary tree stored in an array where each parent is smaller (min-heap) or larger (max-heap) than its children. For index i: parent (i - 1) / 2, children 2i + 1 and 2i + 2.</p><table><tr><th>Operation</th><th>Cost</th></tr><tr><td>peek</td><td>O(1)</td></tr><tr><td>offer, poll</td><td>O(log n)</td></tr><tr><td>Build from n items</td><td>O(n)</td></tr><tr><td>Search a value</td><td>O(n)</td></tr></table><pre class='cd'>PriorityQueue&lt;Integer&gt; min = new PriorityQueue&lt;&gt;();                         // min-heap
+PriorityQueue&lt;Integer&gt; max = new PriorityQueue&lt;&gt;(Collections.reverseOrder());  // max-heap
+PriorityQueue&lt;int[]&gt; byDist = new PriorityQueue&lt;&gt;((a, b) -&gt; a[1] - b[1]);</pre>
+<h3>2. Top-K pattern</h3><p>For the K <b>largest</b>, keep a <b>min-heap of size k</b>: after each offer, if size &gt; k, poll the smallest. The heap ends with the k largest; the root is the kth largest. O(n log k).</p><pre class='cd'>PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;&gt;();
+for (int x : a) { pq.offer(x); if (pq.size() &gt; k) pq.poll(); }
+return pq.peek();                        // Kth Largest Element</pre>
+<h3>3. Top K Frequent</h3><pre class='cd'>Map&lt;Integer,Integer&gt; cnt = new HashMap&lt;&gt;();
+for (int x : a) cnt.merge(x, 1, Integer::sum);
+PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;&gt;((x, y) -&gt; cnt.get(x) - cnt.get(y));
+for (int key : cnt.keySet()) { pq.offer(key); if (pq.size() &gt; k) pq.poll(); }</pre>
+<h3>4. Merge K sorted lists</h3><pre class='cd'>PriorityQueue&lt;ListNode&gt; pq = new PriorityQueue&lt;&gt;((x, y) -&gt; x.val - y.val);
+for (ListNode h : lists) if (h != null) pq.offer(h);
+ListNode dummy = new ListNode(0), t = dummy;
+while (!pq.isEmpty()) { ListNode n = pq.poll(); t.next = n; t = n; if (n.next != null) pq.offer(n.next); }
+return dummy.next;                       // O(N log k)</pre>
+<h3>5. Last Stone Weight</h3><pre class='cd'>while (pq.size() &gt; 1) { int y = pq.poll(), x = pq.poll(); if (y != x) pq.offer(y - x); }  // pq is a max-heap</pre><p>Running median: keep a max-heap for the lower half and a min-heap for the upper half, balanced by size.</p>`;
+
+FN["5_3"]=`<h3>1. Representation</h3><pre class='cd'>List&lt;List&lt;Integer&gt;&gt; g = new ArrayList&lt;&gt;();
+for (int i = 0; i &lt; n; i++) g.add(new ArrayList&lt;&gt;());
+for (int[] e : edges) { g.get(e[0]).add(e[1]); g.get(e[1]).add(e[0]); }   // undirected: add both</pre><p>An adjacency list takes O(V + E) space; a matrix takes O(V&sup2;). Traversals cost O(V + E).</p>
+<h3>2. BFS (shortest path in an unweighted graph)</h3><pre class='cd'>int[] dist = new int[n]; Arrays.fill(dist, -1); dist[s] = 0;
+Queue&lt;Integer&gt; q = new ArrayDeque&lt;&gt;(); q.offer(s);
+while (!q.isEmpty()) {
+    int u = q.poll();
+    for (int v : g.get(u)) if (dist[v] == -1) { dist[v] = dist[u] + 1; q.offer(v); }   // mark when queued
+}</pre>
+<h3>3. DFS</h3><pre class='cd'>void dfs(int u, boolean[] seen) {
+    seen[u] = true;
+    for (int v : g.get(u)) if (!seen[v]) dfs(v, seen);
+}</pre><p>Connected components: run DFS from every unseen node and count the starts.</p>
+<h3>4. Grid as a graph: Number of Islands</h3><pre class='cd'>int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};
+void dfs(char[][] g, int r, int c) {
+    if (r &lt; 0 || c &lt; 0 || r &gt;= g.length || c &gt;= g[0].length || g[r][c] != '1') return;
+    g[r][c] = '0';                                   // mark visited
+    for (int[] d : dirs) dfs(g, r + d[0], c + d[1]);
+}
+int count = 0;
+for (int r = 0; r &lt; g.length; r++) for (int c = 0; c &lt; g[0].length; c++) if (g[r][c] == '1') { count++; dfs(g, r, c); }</pre>
+<h3>5. Multi-source BFS: Rotting Oranges</h3><p>Put every rotten orange in the queue at minute 0, then BFS level by level; each level is one minute. Answer = levels processed, or -1 if a fresh orange remains.</p>
+<h3>6. Flood Fill and Clone Graph</h3><ul><li>Flood Fill: DFS from the start cell, recolour cells equal to the old colour; stop if old colour equals new.</li><li>Clone Graph: a HashMap from old node to copy; create the copy on first visit, then link neighbours.</li></ul>`;
+
+FN["5_4"]=`<h3>1. Topological sort (Kahn's algorithm)</h3><p>Orders the nodes of a <b>directed acyclic graph</b> so every edge goes forward. Idea: repeatedly take nodes with <b>in-degree 0</b>.</p><pre class='cd'>int[] indeg = new int[n];
+for (int[] e : edges) { g.get(e[1]).add(e[0]); indeg[e[0]]++; }     // e[1] must come before e[0]
+Queue&lt;Integer&gt; q = new ArrayDeque&lt;&gt;();
+for (int i = 0; i &lt; n; i++) if (indeg[i] == 0) q.offer(i);
+int done = 0;
+while (!q.isEmpty()) {
+    int u = q.poll(); done++;
+    for (int v : g.get(u)) if (--indeg[v] == 0) q.offer(v);
+}
+return done == n;                  // false means a cycle: Course Schedule</pre><p>If fewer than n nodes are processed there is a cycle. Record the poll order to get the actual ordering. O(V + E).</p>
+<h3>2. Union-Find (disjoint set)</h3><pre class='cd'>int[] parent, rank;
+int find(int x) { return parent[x] == x ? x : (parent[x] = find(parent[x])); }   // path compression
+boolean union(int a, int b) {
+    int ra = find(a), rb = find(b);
+    if (ra == rb) return false;                     // already connected
+    if (rank[ra] &lt; rank[rb]) { int t = ra; ra = rb; rb = t; }
+    parent[rb] = ra; if (rank[ra] == rank[rb]) rank[ra]++;
+    return true;
+}</pre><p>Initialise parent[i] = i. With path compression and union by rank each operation is almost O(1).</p>
+<h3>3. Problems</h3><table><tr><th>Problem</th><th>Idea</th></tr><tr><td>Number of Provinces</td><td>components = n minus the number of successful unions</td></tr><tr><td>Redundant Connection</td><td>the first edge whose union() returns false closes a cycle</td></tr><tr><td>Course Schedule II</td><td>return the poll order from Kahn</td></tr></table><p>Use DFS or BFS for traversal questions; Union-Find when edges arrive one by one and you ask whether two nodes are connected.</p>`;
+
+FN["5_5"]=`<h3>1. When to use Dijkstra</h3><p>Shortest path from one source in a graph with <b>non-negative weights</b>. BFS is enough when all edges weigh the same. With negative edges use Bellman-Ford.</p>
+<h3>2. Algorithm</h3><p>Keep the best known distance to each node. Repeatedly take the closest unfinished node from a min-heap and relax its edges.</p><pre class='cd'>int[] dist = new int[n]; Arrays.fill(dist, Integer.MAX_VALUE); dist[src] = 0;
+PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; a[1] - b[1]);   // {node, distance}
+pq.offer(new int[]{src, 0});
+while (!pq.isEmpty()) {
+    int[] cur = pq.poll(); int u = cur[0], d = cur[1];
+    if (d &gt; dist[u]) continue;                       // stale entry, skip
+    for (int[] e : g.get(u)) {                       // e = {neighbour, weight}
+        int v = e[0], w = e[1];
+        if (dist[u] + w &lt; dist[v]) { dist[v] = dist[u] + w; pq.offer(new int[]{v, dist[v]}); }
+    }
+}</pre><p>Time O((V + E) log V).</p>
+<h3>3. Network Delay Time</h3><p>Run Dijkstra from k. Answer = the maximum value in dist; if any node is still Integer.MAX_VALUE return -1.</p>
+<h3>4. Variants</h3><ul><li><b>Path with Minimum Effort:</b> the cost of a path is its largest step; relax with max(dist[u], step) instead of a sum.</li><li><b>Cheapest Flights within K stops:</b> Bellman-Ford for k + 1 rounds, copying the distance array each round.</li></ul><table><tr><th>Graph</th><th>Algorithm</th></tr><tr><td>Unweighted</td><td>BFS</td></tr><tr><td>Weights 0 or 1</td><td>0-1 BFS with a deque</td></tr><tr><td>Non-negative weights</td><td>Dijkstra</td></tr><tr><td>Negative weights</td><td>Bellman-Ford</td></tr></table>`;
+
+FN["5_6"]=`<h3>1. Greedy</h3><p>Make the locally best choice at each step and never undo it. It works only when a local choice is provably safe (an exchange argument). Coin change with arbitrary coins is a classic case where greedy fails; use DP there.</p>
+<h3>2. Merge Intervals</h3><pre class='cd'>Arrays.sort(iv, (a, b) -&gt; a[0] - b[0]);                    // sort by start
+List&lt;int[]&gt; res = new ArrayList&lt;&gt;();
+for (int[] cur : iv) {
+    if (res.isEmpty() || res.get(res.size() - 1)[1] &lt; cur[0]) res.add(cur);
+    else res.get(res.size() - 1)[1] = Math.max(res.get(res.size() - 1)[1], cur[1]);
+}</pre>
+<h3>3. Non-overlapping Intervals (activity selection)</h3><pre class='cd'>Arrays.sort(iv, (a, b) -&gt; a[1] - b[1]);                    // sort by END
+int kept = 0, end = Integer.MIN_VALUE;
+for (int[] x : iv) if (x[0] &gt;= end) { kept++; end = x[1]; }
+return iv.length - kept;                                    // intervals to remove</pre><p>Why by end time: finishing earliest leaves the most room for later intervals.</p>
+<h3>4. Jump Game</h3><pre class='cd'>int reach = 0;
+for (int i = 0; i &lt; a.length; i++) {
+    if (i &gt; reach) return false;
+    reach = Math.max(reach, i + a[i]);
+}
+return true;</pre>
+<h3>5. Meeting Rooms</h3><ul><li>One person, can attend all: sort by start, fail if some start &lt; previous end.</li><li>Minimum rooms: sort starts and ends separately and sweep with two pointers, or keep a min-heap of end times. O(n log n).</li></ul>`;
+
+FN["5_7"]=`<h3>1. Template</h3><p>Backtracking builds a solution step by step: <b>choose, explore, unchoose</b>. Prune a branch as soon as it cannot work.</p><pre class='cd'>void bt(state) {
+    if (complete) { save a COPY of the path; return; }
+    for (choice : choices) {
+        if (!valid) continue;       // prune
+        make choice;  bt(next);  undo choice;
+    }
+}</pre>
+<h3>2. Subsets (2&#8319; results)</h3><pre class='cd'>void bt(int[] a, int start, List&lt;Integer&gt; cur, List&lt;List&lt;Integer&gt;&gt; res) {
+    res.add(new ArrayList&lt;&gt;(cur));
+    for (int i = start; i &lt; a.length; i++) {
+        cur.add(a[i]); bt(a, i + 1, cur, res); cur.remove(cur.size() - 1);
+    }
+}</pre>
+<h3>3. Permutations (n! results)</h3><pre class='cd'>void bt(int[] a, boolean[] used, List&lt;Integer&gt; cur, List&lt;List&lt;Integer&gt;&gt; res) {
+    if (cur.size() == a.length) { res.add(new ArrayList&lt;&gt;(cur)); return; }
+    for (int i = 0; i &lt; a.length; i++) {
+        if (used[i]) continue;
+        used[i] = true; cur.add(a[i]); bt(a, used, cur, res); cur.remove(cur.size() - 1); used[i] = false;
+    }
+}</pre>
+<h3>4. Combination Sum (reuse allowed)</h3><pre class='cd'>void bt(int[] c, int start, int remain, List&lt;Integer&gt; cur, List&lt;List&lt;Integer&gt;&gt; res) {
+    if (remain == 0) { res.add(new ArrayList&lt;&gt;(cur)); return; }
+    for (int i = start; i &lt; c.length; i++) {
+        if (c[i] &gt; remain) continue;
+        cur.add(c[i]); bt(c, i, remain - c[i], cur, res); cur.remove(cur.size() - 1);   // i, not i + 1
+    }
+}</pre>
+<h3>5. N-Queens (count solutions)</h3><pre class='cd'>int solve(int r, int n, Set&lt;Integer&gt; cols, Set&lt;Integer&gt; d1, Set&lt;Integer&gt; d2) {
+    if (r == n) return 1;
+    int total = 0;
+    for (int c = 0; c &lt; n; c++) {
+        if (cols.contains(c) || d1.contains(r - c) || d2.contains(r + c)) continue;
+        cols.add(c); d1.add(r - c); d2.add(r + c);
+        total += solve(r + 1, n, cols, d1, d2);
+        cols.remove(c); d1.remove(r - c); d2.remove(r + c);
+    }
+    return total;
+}</pre><p>Cells on one diagonal share r - c; on the other, r + c.</p><ul><li>With duplicate values: sort first and skip a value equal to the previous one at the same level.</li><li>Always add a copy of the path, never the live list.</li></ul>`;
+
+FN["5_8"]=`<h3>1. When DP applies</h3><p>Use dynamic programming when the problem has <b>overlapping subproblems</b> and <b>optimal substructure</b>. Method: define the state, write the transition, set the base cases, decide the fill order.</p><table><tr><th>Memoisation</th><th>Tabulation</th></tr><tr><td>Top-down recursion plus a cache</td><td>Bottom-up loop filling a table</td></tr><tr><td>Computes only needed states</td><td>No recursion depth problem</td></tr></table>
+<h3>2. Climbing Stairs</h3><pre class='cd'>int a = 1, b = 1;                      // ways to reach step 0 and 1
+for (int i = 2; i &lt;= n; i++) { int c = a + b; a = b; b = c; }
+return b;                              // dp[i] = dp[i-1] + dp[i-2]</pre>
+<h3>3. House Robber</h3><pre class='cd'>int take = 0, skip = 0;
+for (int x : a) { int next = Math.max(skip, take + x); take = skip; skip = next; }
+return skip;                           // dp[i] = max(dp[i-1], dp[i-2] + a[i])</pre>
+<h3>4. Coin Change (fewest coins)</h3><pre class='cd'>int[] dp = new int[amount + 1];
+Arrays.fill(dp, amount + 1);           // acts as infinity
+dp[0] = 0;
+for (int s = 1; s &lt;= amount; s++)
+    for (int c : coins) if (c &lt;= s) dp[s] = Math.min(dp[s], dp[s - c] + 1);
+return dp[amount] &gt; amount ? -1 : dp[amount];</pre>
+<h3>5. Longest Increasing Subsequence</h3><pre class='cd'>int[] dp = new int[n]; int best = 1;
+Arrays.fill(dp, 1);
+for (int i = 1; i &lt; n; i++) {
+    for (int j = 0; j &lt; i; j++) if (a[j] &lt; a[i]) dp[i] = Math.max(dp[i], dp[j] + 1);
+    best = Math.max(best, dp[i]);
+}   // O(n^2). O(n log n) version: keep a sorted tails list and binary search.</pre><ul><li>If dp[i] needs only the last one or two values, keep variables instead of an array.</li><li>Write the base case first.</li></ul>`;
+
+FN["5_9"]=`<h3>1. Unique Paths (grid)</h3><pre class='cd'>int[][] dp = new int[m][n];
+for (int r = 0; r &lt; m; r++) for (int c = 0; c &lt; n; c++)
+    dp[r][c] = (r == 0 || c == 0) ? 1 : dp[r - 1][c] + dp[r][c - 1];
+return dp[m - 1][n - 1];</pre>
+<h3>2. Longest Common Subsequence</h3><p>dp[i][j] = LCS length of the first i characters of s and the first j of t.</p><pre class='cd'>int[][] dp = new int[s.length() + 1][t.length() + 1];
+for (int i = 1; i &lt;= s.length(); i++)
+    for (int j = 1; j &lt;= t.length(); j++)
+        dp[i][j] = s.charAt(i - 1) == t.charAt(j - 1)
+                 ? dp[i - 1][j - 1] + 1
+                 : Math.max(dp[i - 1][j], dp[i][j - 1]);</pre><p>"abcde" and "ace" give 3. O(mn) time and space.</p>
+<h3>3. 0/1 Knapsack</h3><p>Each item is used at most once. dp[w] = best value with capacity w.</p><pre class='cd'>int[] dp = new int[W + 1];
+for (int i = 0; i &lt; n; i++)
+    for (int w = W; w &gt;= wt[i]; w--)               // go DOWNWARD so an item is used once
+        dp[w] = Math.max(dp[w], dp[w - wt[i]] + val[i]);</pre>
+<h3>4. Edit Distance</h3><pre class='cd'>for (int i = 0; i &lt;= m; i++) dp[i][0] = i;
+for (int j = 0; j &lt;= n; j++) dp[0][j] = j;
+for (int i = 1; i &lt;= m; i++) for (int j = 1; j &lt;= n; j++)
+    dp[i][j] = a.charAt(i - 1) == b.charAt(j - 1)
+             ? dp[i - 1][j - 1]
+             : 1 + Math.min(dp[i - 1][j - 1], Math.min(dp[i - 1][j], dp[i][j - 1]));   // replace, delete, insert</pre>
+<h3>5. Habits</h3><ul><li>Draw the table for a small example before coding.</li><li>A downward inner loop gives 0/1 knapsack; an upward loop allows unlimited use of an item.</li><li>Row i depends only on row i - 1 in many problems, so keep two rows to save space.</li></ul>`;
+
+FN["5_10"]=`<h3>Mock online assessment: 3 problems, 90 minutes</h3>
+<h3>1. Time plan</h3><table><tr><th>Phase</th><th>Minutes</th></tr><tr><td>Read all three, rank by confidence</td><td>5</td></tr><tr><td>Easiest problem</td><td>15 to 20</td></tr><tr><td>Medium problem</td><td>30 to 35</td></tr><tr><td>Hardest problem (partial credit is fine)</td><td>25 to 30</td></tr><tr><td>Final checks of every submission</td><td>5</td></tr></table>
+<h3>2. Pick unseen problems</h3><p>One from trees or graphs, one from heaps, greedy or intervals, and one DP or backtracking. No hints, no notes, one sitting.</p>
+<h3>3. Pattern clues</h3><table><tr><th>Clue</th><th>Pattern</th></tr><tr><td>Hierarchy, left and right, depth</td><td>Tree DFS or BFS</td></tr><tr><td>Grid of cells, regions, spreading</td><td>Grid DFS or multi-source BFS</td></tr><tr><td>Dependencies, ordering</td><td>Topological sort</td></tr><tr><td>Connected or not, merging groups</td><td>Union-Find</td></tr><tr><td>Cheapest route, weights</td><td>Dijkstra</td></tr><tr><td>K largest, K smallest, merge sorted streams</td><td>Heap</td></tr><tr><td>Count or generate all arrangements</td><td>Backtracking</td></tr><tr><td>Min or max with choices, repeated subproblems</td><td>DP</td></tr></table>
+<h3>4. After the mock</h3><p>For each problem write: pattern, time taken, complexity, and what blocked you. Re-solve any failed problem in Day 12.</p>`;
+
+FN["5_11"]=`<h3>Month 6 review</h3>
+<h3>1. Redo from scratch</h3><p>List every problem you got wrong or needed a hint for this month, label each by pattern, and solve it again without notes. It counts as learned when you can repeat it a week later.</p>
+<h3>2. Complexity cheat-sheet</h3><table><tr><th>Topic</th><th>Time</th><th>Space</th></tr><tr><td>Tree traversal</td><td>O(n)</td><td>O(h)</td></tr><tr><td>BST search, insert, delete</td><td>O(h)</td><td>O(h)</td></tr><tr><td>Heap offer, poll</td><td>O(log n)</td><td>O(n)</td></tr><tr><td>Top-K with heap</td><td>O(n log k)</td><td>O(k)</td></tr><tr><td>BFS or DFS</td><td>O(V + E)</td><td>O(V)</td></tr><tr><td>Kahn topological sort</td><td>O(V + E)</td><td>O(V)</td></tr><tr><td>Dijkstra</td><td>O((V + E) log V)</td><td>O(V)</td></tr><tr><td>Union-Find operation</td><td>almost O(1)</td><td>O(n)</td></tr><tr><td>Subsets / permutations</td><td>O(2&#8319;) / O(n!)</td><td>O(n)</td></tr><tr><td>LCS, edit distance</td><td>O(mn)</td><td>O(mn)</td></tr></table>
+<h3>3. Recall questions (answer aloud)</h3><ul><li>Why is inorder of a BST sorted?</li><li>Why must Dijkstra weights be non-negative?</li><li>How does Kahn detect a cycle?</li><li>Why does 0/1 knapsack loop downward?</li><li>When does greedy fail?</li></ul>
+<h3>4. Plan</h3><p>Pick your two weakest patterns and solve 5 more problems of each next week; log any miss in the Mistake Book.</p>`;
+
+/* PACK M6-MCQ: hand-made sets for Month 6 (DSA II in Java). */
+QB[5]=[[
+"Inorder traversal visits nodes in what order?~Node, left, right~Left, node, right~Left, right, node~Level by level~1~That is preorder.~Left, node, right.~That is postorder.~That is BFS.",
+"Which traversal gives sorted output for a BST?~Preorder~Inorder~Postorder~Level order~1~Not sorted.~Inorder is sorted.~Not sorted.~Not sorted.",
+"Level order traversal uses?~Stack~Queue~Heap~Set~1~That is DFS.~BFS uses a queue.~Not needed.~Not needed.",
+"Why read queue.size() before the inner loop?~To separate levels~Faster~Avoid null~Sort~0~Size fixes the level length.~Not speed.~Null is checked separately.~Not sorting.",
+"Recursive DFS space on a balanced tree?~O(1)~O(log n)~O(n)~O(n^2)~1~Stack grows with height.~Height is log n.~That is skewed.~Not quadratic.",
+"maxDepth(null) returns?~-1~0~1~null~1~Depth of empty is 0.~Base case is 0.~Not 1.~An int is returned.",
+"A tree where every node has one child is called?~Balanced~Skewed~Complete~Full~1~Not balanced.~Height equals n.~Not complete.~Not full.",
+"Postorder is best for?~Processing children before the parent~Sorting~Level counts~Shortest path~0~Left, right, then node.~Inorder sorts.~BFS gives levels.~BFS gives shortest.",
+"Time to traverse all n nodes?~O(log n)~O(n)~O(n^2)~O(1)~1~Every node is visited.~Each node once.~Not quadratic.~Not constant.",
+"Invert Binary Tree does what?~Swaps left and right children~Deletes leaves~Sorts values~Doubles height~0~It mirrors the tree.~Nothing is deleted.~Values are unchanged.~Height is unchanged."],[
+"What is the BST property?~Left smaller, right larger~Left larger, right smaller~Both equal~Random~0~Left subtree smaller, right larger.~That is reversed.~Duplicates aside, they differ.~It is ordered.",
+"Search cost in a balanced BST?~O(1)~O(log n)~O(n)~O(n^2)~1~Not constant.~Height halves each step.~That is skewed.~Not quadratic.",
+"Search cost in a skewed BST?~O(log n)~O(n)~O(1)~O(n^2)~1~That is balanced.~Height equals n.~Not constant.~Not quadratic.",
+"Deleting a node with two children replaces it with?~Its parent~Inorder successor~The root~Largest leaf~1~Parent is not used.~Smallest value in the right subtree.~Root is unrelated.~Not required.",
+"To validate a BST you must?~Only check children~Carry lower and upper bounds~Count nodes~Sort first~1~Deeper nodes can break rules.~Bounds apply to whole subtrees.~Count is irrelevant.~Not needed.",
+"LCA in a BST when both values are smaller than root?~Return root~Go left~Go right~Stop~1~The split point is where values divide.~Both lie in the left subtree.~Wrong side.~Keep searching.",
+"Kth smallest in a BST uses?~Inorder traversal~Preorder~Postorder~Heap only~0~Inorder yields sorted order.~Not sorted.~Not sorted.~Not needed.",
+"Java's TreeMap is a?~Hash table~Red-black tree~Linked list~Heap~1~That is HashMap.~A balanced BST.~Not a list.~Not a heap.",
+"Why use long bounds when validating?~Values may equal Integer.MIN_VALUE~Speed~Sorting~Recursion~0~Int bounds break edge values.~Not about speed.~Not about sorting.~Not about recursion.",
+"Inserting into a BST costs?~O(1)~O(h)~O(n log n)~O(n^2)~1~Not constant.~Walk down the height.~Too high.~Too high."],[
+"The default PriorityQueue in Java is?~Max-heap~Min-heap~Sorted list~Stack~1~Not max by default.~Smallest comes first.~Not a sorted list.~Not a stack.",
+"How do you get a max-heap?~new PriorityQueue<>(Collections.reverseOrder())~new MaxHeap()~Sort first~Use Stack~0~Reverse comparator.~Not a Java class.~Too slow.~Not a heap.",
+"poll() on a heap costs?~O(1)~O(log n)~O(n)~O(n^2)~1~peek is O(1).~It sifts down.~Not linear.~Not quadratic.",
+"Kth largest uses a heap of size k that is?~Max-heap~Min-heap~Sorted array~Queue~1~Wrong orientation.~The smallest of the k sits at the root.~Not needed.~Not needed.",
+"Time for Kth largest with a size-k heap?~O(n)~O(n log k)~O(n^2)~O(log n)~1~Each offer costs log k.~n offers of log k each.~Too high.~Too low.",
+"Parent of index i in an array heap (0-indexed)?~i/2~(i - 1)/2~2i~i + 1~1~That is for 1-indexed.~0-indexed parent.~That is a child.~Not the parent.",
+"Merge K sorted lists best uses?~A min-heap of list heads~Stack~Queue~HashMap~0~Take the smallest head each time.~Not suitable.~Not suitable.~Not suitable.",
+"peek() on a heap costs?~O(log n)~O(1)~O(n)~O(n log n)~1~The root is direct.~Root access is immediate.~Not linear.~Not that high.",
+"Building a heap from n items costs?~O(n)~O(n^2)~O(n log n) always~O(log n)~0~Heapify is linear.~Not quadratic.~Heapify beats this.~Too low.",
+"Last Stone Weight uses?~Max-heap~Min-heap~Stack~Binary search~0~Take the two largest each time.~Needs the largest.~Not suitable.~Not suitable."],[
+"Adjacency list space is?~O(V^2)~O(V + E)~O(E^2)~O(1)~1~That is a matrix.~Vertices plus edges.~Not squared edges.~Not constant.",
+"BFS gives shortest paths in?~Weighted graphs~Unweighted graphs~Graphs with negatives~Trees only~1~Weights break it.~Each edge counts as one step.~Not for negatives.~It works on any unweighted graph.",
+"BFS uses?~Stack~Queue~Heap~Set only~1~That is DFS.~It processes level by level.~That is Dijkstra.~Visited is separate.",
+"Why keep a visited set?~To avoid revisiting nodes~To sort nodes~To save memory~To count edges~0~Cycles would loop forever.~Not sorting.~It uses memory.~Not counting.",
+"Number of Islands counts?~Connected groups of land cells~Water cells~Rows~Edges~0~Each DFS start is one island.~Water is not counted.~Not rows.~Not edges.",
+"Multi-source BFS starts with?~One node~All sources in the queue~An empty queue~A stack~1~That is single source.~Rotting Oranges starts with all rotten ones.~It needs sources.~Not DFS.",
+"DFS or BFS time on a graph?~O(V)~O(V + E)~O(E^2)~O(V^2) always~1~Edges count too.~Visit nodes and edges.~Not squared.~Not for lists.",
+"For an undirected edge you add?~One direction~Both directions~No edges~A weight only~1~It needs both ways.~Both nodes list each other.~Edges are needed.~Not required.",
+"Flood Fill should stop if?~New color equals old color~The grid is large~A cell is white~It always continues~0~It would loop forever.~Size is irrelevant.~Color of cell is irrelevant.~It needs a stop.",
+"Connected components are counted by?~Starting a DFS from each unseen node~Sorting~Heap~Two pointers~0~Each start is a component.~Not sorting.~Not a heap.~Not two pointers."],[
+"Topological sort works on?~Any graph~Directed acyclic graphs~Undirected graphs~Trees only~1~Cycles break it.~It needs a DAG.~Direction matters.~It works on DAGs generally.",
+"Kahn's algorithm starts with nodes of in-degree?~0~1~2~Maximum~0~They have no prerequisites.~Not one.~Not two.~Not the maximum.",
+"How does Kahn detect a cycle?~Processed count is less than n~The queue is full~The graph is large~Visited is empty~0~Cycle nodes never reach in-degree 0.~Queue size is unrelated.~Size is unrelated.~Not the test.",
+"Course Schedule asks whether?~All courses can be finished~Shortest path exists~Max flow~Minimum tree~0~Equivalent to having no cycle.~Not shortest path.~Not flow.~Not a tree.",
+"find() with path compression makes later finds?~Slower~Faster~The same~Impossible~1~They improve.~The tree flattens.~They improve.~They are possible.",
+"union(a, b) returns false when?~They are already connected~They are different~The graph is empty~The rank is zero~0~Same root already.~Different roots merge.~Not related.~Not related.",
+"Redundant Connection is found by?~First edge whose union fails~The last edge~Sorting edges~Dijkstra~0~That edge closes a cycle.~Not last by definition.~Not needed.~Not needed.",
+"Number of Provinces equals?~Components after unions~Edge count~Node count~Max degree~0~n minus successful unions.~Not edges.~Not nodes.~Not degree.",
+"Union by rank keeps trees?~Short~Tall~Empty~Cyclic~0~Attach the smaller under the larger.~Opposite.~Not empty.~Not cyclic.",
+"Kahn's algorithm runs in?~O(V + E)~O(V^2)~O(E^2)~O(log V)~0~Each node and edge once.~Not squared.~Not squared.~Too low."],[
+"Dijkstra requires edge weights to be?~Negative~Non-negative~All equal~Integers only~1~It breaks with negatives.~Needed for correctness.~Not required to be equal.~Not required to be integers.",
+"Dijkstra uses which structure?~Queue~Min-heap~Stack~Set~1~BFS uses a queue.~Closest node first.~Not a stack.~Not a set.",
+"Time of Dijkstra with a heap?~O(V)~O((V + E) log V)~O(V^2 E)~O(1)~1~Too low.~Heap operations per edge.~Too high.~Not constant.",
+"Why skip when d > dist[u]?~The entry is stale~The graph is cyclic~The heap is empty~Speed only~0~A shorter path was already found.~Not about cycles.~Empty ends the loop.~Correctness matters too.",
+"Unweighted shortest path uses?~BFS~Dijkstra only~Bellman-Ford~Kruskal~0~BFS is enough.~Overkill.~Overkill.~Not for paths.",
+"Negative edges need?~Bellman-Ford~Dijkstra~BFS~DFS~0~It handles negatives.~It fails.~It fails.~Not for shortest paths.",
+"Network Delay Time answer is?~Sum of dist~Maximum of dist~Minimum of dist~Count of nodes~1~Not a sum.~The last node to receive the signal.~Not the minimum.~Not a count.",
+"Initial dist for unreachable nodes?~0~A very large value~The source~A negative~1~Zero means reached.~Large so relaxation works.~The source is 0.~Negatives break relaxation.",
+"Relaxing an edge means?~Updating to a shorter distance~Deleting the edge~Reversing the edge~Adding an edge~0~dist[v] = dist[u] + w if smaller.~Not deleting.~Not reversing.~Not adding.",
+"Path with Minimum Effort cost uses?~Largest step on the path~Sum of steps~Count of steps~Average~0~Use max instead of sum.~Not a sum.~Not a count.~Not an average."],[
+"Greedy means?~Choose best now and keep it~Try all choices~Sort only~Use recursion~0~No undoing.~That is backtracking.~Sorting may help but is not it.~Not required.",
+"Merge Intervals first step?~Sort by start~Sort by end~Use a heap~Use a stack~0~Needed to merge neighbours.~A different problem.~Not required.~Not required.",
+"Non-overlapping Intervals sorts by?~Start~End~Length~Random~1~Start is not optimal.~Earliest finish leaves room.~Length fails.~It needs order.",
+"Intervals to remove equals?~n minus kept~Kept~n~Zero~0~Total minus kept.~Kept is the count to keep.~Not all.~Not always.",
+"Jump Game tracks?~Farthest reach~Minimum jumps~Sum~Average~0~Reach so far.~That is Jump Game II.~Not a sum.~Not an average.",
+"Jump Game fails when?~i > reach~reach > i~Array is sorted~Array is empty~0~You cannot get to i.~That is fine.~Unrelated.~Trivial case.",
+"Meeting Rooms II needs?~Min rooms via sorted starts and ends~Max gaps~Sum~A graph~0~Sweep with counters.~Not gaps.~Not a sum.~Not a graph.",
+"Greedy fails for?~Arbitrary coin change~Interval scheduling~Jump Game~Merge Intervals~0~It needs DP.~Greedy works.~Greedy works.~Greedy works.",
+"Merge intervals overlap when?~Last end >= current start~Last start >= current end~Always~Never~0~They touch or overlap.~Wrong direction.~Not always.~Not never.",
+"Activity selection picks?~Earliest finishing activity~Longest activity~Random~Latest start~0~It maximises remaining time.~Longest hurts.~Not random.~Not optimal."],[
+"Backtracking pattern is?~Choose, explore, unchoose~Sort, merge~Read, write~Push, pop only~0~Undo after exploring.~Not sorting.~Not I/O.~Not enough.",
+"Subsets of n items count?~n~n^2~2^n~n!~2~Too small.~Too small.~Each item is in or out.~That is permutations.",
+"Permutations of n items count?~2^n~n!~n^2~n~1~That is subsets.~All orderings.~Too small.~Too small.",
+"Why add new ArrayList<>(cur)?~The path changes later~Speed~Sorting~Memory~0~A live reference would change.~Not speed.~Not sorting.~Not memory.",
+"Combination Sum allows reuse by recursing with?~i~i + 1~start + 1~0~0~Same index again.~That forbids reuse.~Not reuse.~Not right.",
+"N-Queens diagonal check uses?~r - c and r + c~r only~c only~r * c~0~Each diagonal has a constant value.~Not enough.~Not enough.~Not right.",
+"Pruning means?~Stopping branches that cannot work~Adding branches~Sorting~Caching~0~Saves time.~Opposite.~Not sorting.~That is memoisation.",
+"With duplicate values you first?~Sort and skip equal siblings~Use a heap~Use a queue~Use BFS~0~Avoid repeated results.~Not needed.~Not needed.~Not needed.",
+"Permutations track used items with?~A boolean array~A queue~A stack only~A heap~0~Mark chosen items.~Not needed.~Not needed.~Not needed.",
+"Backtracking is?~DFS over choices~BFS over levels~Greedy~Binary search~0~It explores depth first.~Not BFS.~Not greedy.~Not search."],[
+"DP needs?~Overlapping subproblems~Sorted input~Graphs~Trees~0~Repeated work is saved.~Not required.~Not required.~Not required.",
+"Climbing Stairs recurrence?~dp[i] = dp[i-1] + dp[i-2]~dp[i] = 2 * dp[i-1]~dp[i] = i~dp[i] = max(i, 1)~0~Last step is 1 or 2.~Wrong.~Wrong.~Wrong.",
+"House Robber recurrence?~max(dp[i-1], dp[i-2] + a[i])~dp[i-1] + a[i]~min of both~Sum of all~0~Skip or take.~Adjacent houses not allowed.~Not min.~Not the sum.",
+"Coin Change base dp[0]?~0~1~Infinity~-1~0~Zero coins make zero.~Not 1.~Not infinity.~Not -1.",
+"Why fill dp with amount + 1?~It acts as infinity~Speed~Sorting~Memory~0~Larger than any answer.~Not speed.~Not sorting.~Not memory.",
+"Memoisation is?~Top-down with a cache~Bottom-up~Greedy~Sorting~0~Recursion plus a map.~That is tabulation.~Different.~Different.",
+"LIS simple DP time?~O(n)~O(n^2)~O(log n)~O(n^3)~1~Too fast.~Pair loops.~Too fast.~Too slow.",
+"LIS dp[i] means?~Longest ending at i~Longest starting at i~Count~Sum~0~It ends at index i.~Not starts.~Not a count.~Not a sum.",
+"If dp[i] uses only two previous values you can?~Keep two variables~Use a heap~Use a queue~Sort~0~Rolling variables.~Not needed.~Not needed.~Not needed.",
+"Climbing Stairs ways for n = 4?~3~5~4~8~1~That is n = 3.~1+1+1+1, 1+1+2 (3 orders), 2+2 gives 5.~Not 4.~Not 8."],[
+"Unique Paths in a 3 x 3 grid?~4~6~9~3~1~Not 4.~C(4,2) = 6.~Not 9.~Not 3.",
+"LCS dp[i][j] when characters match?~dp[i-1][j-1] + 1~Max of neighbours~0~dp[i][j-1]~0~Extend the diagonal.~That is the mismatch case.~Not zero.~Not this.",
+"LCS of abcde and ace?~2~3~4~5~1~ace is longer.~ace has 3 characters.~Too long.~Too long.",
+"0/1 knapsack inner loop goes?~Downward~Upward~Either~Random~0~Uses each item once.~Upward allows reuse.~It matters.~It matters.",
+"Edit Distance operations?~Insert, delete, replace~Sort only~Swap only~Delete only~0~Three operations.~Not sorting.~Not only swap.~Not only delete.",
+"Edit Distance base dp[i][0]?~i~0~1~Infinity~0~Delete i characters.~Zero only when i is 0.~Not 1.~Not infinity.",
+"LCS table size for lengths m and n?~(m+1) x (n+1)~m x n~m + n~n only~0~Extra row and column for the empty prefix.~Misses the empty prefix.~Not a sum.~Not n only.",
+"Knapsack time with n items and capacity W?~O(nW)~O(n)~O(W)~O(2^n)~0~Each item and capacity.~Too small.~Too small.~That is brute force.",
+"Space can shrink when row i depends on?~Row i - 1 only~All rows~Random rows~Column only~0~Two rows are enough.~Cannot save.~Not typical.~Not typical.",
+"Edit Distance on a mismatch uses?~1 + min of three neighbours~Max~Sum~Zero~0~Replace, delete, insert.~Not max.~Not sum.~Not zero."],[
+"First step in the mock?~Read all and rank problems~Code immediately~Skip~Sleep~0~Plan your time.~Rushing wastes time.~Skipping loses marks.~Irrelevant.",
+"Grid regions and spreading suggests?~DFS or BFS on the grid~Heap~Binary search~Greedy~0~Cells are nodes.~Not a heap.~Not search.~Not greedy.",
+"Dependencies and ordering suggests?~Topological sort~Dijkstra~DP~Backtracking~0~Prerequisites form a DAG.~Weights are absent.~Not DP.~Not search.",
+"Cheapest route with weights suggests?~Dijkstra~BFS~Union-Find~Stack~0~Non-negative weights.~Only unweighted.~Not connectivity.~Not routes.",
+"K largest suggests?~Heap~Stack~Queue~Graph~0~A size-k heap.~Not suitable.~Not suitable.~Not suitable.",
+"Count all arrangements suggests?~Backtracking~Greedy~Union-Find~Binary search~0~Explore choices.~Not an optimal choice.~Not connectivity.~Not sorted.",
+"Min or max with repeated subproblems suggests?~DP~Sorting~Stack~Queue~0~Cache sub-results.~Not enough.~Not suitable.~Not suitable.",
+"If stuck on the hardest problem?~Submit partial credit and move on~Quit~Skip all~Guess everything~0~Partial marks count.~Do not quit.~Manage your time.~Be selective.",
+"After a mock write?~Pattern, time, complexity, blocker~Nothing~Score only~The date~0~It builds learning.~You forget quickly.~Not enough.~Not enough.",
+"90 minutes for 3 problems means about?~30 minutes each~5 minutes each~90 each~10 each~0~A balanced plan with checks.~Too short.~Not possible.~Too short."],[
+"Why is BST inorder sorted?~Left < node < right~Random~Heap order~Hash order~0~Order follows the property.~Not random.~Not a heap.~Not hashing.",
+"Dijkstra fails with?~Negative weights~Cycles~Directed edges~Grids~0~Greedy relaxation breaks.~Cycles are fine.~Directed is fine.~Grids are fine.",
+"Kahn detects a cycle by?~Processed less than n~Heap size~Edge count~Visited only~0~Cycle nodes remain.~Not heap.~Not count.~Not just visited.",
+"0/1 knapsack loops downward to?~Use each item once~Save time~Sort~Break~0~It prevents reuse.~Not speed.~Not sorting.~Not breaking.",
+"Greedy fails when?~A local choice is not globally safe~Input is sorted~The array is small~Always~0~The coin change example.~Not the condition.~Not the condition.~Not always.",
+"Top-K with a heap takes?~O(n log k)~O(n^2)~O(k)~O(1)~0~n offers of log k.~Too high.~Too low.~Too low.",
+"BFS vs DFS for shortest unweighted path?~BFS~DFS~Both equal~Neither~0~Level by level.~Not shortest.~BFS only.~BFS works.",
+"Union-Find operation cost?~Almost O(1)~O(n)~O(n^2)~O(log^2 n) always~0~With path compression and rank.~Without optimisation.~Not that.~Not typical.",
+"Backtracking subsets count?~2^n~n!~n^2~n~0~Each element in or out.~That is permutations.~Too small.~Too small.",
+"For a weak pattern you should?~Solve 5 more of that type~Skip it~Only reread~Memorise~0~Practice fixes gaps.~Gaps remain.~Passive.~Understanding beats memory."]];
+
+FN["6_0"]=`<h3>1. Process and PCB</h3><p>A <b>program</b> is a file on disk; a <b>process</b> is a program running. States: <b>new, ready, running, waiting, terminated</b>. The OS keeps a <b>PCB (process control block)</b> per process: PID, state, program counter, CPU registers, memory info, open files, scheduling info.</p><h3>2. Context switch</h3><p>The OS saves the running process's state into its PCB and loads the next process's state. It is pure overhead: no useful work happens during the switch.</p><h3>3. Process vs thread</h3><table><tr><th></th><th>Process</th><th>Thread</th></tr><tr><td>Memory</td><td>Own address space</td><td>Shares code, data, heap and files with its process</td></tr><tr><td>Owns</td><td>Everything</td><td>Own stack, registers, program counter</td></tr><tr><td>Creation and switch cost</td><td>High</td><td>Low</td></tr><tr><td>Communication</td><td>IPC needed</td><td>Shared memory (needs synchronisation)</td></tr><tr><td>A crash</td><td>Isolated</td><td>Can bring down the whole process</td></tr></table><p><b>IPC:</b> pipes, message queues, shared memory, sockets.</p><h3>4. Interview questions</h3><ul><li>Process vs thread? Why is a thread switch cheaper? (no change of address space)</li><li>What is saved in a context switch?</li><li>What is a zombie process? (finished, but the parent has not read its exit status)</li></ul><p><b>Tasks:</b> list processes with ps aux; run a Java program with two threads and note that they share static fields.</p>`;
+FN["6_1"]=`<h3>1. Terms and formulas</h3><p><b>Formula (turnaround time):</b> turnaround = completion &minus; arrival.</p><p><b>Formula (waiting time):</b> waiting = turnaround &minus; burst.</p><p>Goals: high CPU use and throughput, low waiting, turnaround and response time.</p><h3>2. Algorithms</h3><table><tr><th>Algorithm</th><th>Idea</th><th>Watch out</th></tr><tr><td>FCFS</td><td>First come, first served; non-preemptive</td><td>Convoy effect: short jobs stuck behind a long one</td></tr><tr><td>SJF</td><td>Shortest burst next; gives the lowest average waiting time</td><td>Starvation of long jobs; needs burst estimates</td></tr><tr><td>SRTF</td><td>Preemptive SJF</td><td>More context switches</td></tr><tr><td>Priority</td><td>Highest priority first</td><td>Starvation; fix with <b>aging</b></td></tr><tr><td>Round Robin</td><td>Each process gets a time quantum, then goes to the back</td><td>Big quantum acts like FCFS; tiny quantum wastes time switching</td></tr></table><h3>3. Worked example</h3><p>P1, P2, P3 all arrive at 0 with bursts 5, 3, 8.</p><table><tr><th>Algorithm</th><th>Completion (P1, P2, P3)</th><th>Waiting (P1, P2, P3)</th><th>Average waiting</th></tr><tr><td>FCFS</td><td>5, 8, 16</td><td>0, 5, 8</td><td>${fr("0 + 5 + 8","3")} = 4.33</td></tr><tr><td>SJF</td><td>8, 3, 16</td><td>3, 0, 8</td><td>${fr("3 + 0 + 8","3")} = 3.67</td></tr><tr><td>Round Robin, quantum 4</td><td>12, 7, 16</td><td>7, 4, 8</td><td>${fr("7 + 4 + 8","3")} = 6.33</td></tr></table><p>Check the Round Robin row: P1 runs 0 to 4, P2 4 to 7 (done), P3 7 to 11, P1 11 to 12 (done), P3 12 to 16 (done). Waiting = completion &minus; burst (arrival is 0): P1 12 &minus; 5 = 7, P2 7 &minus; 3 = 4, P3 16 &minus; 8 = 8.</p><p><b>Tasks:</b> redo the example with arrival times 0, 1, 2; draw each Gantt chart; explain why SJF has the lowest average waiting time but is hard to use in practice.</p>`;
+FN["6_2"]=`<h3>1. Critical section problem</h3><p>When processes share data, the code that touches it is a <b>critical section</b>. A correct solution gives <b>mutual exclusion</b>, <b>progress</b> (no needless blocking) and <b>bounded waiting</b> (no starvation).</p><h3>2. Mutex and semaphores</h3><ul><li><b>Mutex:</b> a lock owned by one thread at a time.</li><li><b>Semaphore:</b> an integer with two atomic operations, wait (P) decreases and blocks at 0, signal (V) increases. <b>Binary</b> (0 or 1) or <b>counting</b> (N identical resources).</li></ul><pre class='cd'>// Producer-consumer with a buffer of N slots
+semaphore mutex = 1, empty = N, full = 0;
+
+producer:  wait(empty); wait(mutex); add item;    signal(mutex); signal(full);
+consumer:  wait(full);  wait(mutex); remove item; signal(mutex); signal(empty);</pre><p>Classic problems: producer-consumer, readers-writers, dining philosophers.</p><h3>3. Deadlock</h3><p>Deadlock needs all four <b>Coffman conditions</b>: mutual exclusion, hold and wait, no preemption, circular wait.</p><table><tr><th>Approach</th><th>How</th></tr><tr><td>Prevention</td><td>Break one condition, for example always acquire resources in a fixed order</td></tr><tr><td>Avoidance</td><td>Grant a request only if the system stays in a <b>safe state</b> (Banker's algorithm)</td></tr><tr><td>Detection and recovery</td><td>Find a cycle in the resource-allocation graph, then kill or roll back a process</td></tr><tr><td>Ignore</td><td>Used by most general-purpose systems (the ostrich approach)</td></tr></table><p><b>Deadlock vs starvation:</b> in deadlock nobody can proceed; in starvation one process waits indefinitely while others run.</p><p><b>Tasks:</b> explain why the order of wait(empty) and wait(mutex) matters (swap them and the producer can hold the mutex while blocked on empty, causing deadlock); link this to your Java threads lesson.</p>`;
+FN["6_3"]=`<h3>1. Basics</h3><p>The CPU uses <b>logical addresses</b>; the memory unit uses <b>physical addresses</b>; the MMU translates. <b>Fragmentation:</b> internal (wasted space inside an allocated block) and external (free space split into small pieces).</p><h3>2. Paging</h3><p>Memory is split into fixed-size <b>frames</b>; a process into <b>pages</b> of the same size. A <b>page table</b> maps page to frame, which removes external fragmentation.</p><p><b>Formula (translation):</b> logical address = page number and offset; physical address = frame number &times; page size + offset.</p><p><b>Example:</b> page size 4096 bytes, logical address 10000. Page = 10000 div 4096 = 2; offset = 10000 &minus; 2 &times; 4096 = 1808. If page 2 is in frame 7: physical = 7 &times; 4096 + 1808 = 30480.</p><h3>3. TLB</h3><p>The <b>TLB</b> is a small fast cache of page-table entries.</p><p><b>Formula (effective access time):</b> EAT = h &times; (t + m) + (1 &minus; h) &times; (t + 2m), where h is the hit ratio, t the TLB time and m the memory time. With t = 10 ns, m = 100 ns, h = 0.9: 0.9 &times; 110 + 0.1 &times; 210 = 99 + 21 = 120 ns.</p><h3>4. Virtual memory</h3><p>With <b>demand paging</b>, a page loads only when used. A <b>page fault</b>: the page is not in memory, so the OS finds it on disk, loads it into a free frame (replacing one if needed), updates the page table and restarts the instruction.</p><ul><li><b>Replacement:</b> FIFO (simple; can show <b>Belady's anomaly</b>, where more frames cause more faults), LRU (evict the least recently used; good in practice), Optimal (evict the page needed furthest in the future; a benchmark only).</li><li><b>Thrashing:</b> so many page faults that the CPU spends its time swapping. Reduce the number of processes or use the working-set model.</li></ul><p><b>Tasks:</b> work out three more translations; trace FIFO and LRU on a reference string of your own with 3 frames and compare fault counts.</p>`;
+FN["6_4"]=`<h3>1. File systems</h3><ul><li>An <b>inode</b> stores a file's metadata (size, owner, permissions, timestamps, block pointers), not its name. A directory maps names to inodes.</li><li><b>Allocation:</b> contiguous (fast, fragments), linked (no external fragmentation, slow random access), indexed (an index block lists the data blocks).</li><li><b>Journaling</b> logs changes first so the file system can recover after a crash.</li><li><b>Hard link:</b> another name for the same inode. <b>Soft link:</b> a file that points to a path.</li></ul><h3>2. Linux commands</h3><table><tr><th>Task</th><th>Command</th></tr><tr><td>Look around</td><td>pwd, ls -l, cd, tree</td></tr><tr><td>Create, copy, move, delete</td><td>mkdir, touch, cp, mv, rm -r</td></tr><tr><td>View files</td><td>cat, less, head, tail -f</td></tr><tr><td>Search</td><td>grep -ri "text" dir, find . -name "*.log"</td></tr><tr><td>Permissions</td><td>chmod, chown</td></tr><tr><td>Processes</td><td>ps aux, top, kill PID</td></tr><tr><td>Disk</td><td>df -h, du -sh</td></tr></table><p><b>Permissions:</b> r = 4, w = 2, x = 1, for user, group, others. chmod 755 means rwxr-xr-x (7 = 4 + 2 + 1, 5 = 4 + 1).</p><h3>3. Pipes and scripts</h3><pre class='cd'>#!/bin/bash
+for f in *.log; do
+  echo "$f has $(wc -l &lt; "$f") lines"
+done
+
+# Most common error lines
+grep -i "error" app.log | sort | uniq -c | sort -nr | head</pre><p><b>Redirection:</b> &gt; overwrites, &gt;&gt; appends, 2&gt; sends errors. <b>Tasks:</b> write a script that counts the lines in every .java file in a folder; set permissions so only you can edit it.</p>`;
+FN["6_5"]=`<h3>1. The models</h3><table><tr><th>OSI layer</th><th>Unit</th><th>Examples</th></tr><tr><td>7 Application</td><td>Data</td><td>HTTP, DNS, SMTP, FTP</td></tr><tr><td>6 Presentation</td><td>Data</td><td>Encoding, compression, TLS</td></tr><tr><td>5 Session</td><td>Data</td><td>Session setup and teardown</td></tr><tr><td>4 Transport</td><td>Segment</td><td>TCP, UDP, ports</td></tr><tr><td>3 Network</td><td>Packet</td><td>IP, routers, routing</td></tr><tr><td>2 Data link</td><td>Frame</td><td>Ethernet, MAC address, switches</td></tr><tr><td>1 Physical</td><td>Bits</td><td>Cables, Wi-Fi signals, hubs</td></tr></table><p><b>TCP/IP model</b> (4 layers): link, internet, transport, application. Memory aid for OSI from layer 7 down: All People Seem To Need Data Processing.</p><h3>2. Key ideas</h3><ul><li><b>Encapsulation:</b> each layer adds its own header on the way down and removes it on the way up.</li><li><b>MAC address:</b> hardware address used inside a local network. <b>IP address:</b> logical address used across networks. <b>ARP</b> finds the MAC for a known IP on the same network.</li><li><b>Devices:</b> hub (repeats to everyone), switch (forwards by MAC), router (forwards between networks by IP).</li></ul><p><b>Tasks:</b> in Packet Tracer, trace a ping and name which layer each step belongs to; explain why a switch, not a hub, is used today.</p>`;
+FN["6_6"]=`<h3>1. TCP vs UDP</h3><table><tr><th></th><th>TCP</th><th>UDP</th></tr><tr><td>Connection</td><td>Connection-oriented (handshake)</td><td>Connectionless</td></tr><tr><td>Delivery</td><td>Reliable, ordered, retransmits lost data</td><td>Best effort, no guarantee</td></tr><tr><td>Control</td><td>Flow and congestion control</td><td>None</td></tr><tr><td>Speed</td><td>Slower</td><td>Faster, less overhead</td></tr><tr><td>Used for</td><td>Web, email, file transfer</td><td>DNS, video calls, streaming, games</td></tr></table><p><b>Three-way handshake:</b> SYN, then SYN-ACK, then ACK. Connection close uses FIN and ACK from both sides.</p><p><b>Common ports:</b> 80 HTTP, 443 HTTPS, 22 SSH, 53 DNS, 25 SMTP, 3306 MySQL.</p><h3>2. IP addressing and subnetting</h3><p>IPv4 is 32 bits (for example 192.168.10.5). Private ranges: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16. <b>NAT</b> lets many private hosts share one public address. IPv6 uses 128 bits.</p><p><b>Formula (hosts per subnet):</b> 2<sup>h</sup> &minus; 2, where h is the number of host bits (subtract the network and broadcast addresses).</p><p><b>Formula (number of subnets):</b> 2<sup>s</sup>, where s is the number of bits borrowed.</p><p><b>Example: 192.168.10.0/26.</b> Mask 255.255.255.192. Host bits = 32 &minus; 26 = 6, so hosts = 2<sup>6</sup> &minus; 2 = 62. Block size = 64, so the subnets start at .0, .64, .128, .192. First subnet: network 192.168.10.0, usable .1 to .62, broadcast .63.</p><p><b>Tasks:</b> work out /27 and /28 yourself (30 and 14 hosts); split 192.168.1.0/24 into 4 equal subnets and configure them in Packet Tracer, as in your CN journal.</p>`;
+FN["6_7"]=`<h3>1. HTTP</h3><ul><li><b>Request:</b> method, URL, headers, optional body. <b>Response:</b> status code, headers, body.</li><li><b>Methods:</b> GET (read), POST (create), PUT (replace), PATCH (partial update), DELETE. GET, PUT and DELETE are idempotent: repeating them has the same effect.</li><li><b>Status codes:</b> 200 OK, 201 Created, 204 No Content, 301/302 redirect, 400 bad request, 401 unauthenticated, 403 forbidden, 404 not found, 500 server error, 503 unavailable.</li><li>HTTP is <b>stateless</b>; cookies, sessions or tokens (JWT) carry identity between requests.</li><li><b>HTTPS</b> is HTTP over TLS: the connection is encrypted and the server proves its identity with a certificate.</li></ul><h3>2. DNS</h3><p>Turns names into IP addresses. A resolver asks the root servers, then the TLD servers (.com), then the domain's authoritative server, and caches the answer for its <b>TTL</b>. Records: A (IPv4), AAAA (IPv6), CNAME (alias), MX (mail), NS (name server), TXT.</p><h3>3. DHCP</h3><p>Gives a device an IP address, mask, gateway and DNS server automatically. Steps: <b>Discover, Offer, Request, Acknowledge</b> (DORA).</p><h3>4. REST</h3><p>An API style built on resources (nouns in URLs such as /students/5), standard HTTP methods, stateless requests and JSON representations.</p><h3>5. What happens when you type a URL?</h3><ol><li>The browser checks its cache, then DNS finds the IP.</li><li>TCP handshake with the server.</li><li>TLS handshake (for HTTPS).</li><li>HTTP request is sent; the server processes it and replies.</li><li>The browser renders the HTML and loads CSS, JavaScript and images.</li></ol><p>Practise saying this out loud in 60 seconds; it is a very common interview question.</p>`;
+FN["6_8"]=`<h3>1. Merge vs rebase</h3><ul><li><b>merge</b> joins two branches with a merge commit and keeps history as it happened.</li><li><b>rebase</b> replays your commits on top of another branch for a straight, linear history. <b>Never rebase commits that others have already pulled.</b></li></ul><pre class='cd'>git switch -c feature/login      # new branch
+git add . &amp;&amp; git commit -m "Add login form validation"
+git fetch origin
+git rebase origin/main           # or: git merge origin/main
+git push -u origin feature/login # then open a pull request</pre><h3>2. Conflicts</h3><pre class='cd'>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+your version
+=======
+their version
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login</pre><p>Edit the file to the final text, remove the markers, then git add the file and continue the merge or rebase.</p><h3>3. Useful commands</h3><table><tr><th>Need</th><th>Command</th></tr><tr><td>Save work in progress</td><td>git stash, git stash pop</td></tr><tr><td>Take one commit from another branch</td><td>git cherry-pick HASH</td></tr><tr><td>Undo a commit safely on a shared branch</td><td>git revert HASH</td></tr><tr><td>Undo locally</td><td>git reset --soft / --mixed / --hard HEAD~1 (hard discards changes)</td></tr><tr><td>Find lost commits</td><td>git reflog</td></tr><tr><td>See history</td><td>git log --oneline --graph</td></tr><tr><td>Mark a release</td><td>git tag v1.0</td></tr></table><p><b>fetch vs pull:</b> fetch downloads changes only; pull is fetch plus merge. Keep a .gitignore, write messages that say what and why, and make small commits. <b>Task:</b> create a conflict on purpose between two branches and resolve it.</p>`;
+FN["6_9"]=`<h3>1. SDLC</h3><p>Phases: requirements, design, implementation, testing, deployment, maintenance.</p><table><tr><th></th><th>Waterfall</th><th>Agile</th></tr><tr><td>Flow</td><td>One phase after another</td><td>Short iterations with feedback</td></tr><tr><td>Change</td><td>Expensive</td><td>Welcomed</td></tr><tr><td>Delivery</td><td>At the end</td><td>Working software each iteration</td></tr><tr><td>Best when</td><td>Requirements are fixed</td><td>Requirements evolve</td></tr></table><h3>2. Scrum</h3><ul><li><b>Roles:</b> Product Owner (what and priority), Scrum Master (process and removing blockers), Developers.</li><li><b>Events:</b> Sprint (1 to 4 weeks), Sprint Planning, Daily Scrum (15 minutes), Sprint Review, Retrospective.</li><li><b>Artifacts:</b> Product Backlog, Sprint Backlog, Increment.</li><li><b>User story:</b> As a (user), I want (goal), so that (benefit). <b>Kanban</b> instead visualises work on a board and limits work in progress.</li></ul><h3>3. Testing</h3><ul><li><b>Levels:</b> unit, integration, system, acceptance.</li><li><b>Types:</b> functional, non-functional (performance, security), regression (did old features break?), smoke (does it start at all?).</li><li><b>Black-box</b> tests behaviour without the code; <b>white-box</b> uses knowledge of the code.</li><li><b>Test pyramid:</b> many unit tests, fewer integration tests, few end-to-end tests. <b>CI/CD</b> runs build and tests automatically on every push.</li></ul><p><b>Interview:</b> explain a sprint you would run for your Banking project, with 3 user stories.</p>`;
+FN["6_10"]=`<h3>Core CS self-test (answer aloud, then check)</h3><ol><li>Four OOP pillars, one line each. (Encapsulation hides data, inheritance reuses, polymorphism gives many forms, abstraction hides detail.)</li><li>Abstract class vs interface?</li><li>Overloading vs overriding? (compile-time vs runtime)</li><li>Primary key vs unique key vs foreign key?</li><li>What does 3NF remove? (transitive dependency)</li><li>ACID in one sentence each.</li><li>Why does an index speed up reads but slow writes?</li><li>Process vs thread.</li><li>FCFS vs SJF vs Round Robin: one strength each.</li><li>Four conditions for deadlock.</li><li>What is a page fault and what happens next?</li><li>TCP vs UDP, with one use for each.</li><li>What does DNS do, and what is DHCP's job?</li><li>HTTP status codes 200, 301, 404, 500.</li><li>Number of usable hosts in a /26.</li><li>Merge vs rebase.</li></ol><p>Score yourself out of 16 and add every miss to the Mistake Book.</p>`;
+FN["6_11"]=`<h3>Weak-area revision</h3><ol><li>List the topics from this month's Mistake Book and quiz misses, weakest first.</li><li>For each, write a one-page cheat sheet in your own words: definition, a diagram or example, and two interview questions.</li><li>Explain each topic aloud for 2 minutes without notes; if you stall, reread and repeat.</li><li>Redo the Core CS quiz and compare your score with the first attempt.</li><li>Add the revision dates to the Revision Queue (1, 7 and 15 days).</li></ol><p>Also tidy your notes and push any scripts to GitHub.</p>`;
 draw();
 </script></body></html>
