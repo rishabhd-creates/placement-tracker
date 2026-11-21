@@ -98,8 +98,8 @@ apt:["IndiaBix aptitude","https://www.indiabix.com/","IndiaBix tests","https://w
 hr:["STAR method guide","https://www.themuse.com/advice/star-interview-method","Pramp mock interviews","https://www.pramp.com/"],
 co:["Campus hiring on LinkedIn Jobs","https://www.linkedin.com/jobs/","Naukri Campus","https://www.naukri.com/campus"],
 dl:["Graduate and analyst openings","https://www.linkedin.com/jobs/search/?keywords=graduate%20analyst","Internshala","https://internshala.com/"]};
-const M=["Java Foundations + OOP","Advanced Java + Banking Project","SQL + DBMS (basic to advanced)","Python (data focus) + Aptitude","DSA I (Java)","DSA II (Java)","OS + Networks + Git + Agile","Web + APIs + Projects","Analyst Skills + Finance + Aptitude","Company Prep + Mocks + Applications"];
-const G=["Write clean Java OOP programs and explain all four pillars with your own example","Collections, HashMap internals, streams, exceptions, threads basics; Banking project on GitHub","SQL from basic to advanced: joins, CTEs, window functions, indexing, transactions; 100 problems","Python for data (collections, OOP, NumPy and pandas start) + aptitude speed","Solve Easy/Medium arrays to heaps in Java; study Java concurrency and JVM memory on the side","Graphs, DP, backtracking; 150 to 200 problems; 90-min mocks; modern Java and testing on the side","Explain OS, networks, Git and Agile clearly","Spring Boot + JPA backend with tests; two projects explained in 5 and 15 minutes","Advanced pandas, statistics, Power BI, finance basics; analytics project with findings","Mocks passed, resume ready, applications sent"];
+const M=["Java Foundations + OOP","Advanced Java + Banking Project","SQL + DBMS","Python + Aptitude","DSA I (Java)","DSA II (Java)","OS + Networks + Git + Agile","Web + APIs + Projects","Analyst Skills + Finance + Aptitude","Company Prep + Mocks + Applications"];
+const G=["Write clean Java OOP programs","Collections, exceptions, streams; Banking project on GitHub","Interview-level SQL and DBMS answers","Python fluency + aptitude speed","Solve Easy/Medium arrays to heaps in Java","Graphs, DP, backtracking; 90-min mocks","Explain OS, CN, Git and Agile clearly","Two projects live (e-commerce app, finance dashboard)","Excel/Power BI, finance basics, aptitude tests","Mocks passed, resume ready, applications sent"];
 const D=["arrays basics,strings basics,hashing basics,two pointers","arrays + prefix sums,strings + hashing,sorting + binary search,recursion basics","arrays + hashing,two pointers,sliding window,binary search","hashing,two pointers,sliding window,stack","hash maps,two pointers + sliding window,linked list,stack + queue","trees DFS/BFS,BST + LCA,heaps + top-K,tries + intervals","graphs BFS/DFS,topological sort + union-find,Dijkstra + greedy,backtracking","DP 1-D,DP 2-D,bit manipulation + math,mixed medium set","mixed arrays/strings,mixed trees/graphs,mixed DP,timed OA set","top-75 revision,weak-pattern revision,company-style OA sets,final mock sprint"].map(x=>x.split(","));
 const U=[
 ["Java setup (JDK, IDE), syntax, data types, I/O|java","Operators, conditions, switch|java","Loops, patterns, break/continue|java","Methods, overloading, scope|java","Arrays and 2-D arrays|java","Strings, StringBuilder, string methods|java","Classes, objects, constructors, this, static|java","Encapsulation, packages, access modifiers|java","Inheritance, super, method overriding|java","Polymorphism, abstract classes, interfaces|java","Project: console ATM / calculator in Java|java","Month review: 15 Java problems on HackerRank|java"],
@@ -527,15 +527,7 @@ switch (op) {
     case '/': r = (b != 0) ? (double) a / b : 0; break;
 }</pre>
 <h3>5. Common mistakes</h3><ul><li>Using = instead of ==.</li><li>Forgetting break in a switch.</li><li>Expecting 7/2 to be 3.5.</li><li>Writing a &lt; b &lt; c; Java needs a &lt; b &amp;&amp; b &lt; c.</li></ul>`;
-let busy="",err="";
-const fm=s=>esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/\n/g,"<br>");
-const gn=(a,b,c)=>((ND[a]||[])[b*3+(c>>1)]||N[a][b*3+(c>>1)]).replace(/<br>/g,"\n").replace(/<[^>]+>/g,"").replace(/\|/g," | ");
-async function ai(kind){st.q=st.q||{};st.dn=st.dn||{};const k=K(m,w,d),p=pl(m,w,d),ctx=`Topic: "${p.t}" (${p.B?"second day of the topic: revise and practise":"first day of the topic: learn"}). Outline: ${gn(m,w,d)}`;
-busy=kind;err="";draw();
-try{const s=await claude.use("sample");if(!s)throw{message:"AI generation is not available in this view. Open the published page link."};
-if(kind=="n"){const r=await s(`Write detailed study notes for a self-learner preparing for tech placements. ${ctx}\nInclude: KEY CONCEPTS explained simply; WORKED EXAMPLES (short code or numbers); COMMON MISTAKES; 5 INTERVIEW QUESTIONS with brief answers; 5 PRACTICE TASKS. Plain text, headings in CAPS, bullets starting with -, about 450 words. If the topic is a project or review day, give a step-by-step plan for the day instead.`);st.dn[k]=r.text}
-else{const r=await s.json(`Create exactly 10 multiple-choice questions to test a student on this day's learning. ${ctx}\nIf the topic is a project, mock or review, test the concepts it uses. Return ONLY a JSON array of 10 objects: {"q":question,"o":[4 option strings],"a":index 0-3 of the correct option,"r":[4 strings, one per option, each one sentence saying why that option is right or why it is wrong]}. Vary the correct index. No code fences.`);if(!Array.isArray(r)||!r.length)throw{message:"Bad format, please try again."};st.q[k]={qs:r.slice(0,10),p:[]}}
-sv()}catch(e){err=(e&&e.message)||"Could not generate. Try again."}busy="";draw()}
+
 function pk(i,j){const k=K(m,w,d);st.q[k].p[i]=j;sv();draw()}
 function qz(a,b,c){const q=(st.q||{})[K(a,b,c)];if(!q)return"";const dn=q.p.filter(x=>x!=null).length,sc=q.qs.reduce((s,x,i)=>s+(q.p[i]==x.a?1:0),0);
 return `<h2 style="margin-top:12px">🧪 Test: ${q.qs.length} questions${q.g?" · recall quiz from this topic's notes":""}</h2><div class="mu">Score ${sc}/${dn} answered</div>`+q.qs.map((x,i)=>{const p=q.p[i],an=p!=null;return `<div class="nt"><b>${i+1}. ${esc(x.q)}</b>`+x.o.map((o,j)=>`<button class="${an&&j==x.a?"dn":an&&j==p?"on":""}" style="display:block;width:100%;text-align:left;margin-top:4px" ${an?"disabled":""} onclick="pk(${i},${j})">${"ABCD"[j]}. ${esc(o)}</button>`).join("")+(an?`<div style="margin-top:6px">${p==x.a?"✅ <b>Correct.</b> ":"❌ <b>Wrong.</b> "+esc(x.r[p])+"<br>✅ <b>Correct answer: "+"ABCD"[x.a]+".</b> "}${esc(x.r[x.a])}</div>`:"")+`</div>`}).join("")}
@@ -552,8 +544,7 @@ for(let s=1;qs.length<10&&pool.length>=3&&s<9;s++){const mine=shuf(pool).slice(0
 return qs}
 function fmN(s,k){const l=SPL(s);return k?"<b>Concepts</b><br>"+l.map(x=>"• "+x).join("<br>"):"<b>Tasks</b><br>"+l.map((x,i)=>(i+1)+". "+x).join("<br>")}
 function bq(){st.q=st.q||{};const k=K(m,w,d),u=w*3+(d>>1),r=(QB[m]||[])[u];st.q[k]={qs:r?r.map(s=>{const t=s.split("~");return{q:t[0],o:t.slice(1,5),a:+t[5],r:t.slice(6,10)}}):gen(m,u),p:[],g:r?0:1};sv();draw()}
-function ap(a,b,c){const k=K(a,b,c),dn=(st.dn||{})[k],hv=!!(QB[a]||[])[b*3+(c>>1)];
-return `<div class="r" style="margin:10px 0"><button class="bn" onclick="ai('n')" ${busy?"disabled":""}>✨ ${dn?"Regenerate":"Generate"} detailed notes</button><button class="bn" onclick="bq()">🧪 Built-in test (10 questions)</button><button class="bn" onclick="ai('q')" ${busy?"disabled":""}>🤖 AI deep test</button></div>${busy?`<div class="mu">Claude is writing, this takes a few seconds…</div>`:""}${err?`<div class="mu">⚠ ${esc(err)}</div>`:""}${dn?`<div class="nt"><b>📖 Detailed notes</b><br>${fm(dn)}</div>`:""}${qz(a,b,c)}`}
+function ap(a,b,c){return `<div class="r" style="margin:10px 0"><button class="bn" onclick="bq()">🧪 Built-in test (10 questions)</button></div>${qz(a,b,c)}`}
 let nv=true;function tn(){nv=!nv;draw()}
 function nb(p,a,b,c){const n=(ND[a]||[])[b*3+(c>>1)]?ND[a][b*3+(c>>1)].split("|"):(x=>[fmN(x[0],1),fmN(x[1],0)])(N[a][b*3+(c>>1)].split("|"));return `${fl(a,b,c)}${spl(a,b,c)}<h2 style="margin-top:12px">📝 Notes: what to cover</h2><div class="nt ${p.B?"":"cur"}"><b>Part 1 · Learn / start</b>${p.B?"":" (today)"}<br>${n[0]}</div><div class="nt ${p.B?"cur":""}"><b>Part 2 · Practise / build</b>${p.B?" (today)":""}<br>${n[1]}</div>${ap(a,b,c)}`}
 const S="msjpmdt10b";let st={d:{},w:{},s:{}};
@@ -648,362 +639,10 @@ function renderCareerOS(){
 function careerReset(id){if(!confirm('Reset this module checklist? Your notes and activity log will be kept.'))return;careerState(id).done=[];sv();draw()}
 // ===== END CAREER_OS_30_FEATURES =====
 
-const EXPERT=[
-["☕ Java: advanced","Write, explain and defend production-style Java",[
-["Write OOP programs and explain all four pillars with your own project example","1"],
-["Explain how HashMap works internally (hashing, buckets, collisions, resize)","2"],
-["Use collections, generics and Streams fluently and pick the right collection for a task","2"],
-["Apply SOLID and four design patterns (Singleton, Factory, Strategy, Observer) in code","2"],
-["➕ Write thread-safe code: synchronized, locks, ExecutorService, concurrent collections, CompletableFuture","5–6"],
-["➕ Explain JVM memory areas, the Java memory model and garbage collection","5–6"],
-["➕ Use modern Java: records, sealed classes, pattern matching, switch expressions, virtual threads","6"],
-["➕ Write unit tests with JUnit and Mockito and build with Maven","8"],
-["Build a Spring Boot REST service with JPA/Hibernate, validation, error handling and tests","8"]]],
-["🗄 SQL: advanced","Answer any interview or analyst SQL question and design a schema",[
-["Write multi-table queries with every join type and subqueries without help","3"],
-["Use CTEs and window functions (RANK, DENSE_RANK, ROW_NUMBER, LAG, LEAD)","3"],
-["➕ Window frames: running totals and moving averages","3"],
-["➕ Recursive CTEs for hierarchies and sequences","3"],
-["➕ Pivoting and conditional aggregation","3"],
-["➕ Explain B-tree indexes, choose indexes for a query and read an execution plan","3"],
-["➕ Explain transaction isolation levels, locking and deadlocks","3"],
-["➕ Write views, stored procedures and triggers","3"],
-["Design a normalised schema (up to BCNF) and a star schema (fact and dimension tables)","3"],
-["Solve the classic set: Nth highest, duplicates, retention, consecutive days","3"],
-["Solve 100 SQL problems on LeetCode or HackerRank","3–9"],
-["➕ Optimise a slow query on a real dataset and explain what changed","9"],
-["➕ Explain when NoSQL fits better than SQL","3"]]],
-["🐍 Python: data focus","Take a messy dataset to clear, explained findings",[
-["Write clean Python: collections, functions, comprehensions, OOP, exceptions","4"],
-["➕ Use generators, decorators and context managers","4"],
-["➕ NumPy arrays and vectorised operations","4"],
-["pandas in depth: filter, groupby, merge, reshape, time series, cleaning","4, 9"],
-["Visualise data with matplotlib or seaborn","9"],
-["Statistics: distributions, correlation, hypothesis tests, A/B testing","9"],
-["➕ Fit a simple scikit-learn model and choose the right metric","9"],
-["Clean, analyse and explain a messy dataset in plain language","9"]]],
-["🧩 DSA in Java","Strong problem solving under a timer",[
-["Explain time and space complexity for any solution","5"],
-["Apply array, string, hashing, two-pointer, sliding-window and binary-search patterns","5"],
-["Linked lists, stacks, queues and recursion","5"],
-["Trees, BST, heaps, graphs, topological sort, union-find, Dijkstra","6"],
-["Greedy, backtracking and dynamic programming (1-D and 2-D)","6"],
-["150 to 200 problems solved","5–10"],
-["At least 40 Medium problems solved cleanly in about 30 minutes each","6"],
-["Pass three timed 90-minute mocks and re-solve every miss","6"]]],
-["⚙ CS core","Explain the fundamentals clearly",[
-["OS: processes, threads, scheduling, deadlock, memory and paging","7"],
-["Networks: OSI and TCP/IP, TCP vs UDP, HTTP/HTTPS, DNS, subnetting","7"],
-["Git: branches, merge, rebase, pull requests","7"],
-["SDLC, Agile and Scrum","7"],
-["REST API design and testing with Postman","8"],
-["➕ Low-level design: design classes for a parking lot or a library","8"]]],
-["🧰 Projects and proof","Work you can show and defend",[
-["Console ATM and Banking Management System on GitHub","2"],
-["E-commerce backend and frontend deployed, with README and a 5-minute demo","8"],
-["Financial data analysis project (SQL + Python + Power BI) with written findings","9"],
-["Excel or Power BI dashboard with DAX basics","9"],
-["Resume with action + metric bullets; GitHub and LinkedIn polished","10"]]],
-["🎤 Interview readiness","Ready to speak, not just to know",[
-["Self-introduction, three STAR stories and common HR answers rehearsed","10"],
-["Explain any project for 5 minutes and for 15 minutes","8–10"],
-["Finance basics: markets, banking, ratios, time value of money","9"],
-["Three or more mock technical interviews","10"],
-["Applications sent to target companies and tracked","10"]]]
-];
-const ADV={};
-ADV["1_2"]=`<h3>Window frames</h3><p>A frame says which rows around the current row the function can see: <b>fn() OVER (PARTITION BY ... ORDER BY ... ROWS BETWEEN start AND end)</b>. Bounds: UNBOUNDED PRECEDING, n PRECEDING, CURRENT ROW, n FOLLOWING, UNBOUNDED FOLLOWING.</p><pre class='cd'>-- Running total per customer
-SELECT customer_id, order_date, amount,
-  SUM(amount) OVER (PARTITION BY customer_id ORDER BY order_date
-    ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS running_total
-FROM orders;
-
--- 7-day moving average
-SELECT day, sales,
-  AVG(sales) OVER (ORDER BY day ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS ma7
-FROM daily_sales;</pre><ul><li><b>ROWS</b> counts physical rows. <b>RANGE</b> groups rows with equal ORDER BY values (peers) together.</li><li>With ORDER BY and no frame, the default is RANGE UNBOUNDED PRECEDING to CURRENT ROW, so duplicate dates get the same running total. Write ROWS explicitly.</li><li><b>LAST_VALUE trap:</b> the default frame stops at the current row, so LAST_VALUE returns the current row. Add ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING.</li></ul><p><b>Practise:</b> running balance of an account; 3-month moving average; percentage of the partition total using SUM() OVER (PARTITION BY ...).</p>`;
-ADV["1_3"]=`<h3>Recursive CTEs</h3><p>A recursive CTE has an <b>anchor</b> (starting rows), then UNION ALL, then a <b>recursive part</b> that reads the CTE itself. It repeats until the recursive part returns no rows.</p><pre class='cd'>-- Org chart: every employee with their level
-WITH RECURSIVE chain AS (
-  SELECT id, name, manager_id, 1 AS lvl
-  FROM employees WHERE manager_id IS NULL
-  UNION ALL
-  SELECT e.id, e.name, e.manager_id, c.lvl + 1
-  FROM employees e JOIN chain c ON e.manager_id = c.id
-)
-SELECT * FROM chain ORDER BY lvl;
-
--- Numbers 1 to 10
-WITH RECURSIVE n AS (
-  SELECT 1 AS x
-  UNION ALL
-  SELECT x + 1 FROM n WHERE x &lt; 10
-)
-SELECT x FROM n;</pre><ul><li>Always include a stopping condition, or the query loops forever.</li><li>Cyclic data (A reports to B, B to A) also loops. Track visited ids or cap the level.</li><li>PostgreSQL and MySQL 8 use WITH RECURSIVE. SQL Server uses WITH without the RECURSIVE keyword.</li></ul><p><b>Practise:</b> all subordinates of a manager; category trees; generate a date series; find the path from the top to one employee.</p>`;
-ADV["1_4"]=`<h3>Pivoting and conditional aggregation</h3><p>Pivoting turns row values into columns. The portable way is <b>conditional aggregation</b>: an aggregate wrapped around CASE.</p><pre class='cd'>SELECT product,
-  SUM(CASE WHEN month = 'Jan' THEN amount ELSE 0 END) AS jan,
-  SUM(CASE WHEN month = 'Feb' THEN amount ELSE 0 END) AS feb,
-  COUNT(CASE WHEN amount &gt; 1000 THEN 1 END)          AS big_orders
-FROM sales
-GROUP BY product;</pre><ul><li>PostgreSQL also has <b>SUM(amount) FILTER (WHERE month = 'Jan')</b>. SQL Server and Oracle have a PIVOT keyword.</li><li><b>Unpivot</b> (columns to rows): SELECT product, 'Jan', jan FROM t UNION ALL SELECT product, 'Feb', feb FROM t.</li><li>The column list must be known when you write the query. Dynamic pivots need dynamic SQL.</li></ul><p><b>Practise:</b> pass/fail count per subject; orders per status per month; gender or region split in one row.</p>`;
-ADV["1_5"]=`<h3>Indexes and execution plans</h3><p>An index is a sorted structure (usually a <b>B-tree</b>) that lets the database jump to rows in O(log n) instead of scanning the whole table. It helps equality, range filters, joins and ORDER BY.</p><ul><li><b>Composite index</b> (a, b, c) follows the leftmost-prefix rule: it helps filters on a, on a and b, but not on b alone. Put equality columns first, then range, then sort.</li><li><b>Covering index:</b> contains every column the query needs, so the table is not touched.</li><li><b>Cost:</b> extra storage and slower INSERT, UPDATE and DELETE. Do not index every column.</li><li><b>Index is skipped</b> when you wrap the column in a function (WHERE LOWER(email) = ...), use a leading wildcard (LIKE '%abc'), compare mismatched types, or the column has very few distinct values.</li></ul><pre class='cd'>CREATE INDEX idx_orders_cust_date ON orders (customer_id, order_date);
-EXPLAIN ANALYZE
-SELECT * FROM orders WHERE customer_id = 42 AND order_date &gt;= '2026-01-01';</pre><p><b>Reading a plan (PostgreSQL):</b> look for <b>Seq Scan</b> (full table) versus <b>Index Scan</b>; compare estimated rows with actual rows; find the node with the highest time. EXPLAIN shows the plan, EXPLAIN ANALYZE also runs the query.</p><p><b>Practise:</b> create a table with 100,000 rows, time a query, add an index, compare the plans.</p>`;
-ADV["1_6"]=`<h3>Isolation levels and locking</h3><p>Isolation controls what a transaction can see from other transactions running at the same time. Problems it prevents:</p><ul><li><b>Dirty read:</b> reading another transaction's uncommitted change.</li><li><b>Non-repeatable read:</b> the same row read twice gives different values.</li><li><b>Phantom read:</b> the same query returns new rows the second time.</li></ul><table><tr><th>Level</th><th>Dirty</th><th>Non-repeatable</th><th>Phantom (standard)</th></tr><tr><td>Read Uncommitted</td><td>Possible</td><td>Possible</td><td>Possible</td></tr><tr><td>Read Committed</td><td>No</td><td>Possible</td><td>Possible</td></tr><tr><td>Repeatable Read</td><td>No</td><td>No</td><td>Possible</td></tr><tr><td>Serializable</td><td>No</td><td>No</td><td>No</td></tr></table><p>Higher isolation means fewer anomalies but more blocking or retries. Typical defaults: PostgreSQL, SQL Server and Oracle use Read Committed; MySQL InnoDB uses Repeatable Read. Some engines prevent more than the standard requires, so check your database.</p><ul><li><b>Locks:</b> shared (read) and exclusive (write). <b>SELECT ... FOR UPDATE</b> locks the rows you read so no one changes them before you update.</li><li><b>Deadlock:</b> T1 locks A then wants B; T2 locks B then wants A. The database aborts one. Prevent it by locking in a consistent order and keeping transactions short, and retry the aborted one.</li></ul>`;
-ADV["1_7"]=`<h3>Views, stored procedures and triggers</h3><ul><li><b>View:</b> a saved query you use like a table. Simplifies joins and limits which columns users can see. A <b>materialised view</b> stores the result and must be refreshed (PostgreSQL, Oracle).</li><li><b>Stored procedure:</b> reusable logic stored in the database, called by name.</li><li><b>Trigger:</b> code that runs automatically on INSERT, UPDATE or DELETE.</li></ul><pre class='cd'>CREATE VIEW active_customers AS
-SELECT id, name, city FROM customers WHERE status = 'ACTIVE';
-
--- MySQL procedure: money transfer in one transaction
-DELIMITER //
-CREATE PROCEDURE transfer(IN a INT, IN b INT, IN amt DECIMAL(10,2))
-BEGIN
-  START TRANSACTION;
-  UPDATE accounts SET balance = balance - amt WHERE id = a;
-  UPDATE accounts SET balance = balance + amt WHERE id = b;
-  COMMIT;
-END //
-DELIMITER ;
-
--- MySQL trigger: audit salary changes
-CREATE TRIGGER log_salary AFTER UPDATE ON employees
-FOR EACH ROW
-  INSERT INTO salary_log (emp_id, old_salary, new_salary)
-  VALUES (OLD.id, OLD.salary, NEW.salary);</pre><p>Syntax differs between MySQL, PostgreSQL and SQL Server, so learn the idea and check your database's manual. <b>Caution:</b> triggers hide logic and are hard to debug; use them for auditing, not business rules. <b>Interview:</b> procedure vs function (a function returns a value and can be used inside a query); trigger vs constraint.</p>`;
-ADV["1_8"]=`<h3>Star schema</h3><p>Transactional (OLTP) databases are normalised to avoid redundancy. Analytics (OLAP) databases use a <b>star schema</b> so reports need fewer joins.</p><ul><li><b>Fact table:</b> one row per event at a chosen <b>grain</b> (for example, one sale line). Holds measures (quantity, revenue) and foreign keys.</li><li><b>Dimension tables:</b> descriptive context (dim_date, dim_product, dim_store, dim_customer). Denormalised and wide.</li><li><b>Surrogate keys:</b> simple integer keys in dimensions instead of business keys.</li></ul><pre class='cd'>SELECT d.month, p.category, SUM(f.revenue) AS revenue
-FROM fact_sales f
-JOIN dim_date d    ON f.date_key = d.date_key
-JOIN dim_product p ON f.product_key = p.product_key
-GROUP BY d.month, p.category;</pre><p><b>Practise:</b> sketch a star schema for a bank (fact_transactions with date, account, branch) and write three reports on it. Power BI models in Month 9 use the same idea.</p>`;
-ADV["1_11"]=`<h3>Optimising a slow query</h3><ol><li><b>Measure:</b> run EXPLAIN ANALYZE and note the total time and the slowest step.</li><li><b>Diagnose:</b> full table scans, large sorts, and estimated rows far from actual rows (stale statistics).</li><li><b>Fix one thing at a time:</b> add or reshape an index; select only the columns you need; filter before joining; replace a correlated subquery with a join or window function; avoid DISTINCT as a bug cover-up.</li><li><b>Measure again</b> and write down before and after.</li></ol><pre class='cd'>-- Slow: function on the column blocks the index
-WHERE YEAR(order_date) = 2026
--- Fast: range on the raw column
-WHERE order_date &gt;= '2026-01-01' AND order_date &lt; '2027-01-01'</pre><p>For deep pages, use keyset pagination (WHERE id &gt; last_seen ORDER BY id LIMIT 20) instead of a large OFFSET. <b>Portfolio task:</b> load a dataset with around a million rows, find a slow query, fix it, and write a short before and after note for your GitHub README.</p>`;
-ADV["1_12"]=`<h3>SQL vs NoSQL</h3><table><tr><th>Type</th><th>Example</th><th>Good for</th></tr><tr><td>Document</td><td>MongoDB</td><td>Flexible, nested records (profiles, catalogues)</td></tr><tr><td>Key-value</td><td>Redis</td><td>Caching, sessions, counters</td></tr><tr><td>Wide-column</td><td>Cassandra</td><td>Huge write volumes across many servers</td></tr><tr><td>Graph</td><td>Neo4j</td><td>Relationships (social networks, fraud rings)</td></tr></table><ul><li><b>Choose SQL</b> for structured data, relationships, multi-row transactions and complex queries or reporting. Banks usually lean here.</li><li><b>Choose NoSQL</b> for a changing schema, very large scale, simple access by key, or caching.</li><li><b>ACID</b> (SQL focus: correctness) vs <b>BASE</b> (many NoSQL systems: availability, eventual consistency). <b>CAP:</b> during a network partition, a distributed system must trade consistency against availability.</li></ul><p><b>Interview line:</b> there is no best database; the choice follows the data shape and the access pattern. Many systems use both.</p>`;
-ADV["0_4"]=`<h3>Concurrency</h3><p><b>Race condition:</b> two threads change shared data at once. count++ is read, add, write, so updates get lost.</p><pre class='cd'>// Fixes for a shared counter
-synchronized void inc() { count++; }            // intrinsic lock
-AtomicInteger count = new AtomicInteger();      // lock-free
-count.incrementAndGet();
-
-ReentrantLock lock = new ReentrantLock();
-lock.lock();
-try { count++; } finally { lock.unlock(); }     // always unlock in finally</pre><ul><li><b>volatile:</b> guarantees visibility of a variable across threads, not atomicity. Good for a stop flag, not for a counter.</li><li><b>synchronized vs ReentrantLock:</b> the lock adds tryLock, timeouts, fairness and interruptible waits, but you must unlock manually.</li></ul><p><b>Executors:</b> do not create raw threads in real code. Use a pool.</p><pre class='cd'>ExecutorService pool = Executors.newFixedThreadPool(4);
-Future&lt;Integer&gt; f = pool.submit(() -&gt; compute());
-int result = f.get();            // blocks until done
-pool.shutdown();
-
-CompletableFuture&lt;String&gt; cf = CompletableFuture
-    .supplyAsync(() -&gt; fetchUser())
-    .thenApply(u -&gt; u.getName())
-    .exceptionally(ex -&gt; "unknown");
-System.out.println(cf.join());</pre><ul><li><b>Concurrent collections:</b> ConcurrentHashMap (fine-grained, scales better than Collections.synchronizedMap), CopyOnWriteArrayList (many reads, few writes), BlockingQueue (producer-consumer).</li><li><b>Deadlock:</b> two threads each hold a lock the other needs. Lock in one fixed order and keep critical sections short.</li><li><b>Pool size rule of thumb:</b> CPU-bound work, about the number of cores; I/O-bound work, more.</li></ul><p><b>Practise:</b> two threads incrementing a counter 100,000 times each (see the wrong total, then fix it three ways); producer-consumer with ArrayBlockingQueue; fetch three results in parallel and combine them with CompletableFuture.</p>`;
-ADV["0_5"]=`<h3>JVM memory and garbage collection</h3><table><tr><th>Area</th><th>Holds</th></tr><tr><td>Heap</td><td>All objects and arrays. Split into a young generation (Eden plus two survivor spaces) and an old generation.</td></tr><tr><td>Stack (one per thread)</td><td>Method frames: local primitives and references.</td></tr><tr><td>Metaspace</td><td>Class metadata (replaced PermGen in Java 8).</td></tr><tr><td>PC register, native stack</td><td>Current instruction; native method calls.</td></tr></table><ul><li><b>Garbage collection</b> removes objects no longer reachable from <b>GC roots</b> (stack variables, static fields, active threads).</li><li><b>Generational idea:</b> most objects die young. New objects go to Eden; a minor GC copies survivors to a survivor space; objects that live long enough move to the old generation, which is cleaned less often by a longer major or full GC.</li><li><b>Collectors:</b> Serial (small apps), Parallel (throughput), <b>G1</b> (default in modern Java, balanced pauses), <b>ZGC</b> and Shenandoah (very low pauses).</li><li><b>Memory leak in Java:</b> objects stay referenced when they are no longer needed (static lists, caches that never evict, unremoved listeners). The GC cannot free them.</li><li><b>OutOfMemoryError:</b> heap full. <b>StackOverflowError:</b> too-deep recursion.</li></ul><p><b>Class loading:</b> load, link (verify, prepare, resolve), initialise. Loaders: bootstrap, platform, application. <b>JIT:</b> the JVM starts by interpreting bytecode and compiles frequently run code to machine code.</p><p><b>Java Memory Model:</b> defines when one thread's writes are visible to another. A <b>happens-before</b> relationship is created by synchronized, volatile, Thread.start and join.</p><p><b>Practise:</b> run a program with -Xmx64m and keep adding to a static list until OutOfMemoryError; open it in VisualVM; explain in your own words why the list was never collected. Useful flags: -Xms, -Xmx, -XX:+PrintGCDetails (older) or -Xlog:gc.</p>`;
-ADV["0_6"]=`<h3>Modern Java (use JDK 21)</h3><pre class='cd'>// record (16): immutable data class; constructor, getters, equals, hashCode, toString for free
-record Point(int x, int y) { }
-Point p = new Point(2, 3);   p.x();
-
-// sealed types (17): a closed set of subtypes
-sealed interface Shape permits Circle, Square { }
-record Circle(double r) implements Shape { }
-record Square(double side) implements Shape { }
-
-// pattern matching for instanceof (16)
-if (obj instanceof String s &amp;&amp; !s.isEmpty()) { System.out.println(s.length()); }
-
-// switch expression (14): returns a value, no fall-through
-int days = switch (month) {
-    case 2 -&gt; 28;
-    case 4, 6, 9, 11 -&gt; 30;
-    default -&gt; 31;
-};
-
-// pattern matching for switch (21): exhaustive with sealed types
-double area = switch (shape) {
-    case Circle c -&gt; Math.PI * c.r() * c.r();
-    case Square q -&gt; q.side() * q.side();
-};
-
-var list = new ArrayList&lt;String&gt;();      // local type inference (10)</pre><ul><li><b>Text blocks (15):</b> multi-line strings written between triple quotes. Handy for SQL and JSON.</li><li><b>Virtual threads (21):</b> very cheap threads managed by the JVM. Good for many blocking I/O tasks, not for CPU-heavy work.</li></ul><pre class='cd'>try (var ex = Executors.newVirtualThreadPerTaskExecutor()) {
-    for (int i = 0; i &lt; 1000; i++) ex.submit(() -&gt; handleRequest());
-}</pre><p><b>Interview:</b> record vs normal class (records are shallowly immutable and carry data); why sealed plus switch is safer (the compiler checks every case is covered); platform vs virtual threads. <b>Practise:</b> rewrite your Banking project's transaction types as a sealed interface with records, and process them with a pattern switch.</p>`;
-ADV["0_7"]=`<h3>Maven, JUnit and Mockito</h3><p><b>Maven</b> builds the project and downloads dependencies from pom.xml (groupId, artifactId, version, dependencies). Layout: src/main/java for code, src/test/java for tests. Lifecycle: validate, compile, test, package, verify, install, deploy.</p><pre class='cd'>mvn clean test      # run all tests
-mvn package         # build the jar</pre><p><b>JUnit 5:</b> arrange, act, assert.</p><pre class='cd'>class BankAccountTest {
-    BankAccount acc;
-    @BeforeEach void setUp() { acc = new BankAccount(1000); }
-
-    @Test void depositIncreasesBalance() {
-        acc.deposit(500);
-        assertEquals(1500, acc.getBalance());
-    }
-    @Test void withdrawTooMuchThrows() {
-        assertThrows(InsufficientFundsException.class, () -&gt; acc.withdraw(5000));
-    }
-    @ParameterizedTest
-    @ValueSource(ints = {0, -5})
-    void invalidDepositRejected(int amt) {
-        assertThrows(IllegalArgumentException.class, () -&gt; acc.deposit(amt));
-    }
-}</pre><p><b>Mockito</b> replaces a dependency (database, email service) with a fake so you test one class alone.</p><pre class='cd'>@ExtendWith(MockitoExtension.class)
-class TransferServiceTest {
-    @Mock AccountRepository repo;
-    @InjectMocks TransferService service;
-
-    @Test void transferSavesBothAccounts() {
-        when(repo.findById(1L)).thenReturn(Optional.of(new Account(1L, 1000)));
-        when(repo.findById(2L)).thenReturn(Optional.of(new Account(2L, 0)));
-        service.transfer(1L, 2L, 300);
-        verify(repo, times(2)).save(any(Account.class));
-    }
-}</pre><ul><li>Test normal, edge (zero, empty, null, boundary) and failure cases.</li><li>A unit test checks one class with fakes; an integration test checks several real parts together.</li></ul><p><b>Practise:</b> get at least 10 tests passing on your Banking project and run them with mvn test.</p>`;
-ADV["0_8"]=`<h3>Spring Boot REST service</h3><p><b>Layers:</b> Controller (HTTP) calls Service (business rules) calls Repository (database). Create the project at start.spring.io with Spring Web, Spring Data JPA, Validation and a database driver (H2 to start, then MySQL or PostgreSQL).</p><pre class='cd'>@Entity
-public class Student {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
-    @NotBlank private String name;
-    // constructors, getters, setters
-}
-
-public interface StudentRepository extends JpaRepository&lt;Student, Long&gt; { }
-
-@RestController
-@RequestMapping("/api/students")
-class StudentController {
-    private final StudentService service;
-    StudentController(StudentService service) { this.service = service; }   // constructor injection
-
-    @GetMapping("/{id}")
-    Student get(@PathVariable Long id) { return service.find(id); }
-
-    @PostMapping
-    ResponseEntity&lt;Student&gt; create(@Valid @RequestBody Student s) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(s));
-    }
-}
-
-@RestControllerAdvice
-class ApiErrors {
-    @ExceptionHandler(NotFoundException.class)
-    ResponseEntity&lt;String&gt; notFound(NotFoundException e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-    }
-}</pre><ul><li><b>IoC and dependency injection:</b> Spring creates and wires objects (beans) for you. Prefer constructor injection. Stereotypes: @Component, @Service, @Repository, @Controller.</li><li><b>Auto-configuration:</b> Boot configures beans from the dependencies on your classpath. Settings go in application.properties.</li><li><b>Return DTOs, not entities,</b> when exposing data, so the database shape does not leak into your API.</li><li><b>Status codes:</b> 200 OK, 201 Created, 400 bad input, 404 not found, 500 server error.</li><li><b>JPA N+1 problem:</b> loading a list and then one extra query per item for a relationship. Fix with a join fetch or an entity graph.</li><li><b>Tests:</b> @WebMvcTest for controllers (with a mocked service), @DataJpaTest for repositories.</li></ul><p><b>Practise:</b> build Students CRUD end to end, test it in Postman, add validation and a clean error response, write 6 tests, push to GitHub with a README.</p>`;
-ADV["2_1"]=`<h3>Generators, decorators and context managers</h3><p><b>Generators</b> produce values one at a time with <b>yield</b>, so they use almost no memory and can be infinite. They are one-pass: once consumed, they are empty.</p><pre class='cd'>def read_big(path):
-    with open(path) as f:
-        for line in f:
-            yield line.strip()          # one line at a time
-
-def fib():
-    a, b = 0, 1
-    while True:
-        yield a
-        a, b = b, a + b
-
-squares = (x * x for x in range(10**6))   # generator expression
-next(squares)                             # 0</pre><p><b>Decorators</b> wrap a function to add behaviour without editing it. A decorator takes a function and returns a function.</p><pre class='cd'>import time, functools
-
-def timer(fn):
-    @functools.wraps(fn)                  # keeps the original name and docstring
-    def wrapper(*args, **kwargs):
-        t = time.perf_counter()
-        result = fn(*args, **kwargs)
-        print(f"{fn.__name__} took {time.perf_counter() - t:.4f}s")
-        return result
-    return wrapper
-
-@timer
-def slow_sum(n):
-    return sum(range(n))</pre><p>Built-in ones to know: @property, @staticmethod, @classmethod, and @functools.lru_cache (memoisation, great for recursion and DP).</p><p><b>Context managers</b> guarantee set-up and clean-up, even if an error occurs. The with statement calls __enter__ and __exit__.</p><pre class='cd'>from contextlib import contextmanager
-
-@contextmanager
-def timed(label):
-    t = time.perf_counter()
-    try:
-        yield
-    finally:
-        print(label, round(time.perf_counter() - t, 4))
-
-with timed("load"):
-    data = list(range(10**6))</pre><p><b>Interview:</b> generator vs list (lazy vs stored in memory); yield vs return (yield pauses and resumes); why functools.wraps; what a closure is (an inner function remembering variables of the outer one); why with open(...) is safer than open and close.</p><p><b>Practise:</b> a generator that yields a CSV file in chunks of 1000 rows; a retry decorator that tries a function 3 times; a context manager that opens and closes a database connection.</p>`;
-ADV["2_2"]=`<h3>NumPy</h3><p>A NumPy array stores one data type in a compact block of memory and does maths in compiled code. <b>Vectorised operations</b> on a whole array are often 10 to 100 times faster than Python loops.</p><pre class='cd'>import numpy as np
-a = np.array([[1, 2, 3], [4, 5, 6]])
-
-a.shape                   # (2, 3)
-a * 10                    # every element, no loop
-a.sum(axis=0)             # down the rows: column sums [5 7 9]
-a.mean(axis=1)            # across the columns: row means [2. 5.]
-a[a &gt; 2]                  # boolean mask: [3 4 5 6]
-np.where(a % 2 == 0, "even", "odd")
-a.reshape(3, 2)
-
-np.arange(0, 10, 2)       # 0 2 4 6 8
-np.linspace(0, 1, 5)      # 5 evenly spaced points
-rng = np.random.default_rng(42)
-rng.normal(0, 1, size=1000)</pre><ul><li><b>axis:</b> axis=0 collapses rows (gives one value per column); axis=1 collapses columns (one value per row).</li><li><b>Broadcasting:</b> shapes are compared from the right; two dimensions match when they are equal or one is 1. So (2, 3) minus (3,) subtracts the column means from every row.</li><li><b>Missing values:</b> np.nan breaks sums and means; use np.nanmean, np.nansum.</li><li>Slices are <b>views</b> (they share memory); use .copy() when you need an independent array.</li></ul><pre class='cd'># Standardise every column (z-score) with broadcasting
-z = (a - a.mean(axis=0)) / a.std(axis=0)</pre><p><b>Practise:</b> time a Python loop against a vectorised sum on 10 million numbers; standardise a matrix; replace all negative values with 0; compute the correlation between two arrays with np.corrcoef.</p>`;
-ADV["2_3"]=`<h3>pandas in depth</h3><pre class='cd'>import pandas as pd
-df = pd.read_csv("orders.csv", parse_dates=["order_date"])
-df.info(); df.describe()
-
-# Clean
-df = df.drop_duplicates()
-df["amount"] = df["amount"].fillna(df["amount"].median())
-df["city"] = df["city"].str.strip().str.title()
-
-# Select and filter (use parentheses around each condition)
-big = df[(df["amount"] &gt; 1000) &amp; (df["region"] == "West")]
-df.loc[df["amount"] &lt; 0, "amount"] = 0       # .loc avoids SettingWithCopy problems
-
-# Group
-summary = (df.groupby("region")
-             .agg(orders=("order_id", "count"),
-                  revenue=("amount", "sum"),
-                  avg=("amount", "mean"))
-             .sort_values("revenue", ascending=False))
-df["share"] = df["amount"] / df.groupby("region")["amount"].transform("sum")   # like a window function
-
-# Join
-full = df.merge(customers, on="customer_id", how="left", validate="m:1")
-
-# Reshape
-pivot = df.pivot_table(index="region", columns="category", values="amount", aggfunc="sum", fill_value=0)
-long = pivot.reset_index().melt(id_vars="region")
-
-# Time series
-monthly = df.set_index("order_date")["amount"].resample("MS").sum()
-df["amount"].rolling(7).mean()</pre><table><tr><th>SQL</th><th>pandas</th></tr><tr><td>WHERE</td><td>boolean filter or .query()</td></tr><tr><td>GROUP BY</td><td>.groupby().agg()</td></tr><tr><td>JOIN</td><td>.merge(how=...)</td></tr><tr><td>Window function</td><td>.transform(), .rolling(), .rank()</td></tr><tr><td>CASE WHEN</td><td>np.where or np.select</td></tr></table><ul><li><b>loc</b> selects by label, <b>iloc</b> by position.</li><li>Avoid iterrows and row-by-row apply on big data; use vectorised column operations.</li><li>Always check shape and row counts before and after a merge. Duplicated keys silently multiply rows; the validate argument catches that.</li></ul><p><b>Practise:</b> redo your SQL practice queries in pandas on one dataset and check that both give the same answer; clean a messy CSV (mixed date formats, duplicates, blanks, wrong types) and write down every decision you made.</p>`;
-ADV["2_4"]=`<h3>Visualising data</h3><table><tr><th>Question</th><th>Chart</th></tr><tr><td>How does it change over time?</td><td>Line</td></tr><tr><td>How do categories compare?</td><td>Bar (sorted)</td></tr><tr><td>What is the spread?</td><td>Histogram, box plot</td></tr><tr><td>Are two numbers related?</td><td>Scatter</td></tr><tr><td>Parts of a whole?</td><td>Stacked bar (pie only for 2 to 4 slices)</td></tr></table><pre class='cd'>import matplotlib.pyplot as plt
-import seaborn as sns
-
-monthly.plot(kind="line", title="Monthly revenue")
-plt.xlabel("Month"); plt.ylabel("Revenue (INR)")
-plt.tight_layout(); plt.show()
-
-sns.boxplot(data=df, x="region", y="amount")
-sns.heatmap(df.corr(numeric_only=True), annot=True, cmap="coolwarm")</pre><ul><li>Give each chart one message and a title that states it ("West region revenue fell in Q3").</li><li>Label axes with units, sort bars, start bar charts at zero, avoid 3D and too many colours, and check that colours work for colour-blind readers.</li></ul><p><b>Practise:</b> take one dataset, make three charts that each answer a different question, and write one sentence under each.</p>`;
-ADV["2_5"]=`<h3>Statistics for analysts</h3><ul><li><b>Descriptive:</b> mean, median, standard deviation, percentiles. Use the median when data is skewed. <b>Outlier rule:</b> a value beyond 1.5 times the IQR from the quartiles is a candidate outlier; investigate before removing.</li><li><b>Correlation</b> (Pearson r) runs from -1 to 1 and measures linear association. <b>Correlation is not causation.</b></li><li><b>Normal distribution:</b> about 68%, 95% and 99.7% of values lie within 1, 2 and 3 standard deviations. <b>Central limit theorem:</b> sample means become roughly normal as the sample grows.</li></ul><p><b>Hypothesis test steps:</b> state H0 (no effect) and H1; choose a significance level (usually 0.05); compute the test statistic and p-value; decide.</p><ul><li><b>p-value:</b> the probability of seeing data at least this extreme if H0 were true. It is <b>not</b> the probability that H0 is true.</li><li><b>Type I error:</b> a false positive (probability is the significance level). <b>Type II error:</b> a false negative. <b>Power</b> is the chance of detecting a real effect.</li><li><b>95% confidence interval:</b> if you repeated the study many times, about 95% of such intervals would contain the true value.</li></ul><table><tr><th>Question</th><th>Test</th></tr><tr><td>Two group means differ?</td><td>t-test</td></tr><tr><td>Three or more group means differ?</td><td>ANOVA</td></tr><tr><td>Two categorical variables related?</td><td>Chi-square</td></tr><tr><td>Two conversion rates differ?</td><td>Two-proportion z-test</td></tr></table><pre class='cd'>from scipy import stats
-t, p = stats.ttest_ind(group_a, group_b, equal_var=False)   # Welch t-test
-r, p = stats.pearsonr(x, y)
-chi2, p, dof, expected = stats.chi2_contingency(table)</pre><p><b>A/B testing:</b> randomly split users, fix the metric and sample size before you start, do not stop the moment the result looks good (peeking inflates false positives), and ask whether the difference is big enough to matter, not just statistically significant.</p><p><b>Practise:</b> compare two groups in a dataset with a t-test and write your conclusion in two sentences a manager could understand.</p>`;
-ADV["2_6"]=`<h3>Machine learning with scikit-learn</h3><p><b>Workflow:</b> define the question and the target; split into train and test sets; preprocess; fit on the training data; evaluate on the test data; compare against a simple baseline.</p><pre class='cd'>from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import classification_report
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42, stratify=y)
-
-model = Pipeline([("scale", StandardScaler()),
-                  ("clf", LogisticRegression(max_iter=1000))])
-model.fit(X_train, y_train)
-print(classification_report(y_test, model.predict(X_test)))
-print(cross_val_score(model, X_train, y_train, cv=5, scoring="f1").mean())</pre><ul><li><b>Data leakage:</b> information from the test set leaking into training (for example, scaling on the full data). A Pipeline fits the scaler on training data only.</li><li><b>Overfitting:</b> great on training data, poor on new data. <b>Underfitting:</b> poor on both. Cross-validation helps you spot it.</li></ul><table><tr><th>Task</th><th>Models to start with</th><th>Metrics</th></tr><tr><td>Regression (predict a number)</td><td>LinearRegression, RandomForestRegressor</td><td>MAE, RMSE, R-squared</td></tr><tr><td>Classification (predict a class)</td><td>LogisticRegression, DecisionTree, RandomForest</td><td>Precision, recall, F1, ROC-AUC</td></tr></table><p><b>Choosing the metric:</b> accuracy misleads on imbalanced data (a model that says "no fraud" every time can be 99% accurate). <b>Precision:</b> of the cases flagged, how many were right (matters when false alarms are costly, such as spam filters). <b>Recall:</b> of the real cases, how many were found (matters when misses are costly, such as fraud or disease).</p><p><b>Practise:</b> use a churn or Titanic dataset; build a baseline that always predicts the majority class; beat it with logistic regression and a random forest; justify your metric in one sentence.</p>`;
-function exToggle(i,j){st.ex=st.ex||{};const k=i+"_"+j;st.ex[k]=!st.ex[k];sv();draw()}
-function expertCard(){st.ex=st.ex||{};let tot=0,dn=0;
-const sec=EXPERT.map(([nm,goal,items],i)=>{let c=0;items.forEach((it,j)=>{tot++;if(st.ex[i+"_"+j]){c++;dn++}});
-return `<div class="c"><h2>${nm}</h2><div class="mu">${goal} · ${c}/${items.length} done</div><div class="bar" style="margin:6px 0"><i style="width:${pc(c,items.length)}%"></i></div>${items.map((it,j)=>`<label class="h"><input type="checkbox" ${st.ex[i+"_"+j]?"checked":""} onchange="exToggle(${i},${j})"><span>${esc(it[0])} <span class="tg">Month ${it[1]}</span></span></label>${ADV[i+"_"+j]?`<details style="margin:0 0 8px 30px"><summary><b>📘 Lesson</b></summary>${ADV[i+"_"+j]}</details>`:""}`).join("")}</div>`}).join("");
-return `<div class="c"><h2>🏁 Final outcomes after 10 months: ${dn}/${tot} (${pc(dn,tot)}%)</h2><div class="bar"><i style="width:${pc(dn,tot)}%"></i></div><p class="mu">This is what you should be able to do at the end. Tick an item only when you can do or explain it without help. Items marked ➕ go beyond the lessons built into this tracker, so they are the advanced layer: open the 📘 Lesson where one is provided, and use official docs for the rest. Month tags follow this tracker's order.</p></div>${sec}`}
 function draw(){
-let h=`<header class="hero"><div class="hero-kicker"><span class="live-dot"></span> YOUR CAREER COMMAND CENTRE <span class="hero-pill">10 MONTH PLAN</span></div><h1>🎯 Placement Roadmap</h1><p class="hero-sub">Java and SQL depth, data-focused Python, built for technology, banking and consulting roles</p><div class="hero-meta"><span>⏱ 3 hours / day</span><span>📅 6 study days / week</span><span>☀ Sunday buffer</span><span>🧩 Daily DSA + weekly mock</span></div></header>
+let h=`<header class="hero"><div class="hero-kicker"><span class="live-dot"></span> YOUR CAREER COMMAND CENTRE <span class="hero-pill">10 MONTH PLAN</span></div><h1>🎯 Placement Roadmap</h1><p class="hero-sub">Java-first preparation for top technology, banking and consulting roles</p><div class="hero-meta"><span>⏱ 3 hours / day</span><span>📅 6 study days / week</span><span>☀ Sunday buffer</span><span>🧩 Daily DSA + weekly mock</span></div></header>
 <div class="c"><div class="r"><select onchange="gm(this.value)">${M.map((x,i)=>`<option value="${i}" ${i==m?"selected":""}>Month ${i+1} — ${x}</option>`).join("")}</select>
-<button onclick="nxt()" class="p">Jump to next incomplete day</button><button onclick="tb('dash')" class="${tab=="dash"?"on":""}">📊 Dashboard + Backup</button><button onclick="tb('tools')" class="${tab=="tools"?"on":""}">🚀 Placement Tools</button><button onclick="tb('career')" class="${tab=="career"?"on":""}">🧭 Career OS · 30 tools</button><button onclick="tb('tools');st.toolView='studio';sv();draw()" class="${tab=="tools"&&st.toolView=="studio"?"on":""}">💻 Code Studio</button><button onclick="tb('tools');st.toolView='arena';sv();draw()" class="${tab=="tools"&&st.toolView=="arena"?"on":""}">⌨ Code Arena</button><button onclick="tb('expert')" class="${tab=="expert"?"on":""}">🏁 Final Outcomes</button></div>
+<button onclick="nxt()" class="p">Jump to next incomplete day</button><button onclick="tb('dash')" class="${tab=="dash"?"on":""}">📊 Dashboard + Backup</button><button onclick="tb('tools')" class="${tab=="tools"?"on":""}">🚀 Placement Tools</button><button onclick="tb('career')" class="${tab=="career"?"on":""}">🧭 Career OS · 30 tools</button><button onclick="tb('tools');st.toolView='studio';sv();draw()" class="${tab=="tools"&&st.toolView=="studio"?"on":""}">💻 Code Studio</button><button onclick="tb('tools');st.toolView='arena';sv();draw()" class="${tab=="tools"&&st.toolView=="arena"?"on":""}">⌨ Code Arena</button></div>
 <div class="mu" style="margin-top:8px">🎯 Month goal: ${G[m]} · This week: ${wkH(m,w)}/18 hours</div>
 <div class="r" style="margin-top:8px">${[0,1,2,3].map(b=>`<button class="${b==w&&tab!="dash"?"on":""} ${wkDone(m,b)==6?"dn":""}" onclick="go(m,${b},0)">Week ${b+1} (${wkDone(m,b)}/6)</button>`).join("")}</div>
 <div class="r" style="margin-top:8px">${[0,1,2,3,4,5].map(c=>`<button class="${c==d&&tab=="day"?"on":""} ${dd(m,w,c)?"dn":""}" onclick="go(m,w,${c})">Day ${c+1}${c==5?" (mock)":""}${dd(m,w,c)?" ✓":""}</button>`).join("")}<button class="${tab=="sun"?"on":""}" onclick="tb('sun')">☀ Sunday</button></div></div>`;
@@ -1018,10 +657,9 @@ if(tab=="sun"){const L=["Catch up on any missed weekday","Redo every question yo
 h+=`<div class="c"><h2>☀ Sunday — Buffer / revision (Month ${m+1}, Week ${w+1})</h2><div class="mu">Weekly target: ${wkH(m,w)}/18 hours, ${wkDone(m,w)}/6 days. Do not double next week’s load to compensate.</div>${L.map((q,i)=>`<label class="h"><input type="checkbox" ${st.s[m+"_"+w+"_"+i]?"checked":""} onchange="sc(${i})"><span>${q}</span></label>`).join("")}</div>
 <div class="c"><h2>Weekly review</h2><textarea oninput="wn(this.value)" placeholder="Wins · weak topics · what to fix next week">${esc(st.w[m+"_"+w])}</textarea></div>`}
 if(tab=="dash"){let t=0;const rows=M.map((x,a)=>{let n=0,hh=0;for(let b=0;b<4;b++){n+=wkDone(a,b);hh+=wkH(a,b)}t+=n;return`<tr><td>${a+1}. ${x}</td><td>${n}/24</td><td>${hh}/72</td><td style="width:22%"><div class="bar"><i style="width:${pc(n,24)}%"></i></div></td></tr>`}).join("");
-h+=`<div class="c"><h2>📊 Overall: ${t}/240 days (${pc(t,240)}%)</h2><div class="bar"><i style="width:${pc(t,240)}%"></i></div></div>${sbc()}<div class="c"><div class="r"><b>🏁 Final outcomes</b><button onclick="tb('expert')">Open checklist</button></div></div><div class="c" style="overflow-x:auto"><table><tr><th>Month</th><th>Days</th><th>Hours</th><th></th></tr>${rows}</table></div>
+h+=`<div class="c"><h2>📊 Overall: ${t}/240 days (${pc(t,240)}%)</h2><div class="bar"><i style="width:${pc(t,240)}%"></i></div></div>${sbc()}<div class="c" style="overflow-x:auto"><table><tr><th>Month</th><th>Days</th><th>Hours</th><th></th></tr>${rows}</table></div>
 <div class="c"><h2>💾 Backup / restore</h2><div class="mu">Copy this text and keep it safe. To restore on another device, paste it here and press Import.</div><textarea id="bk">${esc(JSON.stringify(st))}</textarea><div class="r" style="margin-top:8px"><button class="p" onclick="imp()">Import pasted backup</button></div></div>
 <div class="c"><h2>Company links</h2><div class="r"><a class="b" target="_blank" rel="noopener" href="${R.co[1]}">Campus hiring</a><a class="b" target="_blank" rel="noopener" href="${R.co[3]}">Job boards</a><a class="b" target="_blank" rel="noopener" href="${R.dl[1]}">Graduate roles</a></div></div>`}
-if(tab=="expert"){h+=expertCard()}
 if(tab=="tools"){
 const view=st.toolView||"overview";
 const nav=[ ["overview","Overview"],["mistakes","Mistake Book"],["revision","Revision Queue"],["apps","Applications"],["projects","Projects"],["cards","Flashcards"],["arena","Code Arena"],["studio","💻 Code Studio"],["interview","🎤 Interview Lab"],["analytics","📈 Performance Analytics"],["focus","Focus Timer"] ];
@@ -1077,9 +715,9 @@ const lang=st.studioLang||'javascript';
 const starters={javascript:'// Write JavaScript here\nconsole.log("Hello, world!");\n\nconst numbers = [1, 2, 3, 4, 5];\nconsole.log("Sum:", numbers.reduce((a, b) => a + b, 0));',html:'<!doctype html>\n<html>\n<head><title>My page</title></head>\n<body>\n  <h1>Hello, world!</h1>\n  <p>Edit this HTML and click Run / Preview.</p>\n</body>\n</html>',css:'body { font-family: Arial, sans-serif; padding: 24px; }\nh1 { color: royalblue; }',python:'print("Hello, world!")\n\nnumbers = [1, 2, 3, 4, 5]\nprint("Sum:", sum(numbers))',sql:'CREATE TABLE students (id INTEGER, name TEXT, marks INTEGER);\nINSERT INTO students VALUES (1, \'Asha\', 88), (2, \'Ravi\', 76);\nSELECT * FROM students;',java:'public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, world!");\n    }\n}',c:'#include <stdio.h>\nint main(void) {\n    printf("Hello, world!\\n");\n    return 0;\n}',cpp:'#include <iostream>\nusing namespace std;\nint main() {\n    cout << "Hello, world!" << endl;\n    return 0;\n}',json:'{\n  "message": "Hello, world!",\n  "active": true\n}',text:''};
 const code=(st.studioCode||{})[lang]??starters[lang];
 h+=`<div class="c arena-head"><div class="arena-kicker">WRITE • RUN • EXPERIMENT • SAVE</div><h2>💻 Code Studio — your in-page coding workspace</h2><p class="mu">Write code here, switch languages, save separate files for each language, and run supported languages without opening another website.</p><div class="toolgrid"><div class="stat"><b>${Object.keys(st.studioCode||{}).length}</b><span class="mu">Language workspaces saved</span></div><div class="stat"><b>10</b><span class="mu">Editor modes</span></div><div class="stat"><b>Local</b><span class="mu">Autosaved in this browser</span></div></div></div>
-<div class="c"><div class="studio-toolbar"><label for="studioLang"><b>Language</b></label><select id="studioLang" onchange="changeStudioLang(this.value)">${langs.map(([v,n])=>`<option value="${v}" ${lang===v?'selected':''}>${n}</option>`).join('')}</select><button class="p" onclick="runStudio()">▶ Run / Preview</button><button onclick="saveStudioFile()">⬇ Download file</button><button onclick="copyStudioCode()">Copy code</button><button onclick="resetStudioCode()">Reset starter</button></div><div class="editor-top"><b>EDITOR</b><span class="mu" id="studioSaveState">${lang.toUpperCase()} · autosaves as you type</span></div><textarea id="studioEditor" class="studio-editor" spellcheck="false" autocapitalize="off" autocomplete="off" oninput="updateStudioCode(this.value)" onkeydown="studioTabKey(event)" placeholder="Start writing code...">${esc(code)}</textarea><div class="studio-hint" style="margin-top:10px">Tip: press Tab inside the editor to indent. Your code is kept separately for each language and included in the app backup/export.</div></div>
+<div class="c"><div class="studio-toolbar"><label for="studioLang"><b>Language</b></label><select id="studioLang" onchange="changeStudioLang(this.value)">${langs.map(([v,n])=>`<option value="${v}" ${lang===v?'selected':''}>${n}</option>`).join('')}</select><button class="p" onclick="runStudio()">▶ Run / Preview</button><button onclick="copyStudioCode()">Copy code</button><button onclick="resetStudioCode()">Reset starter</button></div><div class="editor-top"><b>EDITOR</b><span class="mu" id="studioSaveState">${lang.toUpperCase()} · autosaves as you type</span></div><textarea id="studioEditor" class="studio-editor" spellcheck="false" autocapitalize="off" autocomplete="off" oninput="updateStudioCode(this.value)" onkeydown="studioTabKey(event)" placeholder="Start writing code...">${esc(code)}</textarea><div class="studio-hint" style="margin-top:10px">Tip: press Tab inside the editor to indent. Your code is kept separately for each language and included in the app backup/export.</div></div>
 <div class="c"><div class="r" style="justify-content:space-between"><h2>Output / Console</h2><button onclick="clearStudioOutput()">Clear output</button></div><pre id="studioOutput" class="studio-output">Ready. Choose a language and click Run / Preview.</pre><div id="studioPreviewWrap" style="display:none;margin-top:14px"><h3>Live preview</h3><iframe id="studioPreview" class="studio-frame" sandbox="allow-scripts"></iframe></div></div>
-<div class="c"><h2>What can run directly here?</h2><div class="toolgrid"><div class="nt"><b>Runs in this page</b><br>JavaScript, HTML preview, CSS preview, Python (loads its browser runtime), SQL (SQLite in browser).</div><div class="nt"><b>Editor + save only</b><br>Java, C and C++ can be written, edited, copied and downloaded here. Browsers do not include their compilers, so running them requires a compiler/runtime installed on your device.</div></div><p class="mu">Python and SQL runtimes are downloaded on first run from public CDNs. Your code is executed locally in the browser after loading; it is not sent to an online compiler. Avoid running code you do not trust.</p></div>`;
+<div class="c"><h2>What can run directly here?</h2><div class="toolgrid"><div class="nt"><b>Runs in this page</b><br>JavaScript, HTML preview, CSS preview, Python (loads its browser runtime), SQL (SQLite in browser).</div><div class="nt"><b>Editor + save only</b><br>Java, C and C++ can be written, edited and copied here. Browsers do not include their compilers, so running them requires a compiler/runtime installed on your device.</div></div><p class="mu">Python and SQL runtimes are downloaded on first run from public CDNs. Your code is executed locally in the browser after loading; it is not sent to an online compiler. Avoid running code you do not trust.</p></div>`;
 }
 
 if(view=="interview"){
@@ -2681,7 +2319,6 @@ function changeStudioLang(l){const el=document.getElementById('studioEditor');if
 function studioOut(s){const el=document.getElementById('studioOutput');if(el)el.textContent=String(s)}
 function clearStudioOutput(){studioOut('Output cleared.');const w=document.getElementById('studioPreviewWrap');if(w)w.style.display='none'}
 function copyStudioCode(){const el=document.getElementById('studioEditor');if(!el)return;navigator.clipboard?.writeText(el.value).then(()=>alert('Code copied.')).catch(()=>{el.select();document.execCommand('copy');alert('Code copied.')})}
-function saveStudioFile(){const {lang}=studioCurrent(),el=document.getElementById('studioEditor');if(!el)return;const ext={javascript:'js',html:'html',css:'css',python:'py',sql:'sql',java:'java',c:'c',cpp:'cpp',json:'json',text:'txt'}[lang]||'txt';const blob=new Blob([el.value],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='code-studio.'+ext;a.click();URL.revokeObjectURL(url)}
 function resetStudioCode(){const {lang}=studioCurrent();if(!confirm('Reset this language workspace to its starter code?'))return;st.studioCode[lang]=studioStarters[lang]||'';sv();draw()}
 function studioPreview(html){const wrap=document.getElementById('studioPreviewWrap'),frame=document.getElementById('studioPreview');if(wrap&&frame){wrap.style.display='block';frame.srcdoc=html;}}
 async function studioLoadScript(src,globalName){if(window[globalName])return window[globalName];await new Promise((resolve,reject)=>{const sc=document.createElement('script');sc.src=src;sc.onload=resolve;sc.onerror=()=>reject(new Error('Could not load the in-browser runtime. Check your internet connection and try again.'));document.head.appendChild(sc)});return window[globalName]}
@@ -2693,7 +2330,7 @@ if(lang==='css'){studioPreview('<!doctype html><html><head><style>'+code.replace
 if(lang==='python'){studioOut('Loading Python runtime (first run may take a little time)…');const py=await studioLoadScript('https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js','loadPyodide');window.__studioPy=window.__studioPy||await py({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.27.7/full/'});const out=[];window.__studioPy.setStdout({batched:s=>out.push(s)});window.__studioPy.setStderr({batched:s=>out.push('ERROR: '+s)});try{await window.__studioPy.runPythonAsync(code);studioOut(out.join('')||'Python finished with no printed output.')}catch(e){studioOut(out.join('')+'\n'+e)}return}
 if(lang==='sql'){studioOut('Loading SQLite runtime…');await studioLoadScript('https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js','initSqlJs');window.__studioSql=window.__studioSql||await window.initSqlJs({locateFile:f=>'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/'+f});const db=new window.__studioSql.Database();const results=db.exec(code);if(!results.length){studioOut('SQL executed successfully. No result set returned.');return}studioOut(results.map(r=>[r.columns.join(' | '),r.values.map(row=>row.map(v=>v===null?'NULL':String(v)).join(' | ')).join('\n')].join('\n')).join('\n\n'));db.close();return}
 if(lang==='json'){const parsed=JSON.parse(code);studioOut(JSON.stringify(parsed,null,2));return}
-if(['java','c','cpp'].includes(lang)){studioOut(lang.toUpperCase()+' code is saved in this workspace, but this browser page does not include a '+(lang==='java'?'JDK/JVM': 'native compiler')+'. You can edit, copy or download it here. To execute it fully offline, install the matching compiler/runtime on your computer.');return}
+if(['java','c','cpp'].includes(lang)){studioOut(lang.toUpperCase()+' code is saved in this workspace, but this browser page does not include a '+(lang==='java'?'JDK/JVM': 'native compiler')+'. You can edit and copy it here. To execute it fully offline, install the matching compiler/runtime on your computer.');return}
 studioOut('Plain text saved. There is nothing to execute for this mode.');
 }catch(e){studioOut('Runtime error: '+(e?.stack||e))}}
 window.addEventListener('message',e=>{if(e.data?.type==='studio-console'){const el=document.getElementById('studioOutput');if(el)el.textContent+='\n'+e.data.text}});
@@ -3106,35 +2743,103 @@ QB[5]=[[
 "Backtracking subsets count?~2^n~n!~n^2~n~0~Each element in or out.~That is permutations.~Too small.~Too small.",
 "For a weak pattern you should?~Solve 5 more of that type~Skip it~Only reread~Memorise~0~Practice fixes gaps.~Gaps remain.~Passive.~Understanding beats memory."]];
 
-FN["6_0"]=`<h3>1. Process and PCB</h3><p>A <b>program</b> is a file on disk; a <b>process</b> is a program running. States: <b>new, ready, running, waiting, terminated</b>. The OS keeps a <b>PCB (process control block)</b> per process: PID, state, program counter, CPU registers, memory info, open files, scheduling info.</p><h3>2. Context switch</h3><p>The OS saves the running process's state into its PCB and loads the next process's state. It is pure overhead: no useful work happens during the switch.</p><h3>3. Process vs thread</h3><table><tr><th></th><th>Process</th><th>Thread</th></tr><tr><td>Memory</td><td>Own address space</td><td>Shares code, data, heap and files with its process</td></tr><tr><td>Owns</td><td>Everything</td><td>Own stack, registers, program counter</td></tr><tr><td>Creation and switch cost</td><td>High</td><td>Low</td></tr><tr><td>Communication</td><td>IPC needed</td><td>Shared memory (needs synchronisation)</td></tr><tr><td>A crash</td><td>Isolated</td><td>Can bring down the whole process</td></tr></table><p><b>IPC:</b> pipes, message queues, shared memory, sockets.</p><h3>4. Interview questions</h3><ul><li>Process vs thread? Why is a thread switch cheaper? (no change of address space)</li><li>What is saved in a context switch?</li><li>What is a zombie process? (finished, but the parent has not read its exit status)</li></ul><p><b>Tasks:</b> list processes with ps aux; run a Java program with two threads and note that they share static fields.</p>`;
-FN["6_1"]=`<h3>1. Terms and formulas</h3><p><b>Formula (turnaround time):</b> turnaround = completion &minus; arrival.</p><p><b>Formula (waiting time):</b> waiting = turnaround &minus; burst.</p><p>Goals: high CPU use and throughput, low waiting, turnaround and response time.</p><h3>2. Algorithms</h3><table><tr><th>Algorithm</th><th>Idea</th><th>Watch out</th></tr><tr><td>FCFS</td><td>First come, first served; non-preemptive</td><td>Convoy effect: short jobs stuck behind a long one</td></tr><tr><td>SJF</td><td>Shortest burst next; gives the lowest average waiting time</td><td>Starvation of long jobs; needs burst estimates</td></tr><tr><td>SRTF</td><td>Preemptive SJF</td><td>More context switches</td></tr><tr><td>Priority</td><td>Highest priority first</td><td>Starvation; fix with <b>aging</b></td></tr><tr><td>Round Robin</td><td>Each process gets a time quantum, then goes to the back</td><td>Big quantum acts like FCFS; tiny quantum wastes time switching</td></tr></table><h3>3. Worked example</h3><p>P1, P2, P3 all arrive at 0 with bursts 5, 3, 8.</p><table><tr><th>Algorithm</th><th>Completion (P1, P2, P3)</th><th>Waiting (P1, P2, P3)</th><th>Average waiting</th></tr><tr><td>FCFS</td><td>5, 8, 16</td><td>0, 5, 8</td><td>${fr("0 + 5 + 8","3")} = 4.33</td></tr><tr><td>SJF</td><td>8, 3, 16</td><td>3, 0, 8</td><td>${fr("3 + 0 + 8","3")} = 3.67</td></tr><tr><td>Round Robin, quantum 4</td><td>12, 7, 16</td><td>7, 4, 8</td><td>${fr("7 + 4 + 8","3")} = 6.33</td></tr></table><p>Check the Round Robin row: P1 runs 0 to 4, P2 4 to 7 (done), P3 7 to 11, P1 11 to 12 (done), P3 12 to 16 (done). Waiting = completion &minus; burst (arrival is 0): P1 12 &minus; 5 = 7, P2 7 &minus; 3 = 4, P3 16 &minus; 8 = 8.</p><p><b>Tasks:</b> redo the example with arrival times 0, 1, 2; draw each Gantt chart; explain why SJF has the lowest average waiting time but is hard to use in practice.</p>`;
-FN["6_2"]=`<h3>1. Critical section problem</h3><p>When processes share data, the code that touches it is a <b>critical section</b>. A correct solution gives <b>mutual exclusion</b>, <b>progress</b> (no needless blocking) and <b>bounded waiting</b> (no starvation).</p><h3>2. Mutex and semaphores</h3><ul><li><b>Mutex:</b> a lock owned by one thread at a time.</li><li><b>Semaphore:</b> an integer with two atomic operations, wait (P) decreases and blocks at 0, signal (V) increases. <b>Binary</b> (0 or 1) or <b>counting</b> (N identical resources).</li></ul><pre class='cd'>// Producer-consumer with a buffer of N slots
-semaphore mutex = 1, empty = N, full = 0;
+/* PACK M7-LESSONS: Month 7 (OS + Networks + Git + Agile), topics 1-12. */
+FN["6_0"]=`<h3>1. Program, process, thread</h3><p>A <b>program</b> is a file on disk. A <b>process</b> is a program in execution with its own memory: <b>text</b> (code), <b>data</b> (globals), <b>heap</b> (dynamic memory) and <b>stack</b> (calls and locals). A <b>thread</b> is a unit of execution inside a process.</p>
+<h3>2. Process states</h3><table><tr><th>State</th><th>Meaning</th></tr><tr><td>New</td><td>Being created</td></tr><tr><td>Ready</td><td>Waiting for the CPU</td></tr><tr><td>Running</td><td>Executing on the CPU</td></tr><tr><td>Waiting (blocked)</td><td>Waiting for I/O or an event</td></tr><tr><td>Terminated</td><td>Finished</td></tr></table><p>Transitions: ready to running (scheduler picks it), running to ready (time slice ends), running to waiting (I/O request), waiting to ready (I/O done).</p>
+<h3>3. PCB (Process Control Block)</h3><p>The OS keeps one PCB per process: process ID, state, <b>program counter</b>, CPU registers, scheduling information, memory limits (page table), open files and accounting data.</p>
+<h3>4. Thread vs process</h3><table><tr><th></th><th>Process</th><th>Thread</th></tr><tr><td>Memory</td><td>Own address space</td><td>Shares code, data, heap and files with its process</td></tr><tr><td>Own resources</td><td>Everything</td><td>Stack, registers, program counter</td></tr><tr><td>Creation and switch cost</td><td>Higher</td><td>Lower</td></tr><tr><td>Communication</td><td>IPC needed</td><td>Shared memory directly</td></tr><tr><td>Failure</td><td>Isolated</td><td>One thread can crash the whole process</td></tr></table>
+<h3>5. Context switch</h3><p>The CPU saves the running process's state (registers, program counter) into its PCB and loads the next one. It is pure overhead: no useful work happens during the switch. Switching threads of one process is cheaper because the memory map stays the same.</p>
+<h3>6. IPC and system calls</h3><ul><li>IPC: pipes, message queues, shared memory, sockets, signals.</li><li>User mode runs applications; <b>kernel mode</b> runs the OS. A <b>system call</b> (for example read, write, fork) switches to kernel mode.</li><li><b>fork()</b> creates a child process that is a copy of the parent; <b>exec()</b> replaces its program.</li></ul>`;
 
-producer:  wait(empty); wait(mutex); add item;    signal(mutex); signal(full);
-consumer:  wait(full);  wait(mutex); remove item; signal(mutex); signal(empty);</pre><p>Classic problems: producer-consumer, readers-writers, dining philosophers.</p><h3>3. Deadlock</h3><p>Deadlock needs all four <b>Coffman conditions</b>: mutual exclusion, hold and wait, no preemption, circular wait.</p><table><tr><th>Approach</th><th>How</th></tr><tr><td>Prevention</td><td>Break one condition, for example always acquire resources in a fixed order</td></tr><tr><td>Avoidance</td><td>Grant a request only if the system stays in a <b>safe state</b> (Banker's algorithm)</td></tr><tr><td>Detection and recovery</td><td>Find a cycle in the resource-allocation graph, then kill or roll back a process</td></tr><tr><td>Ignore</td><td>Used by most general-purpose systems (the ostrich approach)</td></tr></table><p><b>Deadlock vs starvation:</b> in deadlock nobody can proceed; in starvation one process waits indefinitely while others run.</p><p><b>Tasks:</b> explain why the order of wait(empty) and wait(mutex) matters (swap them and the producer can hold the mutex while blocked on empty, causing deadlock); link this to your Java threads lesson.</p>`;
-FN["6_3"]=`<h3>1. Basics</h3><p>The CPU uses <b>logical addresses</b>; the memory unit uses <b>physical addresses</b>; the MMU translates. <b>Fragmentation:</b> internal (wasted space inside an allocated block) and external (free space split into small pieces).</p><h3>2. Paging</h3><p>Memory is split into fixed-size <b>frames</b>; a process into <b>pages</b> of the same size. A <b>page table</b> maps page to frame, which removes external fragmentation.</p><p><b>Formula (translation):</b> logical address = page number and offset; physical address = frame number &times; page size + offset.</p><p><b>Example:</b> page size 4096 bytes, logical address 10000. Page = 10000 div 4096 = 2; offset = 10000 &minus; 2 &times; 4096 = 1808. If page 2 is in frame 7: physical = 7 &times; 4096 + 1808 = 30480.</p><h3>3. TLB</h3><p>The <b>TLB</b> is a small fast cache of page-table entries.</p><p><b>Formula (effective access time):</b> EAT = h &times; (t + m) + (1 &minus; h) &times; (t + 2m), where h is the hit ratio, t the TLB time and m the memory time. With t = 10 ns, m = 100 ns, h = 0.9: 0.9 &times; 110 + 0.1 &times; 210 = 99 + 21 = 120 ns.</p><h3>4. Virtual memory</h3><p>With <b>demand paging</b>, a page loads only when used. A <b>page fault</b>: the page is not in memory, so the OS finds it on disk, loads it into a free frame (replacing one if needed), updates the page table and restarts the instruction.</p><ul><li><b>Replacement:</b> FIFO (simple; can show <b>Belady's anomaly</b>, where more frames cause more faults), LRU (evict the least recently used; good in practice), Optimal (evict the page needed furthest in the future; a benchmark only).</li><li><b>Thrashing:</b> so many page faults that the CPU spends its time swapping. Reduce the number of processes or use the working-set model.</li></ul><p><b>Tasks:</b> work out three more translations; trace FIFO and LRU on a reference string of your own with 3 frames and compare fault counts.</p>`;
-FN["6_4"]=`<h3>1. File systems</h3><ul><li>An <b>inode</b> stores a file's metadata (size, owner, permissions, timestamps, block pointers), not its name. A directory maps names to inodes.</li><li><b>Allocation:</b> contiguous (fast, fragments), linked (no external fragmentation, slow random access), indexed (an index block lists the data blocks).</li><li><b>Journaling</b> logs changes first so the file system can recover after a crash.</li><li><b>Hard link:</b> another name for the same inode. <b>Soft link:</b> a file that points to a path.</li></ul><h3>2. Linux commands</h3><table><tr><th>Task</th><th>Command</th></tr><tr><td>Look around</td><td>pwd, ls -l, cd, tree</td></tr><tr><td>Create, copy, move, delete</td><td>mkdir, touch, cp, mv, rm -r</td></tr><tr><td>View files</td><td>cat, less, head, tail -f</td></tr><tr><td>Search</td><td>grep -ri "text" dir, find . -name "*.log"</td></tr><tr><td>Permissions</td><td>chmod, chown</td></tr><tr><td>Processes</td><td>ps aux, top, kill PID</td></tr><tr><td>Disk</td><td>df -h, du -sh</td></tr></table><p><b>Permissions:</b> r = 4, w = 2, x = 1, for user, group, others. chmod 755 means rwxr-xr-x (7 = 4 + 2 + 1, 5 = 4 + 1).</p><h3>3. Pipes and scripts</h3><pre class='cd'>#!/bin/bash
-for f in *.log; do
-  echo "$f has $(wc -l &lt; "$f") lines"
+FN["6_1"]=`<h3>1. Terms</h3><p><b>Arrival</b> time, <b>burst</b> time (CPU needed), <b>completion</b> time. <b>Turnaround time</b> = completion - arrival. <b>Waiting time</b> = turnaround - burst. <b>Response time</b> = first run - arrival. Preemptive schedulers can take the CPU away; non-preemptive ones cannot.</p>
+<h3>2. Algorithms</h3><table><tr><th>Algorithm</th><th>Rule</th><th>Note</th></tr><tr><td>FCFS</td><td>First come, first served</td><td>Convoy effect: short jobs wait behind a long one</td></tr><tr><td>SJF</td><td>Shortest burst first</td><td>Minimum average waiting time; long jobs may starve</td></tr><tr><td>SRTF</td><td>Preemptive SJF</td><td>Shortest remaining time</td></tr><tr><td>Round Robin</td><td>Each gets a time quantum, then goes to the back</td><td>Large quantum behaves like FCFS; tiny quantum wastes time on switches</td></tr><tr><td>Priority</td><td>Highest priority first</td><td>Starvation; fixed by <b>aging</b></td></tr></table>
+<h3>3. Worked numerical: FCFS</h3><table><tr><th>Process</th><th>Arrival</th><th>Burst</th><th>Completion</th><th>TAT</th><th>WT</th></tr><tr><td>P1</td><td>0</td><td>5</td><td>5</td><td>5</td><td>0</td></tr><tr><td>P2</td><td>1</td><td>3</td><td>8</td><td>7</td><td>4</td></tr><tr><td>P3</td><td>2</td><td>8</td><td>16</td><td>14</td><td>6</td></tr></table><p>Average waiting time = (0 + 4 + 6) / 3 = 3.33.</p>
+<h3>4. Worked numerical: SJF (non-preemptive)</h3><p>P1 (arrival 0, burst 7), P2 (2, 4), P3 (4, 1), P4 (5, 4). P1 runs 0 to 7. At 7 the shortest ready job is P3 (7 to 8), then P2 (8 to 12), then P4 (12 to 16).</p><p>Waiting times: P1 = 0, P2 = 8 - 2 = 6, P3 = 7 - 4 = 3, P4 = 12 - 5 = 7. Average = 16 / 4 = 4.</p>
+<h3>5. Worked numerical: Round Robin, quantum 2</h3><p>P1 (burst 5), P2 (3), P3 (2), all arrive at 0. Timeline: P1 0-2, P2 2-4, P3 4-6 (done), P1 6-8, P2 8-9 (done), P1 9-10 (done).</p><p>Completion: P1 = 10, P2 = 9, P3 = 6. Waiting = completion - burst: P1 = 5, P2 = 6, P3 = 4. Average = 5.</p>
+<h3>6. Method</h3><ul><li>Draw a Gantt chart first, then compute completion, TAT and WT.</li><li>Keep the ready queue order written beside the chart in Round Robin.</li></ul>`;
+
+FN["6_2"]=`<h3>1. Race condition and critical section</h3><p>A <b>race condition</b> happens when the result depends on the timing of threads that update shared data. The code touching shared data is the <b>critical section</b>. A correct solution needs three properties: <b>mutual exclusion</b>, <b>progress</b> (no needless blocking) and <b>bounded waiting</b> (no starvation).</p>
+<h3>2. Mutex vs semaphore</h3><table><tr><th></th><th>Mutex</th><th>Semaphore</th></tr><tr><td>Nature</td><td>Lock with an owner</td><td>Integer counter</td></tr><tr><td>Values</td><td>Locked or unlocked</td><td>Binary (0 or 1) or counting (0 to N)</td></tr><tr><td>Released by</td><td>The thread that locked it</td><td>Any thread</td></tr><tr><td>Use</td><td>Protect a critical section</td><td>Signal events or count resources</td></tr></table><p>Operations: <b>wait (P)</b> decrements and blocks if the value would go below 0; <b>signal (V)</b> increments and wakes a waiter.</p>
+<h3>3. Producer-consumer (bounded buffer)</h3><pre class='cd'>semaphore empty = N, full = 0, mutex = 1;
+producer: wait(empty); wait(mutex); add item; signal(mutex); signal(full);
+consumer: wait(full);  wait(mutex); take item; signal(mutex); signal(empty);</pre><p>Swapping the order of wait(empty) and wait(mutex) can deadlock, so always wait on the counting semaphore first.</p>
+<h3>4. Deadlock: four necessary conditions</h3><table><tr><th>Condition</th><th>Break it by</th></tr><tr><td>Mutual exclusion</td><td>Making resources shareable (rarely possible)</td></tr><tr><td>Hold and wait</td><td>Requesting all resources at once</td></tr><tr><td>No preemption</td><td>Allowing the OS to take resources back</td></tr><tr><td>Circular wait</td><td>Ordering resources and requesting in order</td></tr></table><p>Strategies: prevention, avoidance (Banker's algorithm), detection and recovery, or ignoring it (many general-purpose OSes).</p>
+<h3>5. Banker's algorithm numerical</h3><p>One resource type, total 12 units. Allocation: P0 = 5, P1 = 2, P2 = 2. Max: P0 = 9, P1 = 4, P2 = 7. Available = 12 - 9 = 3.</p><p>Need = Max - Allocation: P0 = 4, P1 = 2, P2 = 5. P1 can finish (2 is at most 3); Available becomes 5. P0 can finish (4 is at most 5); Available becomes 10. P2 finishes. <b>Safe sequence: P1, P0, P2.</b> If Available were 1, no process could finish: unsafe.</p>
+<h3>6. Classic problems</h3><p>Dining philosophers, readers-writers and sleeping barber all test synchronisation design.</p>`;
+
+FN["6_3"]=`<h3>1. Paging</h3><p>Logical memory is split into fixed-size <b>pages</b>; physical memory into <b>frames</b> of the same size. A <b>page table</b> maps page number to frame number. A logical address = (page number, offset).</p><p><b>Example:</b> page size 4 KB (4096). Logical address 8200: page number = 8200 / 4096 = 2, offset = 8200 - 8192 = 8. If page 2 maps to frame 5, the physical address = 5 x 4096 + 8 = 20488.</p><ul><li>No external fragmentation; some internal fragmentation in the last page.</li><li><b>TLB</b>: a small fast cache of page table entries to avoid an extra memory access.</li></ul>
+<h3>2. Paging vs segmentation</h3><table><tr><th></th><th>Paging</th><th>Segmentation</th></tr><tr><td>Unit</td><td>Fixed-size pages</td><td>Variable-size logical segments (code, stack, heap)</td></tr><tr><td>Fragmentation</td><td>Internal</td><td>External</td></tr><tr><td>View</td><td>Invisible to the programmer</td><td>Matches the programmer's view</td></tr></table>
+<h3>3. Virtual memory and demand paging</h3><p>Only the needed pages are loaded. A <b>page fault</b> occurs when a referenced page is not in memory: the OS traps, finds the page on disk, loads it into a free frame (replacing one if needed), updates the page table and restarts the instruction. <b>Thrashing</b> is constant page faulting that leaves little time for real work; fix it with fewer processes or a larger working set.</p>
+<h3>4. Page replacement numerical</h3><p>Reference string 7, 0, 1, 2, 0, 3, 0, 4, 2, 3 with 3 frames.</p><table><tr><th>Algorithm</th><th>Faults</th><th>Hits</th><th>How</th></tr><tr><td>FIFO</td><td>9</td><td>1</td><td>Replace the oldest loaded page</td></tr><tr><td>LRU</td><td>8</td><td>2</td><td>Replace the least recently used page</td></tr></table><p>FIFO trace: 7, 0, 1 load; 2 replaces 7; 0 hits; 3 replaces 0; 0 replaces 1; 4 replaces 2; 2 replaces 3; 3 replaces 0.</p><p><b>Optimal</b> replaces the page used farthest in the future (lowest faults, impossible to implement exactly). <b>Belady's anomaly</b>: with FIFO, more frames can cause more faults; LRU and Optimal do not suffer it.</p>
+<h3>5. Allocation</h3><p>First fit (first hole big enough), best fit (smallest hole big enough), worst fit (largest hole).</p>`;
+
+FN["6_4"]=`<h3>1. File system basics</h3><ul><li>A file has data and metadata. An <b>inode</b> stores the metadata (owner, permissions, size, timestamps, pointers to data blocks) but <b>not the file name</b>; the directory maps names to inodes.</li><li>Allocation methods: contiguous (fast, external fragmentation), linked (no random access), indexed (index block lists the data blocks).</li></ul>
+<h3>2. Permissions</h3><p>Each file has read (r = 4), write (w = 2) and execute (x = 1) bits for owner, group and others. <b>chmod 755 file</b> = owner rwx (7), group r-x (5), others r-x (5). <b>chmod 644</b> = owner rw-, others read-only.</p>
+<h3>3. Commands to know</h3><table><tr><th>Task</th><th>Command</th></tr><tr><td>List with details, show path, change directory</td><td>ls -l, pwd, cd</td></tr><tr><td>Create, copy, move, delete</td><td>mkdir, cp, mv, rm -r</td></tr><tr><td>View files</td><td>cat, less, head, tail -f (follow a log)</td></tr><tr><td>Search text</td><td>grep -i -n -r "word" .</td></tr><tr><td>Find files</td><td>find . -name "*.java"</td></tr><tr><td>Processes</td><td>ps aux, top, kill PID, kill -9 PID</td></tr><tr><td>Disk</td><td>df -h (free space), du -sh dir (folder size)</td></tr><tr><td>Permissions and owner</td><td>chmod, chown</td></tr></table>
+<h3>4. Pipes and redirection</h3><pre class='cd'>ls | wc -l                      # count files
+grep ERROR app.log | sort | uniq -c | sort -nr | head   # top error messages
+echo "hello" &gt; a.txt            # overwrite
+echo "more" &gt;&gt; a.txt           # append
+command 2&gt; errors.txt           # redirect errors</pre>
+<h3>5. Small shell script</h3><pre class='cd'>#!/bin/bash
+count=0
+for f in *.txt; do
+    if [ -s "$f" ]; then count=$((count + 1)); fi    # file exists and is not empty
 done
+echo "Non-empty text files: $count"</pre><p>Run: <b>chmod +x script.sh</b> then <b>./script.sh</b>. Exit code 0 means success; read it with <b>$?</b>.</p>`;
 
-# Most common error lines
-grep -i "error" app.log | sort | uniq -c | sort -nr | head</pre><p><b>Redirection:</b> &gt; overwrites, &gt;&gt; appends, 2&gt; sends errors. <b>Tasks:</b> write a script that counts the lines in every .java file in a folder; set permissions so only you can edit it.</p>`;
-FN["6_5"]=`<h3>1. The models</h3><table><tr><th>OSI layer</th><th>Unit</th><th>Examples</th></tr><tr><td>7 Application</td><td>Data</td><td>HTTP, DNS, SMTP, FTP</td></tr><tr><td>6 Presentation</td><td>Data</td><td>Encoding, compression, TLS</td></tr><tr><td>5 Session</td><td>Data</td><td>Session setup and teardown</td></tr><tr><td>4 Transport</td><td>Segment</td><td>TCP, UDP, ports</td></tr><tr><td>3 Network</td><td>Packet</td><td>IP, routers, routing</td></tr><tr><td>2 Data link</td><td>Frame</td><td>Ethernet, MAC address, switches</td></tr><tr><td>1 Physical</td><td>Bits</td><td>Cables, Wi-Fi signals, hubs</td></tr></table><p><b>TCP/IP model</b> (4 layers): link, internet, transport, application. Memory aid for OSI from layer 7 down: All People Seem To Need Data Processing.</p><h3>2. Key ideas</h3><ul><li><b>Encapsulation:</b> each layer adds its own header on the way down and removes it on the way up.</li><li><b>MAC address:</b> hardware address used inside a local network. <b>IP address:</b> logical address used across networks. <b>ARP</b> finds the MAC for a known IP on the same network.</li><li><b>Devices:</b> hub (repeats to everyone), switch (forwards by MAC), router (forwards between networks by IP).</li></ul><p><b>Tasks:</b> in Packet Tracer, trace a ping and name which layer each step belongs to; explain why a switch, not a hub, is used today.</p>`;
-FN["6_6"]=`<h3>1. TCP vs UDP</h3><table><tr><th></th><th>TCP</th><th>UDP</th></tr><tr><td>Connection</td><td>Connection-oriented (handshake)</td><td>Connectionless</td></tr><tr><td>Delivery</td><td>Reliable, ordered, retransmits lost data</td><td>Best effort, no guarantee</td></tr><tr><td>Control</td><td>Flow and congestion control</td><td>None</td></tr><tr><td>Speed</td><td>Slower</td><td>Faster, less overhead</td></tr><tr><td>Used for</td><td>Web, email, file transfer</td><td>DNS, video calls, streaming, games</td></tr></table><p><b>Three-way handshake:</b> SYN, then SYN-ACK, then ACK. Connection close uses FIN and ACK from both sides.</p><p><b>Common ports:</b> 80 HTTP, 443 HTTPS, 22 SSH, 53 DNS, 25 SMTP, 3306 MySQL.</p><h3>2. IP addressing and subnetting</h3><p>IPv4 is 32 bits (for example 192.168.10.5). Private ranges: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16. <b>NAT</b> lets many private hosts share one public address. IPv6 uses 128 bits.</p><p><b>Formula (hosts per subnet):</b> 2<sup>h</sup> &minus; 2, where h is the number of host bits (subtract the network and broadcast addresses).</p><p><b>Formula (number of subnets):</b> 2<sup>s</sup>, where s is the number of bits borrowed.</p><p><b>Example: 192.168.10.0/26.</b> Mask 255.255.255.192. Host bits = 32 &minus; 26 = 6, so hosts = 2<sup>6</sup> &minus; 2 = 62. Block size = 64, so the subnets start at .0, .64, .128, .192. First subnet: network 192.168.10.0, usable .1 to .62, broadcast .63.</p><p><b>Tasks:</b> work out /27 and /28 yourself (30 and 14 hosts); split 192.168.1.0/24 into 4 equal subnets and configure them in Packet Tracer, as in your CN journal.</p>`;
-FN["6_7"]=`<h3>1. HTTP</h3><ul><li><b>Request:</b> method, URL, headers, optional body. <b>Response:</b> status code, headers, body.</li><li><b>Methods:</b> GET (read), POST (create), PUT (replace), PATCH (partial update), DELETE. GET, PUT and DELETE are idempotent: repeating them has the same effect.</li><li><b>Status codes:</b> 200 OK, 201 Created, 204 No Content, 301/302 redirect, 400 bad request, 401 unauthenticated, 403 forbidden, 404 not found, 500 server error, 503 unavailable.</li><li>HTTP is <b>stateless</b>; cookies, sessions or tokens (JWT) carry identity between requests.</li><li><b>HTTPS</b> is HTTP over TLS: the connection is encrypted and the server proves its identity with a certificate.</li></ul><h3>2. DNS</h3><p>Turns names into IP addresses. A resolver asks the root servers, then the TLD servers (.com), then the domain's authoritative server, and caches the answer for its <b>TTL</b>. Records: A (IPv4), AAAA (IPv6), CNAME (alias), MX (mail), NS (name server), TXT.</p><h3>3. DHCP</h3><p>Gives a device an IP address, mask, gateway and DNS server automatically. Steps: <b>Discover, Offer, Request, Acknowledge</b> (DORA).</p><h3>4. REST</h3><p>An API style built on resources (nouns in URLs such as /students/5), standard HTTP methods, stateless requests and JSON representations.</p><h3>5. What happens when you type a URL?</h3><ol><li>The browser checks its cache, then DNS finds the IP.</li><li>TCP handshake with the server.</li><li>TLS handshake (for HTTPS).</li><li>HTTP request is sent; the server processes it and replies.</li><li>The browser renders the HTML and loads CSS, JavaScript and images.</li></ol><p>Practise saying this out loud in 60 seconds; it is a very common interview question.</p>`;
-FN["6_8"]=`<h3>1. Merge vs rebase</h3><ul><li><b>merge</b> joins two branches with a merge commit and keeps history as it happened.</li><li><b>rebase</b> replays your commits on top of another branch for a straight, linear history. <b>Never rebase commits that others have already pulled.</b></li></ul><pre class='cd'>git switch -c feature/login      # new branch
-git add . &amp;&amp; git commit -m "Add login form validation"
-git fetch origin
-git rebase origin/main           # or: git merge origin/main
-git push -u origin feature/login # then open a pull request</pre><h3>2. Conflicts</h3><pre class='cd'>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+FN["6_5"]=`<h3>1. OSI model</h3><table><tr><th>Layer</th><th>Data unit</th><th>Job</th><th>Examples</th></tr><tr><td>7 Application</td><td>Data</td><td>Services for apps</td><td>HTTP, DNS, SMTP, FTP</td></tr><tr><td>6 Presentation</td><td>Data</td><td>Encoding, compression, encryption</td><td>TLS, JPEG</td></tr><tr><td>5 Session</td><td>Data</td><td>Open, manage, close sessions</td><td>RPC, sockets</td></tr><tr><td>4 Transport</td><td>Segment</td><td>End-to-end delivery, ports</td><td>TCP, UDP</td></tr><tr><td>3 Network</td><td>Packet</td><td>Logical addressing, routing</td><td>IP, ICMP; router</td></tr><tr><td>2 Data link</td><td>Frame</td><td>Delivery on one link, MAC addresses</td><td>Ethernet, ARP; switch</td></tr><tr><td>1 Physical</td><td>Bits</td><td>Signals on the medium</td><td>Cables, Wi-Fi; hub</td></tr></table><p>Memory aid, top to bottom: All People Seem To Need Data Processing.</p>
+<h3>2. TCP/IP model</h3><p>Application (OSI 5 to 7), Transport (4), Internet (3), Network access (1 and 2). It is the model actually used on the internet.</p>
+<h3>3. Encapsulation</h3><p>On sending, each layer adds its header: data, then segment (TCP header), then packet (IP header), then frame (Ethernet header and trailer), then bits. The receiver removes them in reverse.</p>
+<h3>4. Addresses and devices</h3><table><tr><th>Item</th><th>Layer</th><th>Note</th></tr><tr><td>MAC address</td><td>2</td><td>Hardware address, same-network delivery, 48 bits</td></tr><tr><td>IP address</td><td>3</td><td>Logical address, end-to-end across networks</td></tr><tr><td>Port</td><td>4</td><td>Identifies the application on a host</td></tr><tr><td>Hub / switch / router</td><td>1 / 2 / 3</td><td>Repeats bits / forwards frames by MAC / forwards packets by IP</td></tr></table><p><b>ARP</b> finds the MAC address for a known IP address on the local network.</p>
+<h3>5. What happens when you type a URL</h3><ul><li>The browser checks its caches, then DNS resolves the name to an IP address.</li><li>A TCP connection is opened (three-way handshake); for HTTPS a TLS handshake follows.</li><li>The browser sends an HTTP request; the server returns a response.</li><li>The browser parses HTML, fetches CSS, JavaScript and images, and renders the page.</li></ul>`;
+
+FN["6_6"]=`<h3>1. TCP vs UDP</h3><table><tr><th></th><th>TCP</th><th>UDP</th></tr><tr><td>Connection</td><td>Connection-oriented</td><td>Connectionless</td></tr><tr><td>Reliability</td><td>Acknowledgements, retransmission, ordering</td><td>No guarantee</td></tr><tr><td>Control</td><td>Flow and congestion control</td><td>None</td></tr><tr><td>Overhead and speed</td><td>Higher, slower</td><td>Lower, faster</td></tr><tr><td>Used for</td><td>Web, email, file transfer</td><td>DNS lookups, video calls, streaming, games</td></tr></table>
+<h3>2. TCP handshake and close</h3><p>Connect: <b>SYN</b>, then <b>SYN-ACK</b>, then <b>ACK</b> (three-way). Close: FIN and ACK in each direction (four-way). The handshake agrees on initial sequence numbers so lost or reordered data can be detected.</p>
+<h3>3. IPv4 addressing</h3><ul><li>32 bits written as four decimal bytes, for example 192.168.10.5.</li><li>Classes: A 1 to 126 (/8), B 128 to 191 (/16), C 192 to 223 (/24).</li><li>Private ranges: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16. Loopback: 127.0.0.1.</li><li><b>CIDR</b> /n means the first n bits are the network. Usable hosts = 2<sup>(32 - n)</sup> - 2 (network and broadcast addresses are reserved).</li></ul>
+<h3>4. Subnetting worked example</h3><p>Network 192.168.10.0/26.</p><table><tr><th>Item</th><th>Value</th></tr><tr><td>Subnet mask</td><td>255.255.255.192</td></tr><tr><td>Block size</td><td>256 - 192 = 64</td></tr><tr><td>Hosts per subnet</td><td>2<sup>6</sup> - 2 = 62</td></tr><tr><td>Subnets from a /24</td><td>2<sup>2</sup> = 4: .0, .64, .128, .192</td></tr></table><p>For host 192.168.10.100: network address .64, broadcast .127, usable range .65 to .126.</p>
+<h3>5. Common ports</h3><p>HTTP 80, HTTPS 443, SSH 22, FTP 21, SMTP 25, DNS 53, MySQL 3306. Well-known ports are 0 to 1023.</p>`;
+
+FN["6_7"]=`<h3>1. HTTP basics</h3><p>HTTP is a <b>stateless</b> request-response protocol: each request carries everything the server needs. State is kept with cookies and sessions or tokens.</p><table><tr><th>Method</th><th>Use</th><th>Safe</th><th>Idempotent</th></tr><tr><td>GET</td><td>Read a resource</td><td>Yes</td><td>Yes</td></tr><tr><td>POST</td><td>Create or submit</td><td>No</td><td>No</td></tr><tr><td>PUT</td><td>Replace a resource</td><td>No</td><td>Yes</td></tr><tr><td>PATCH</td><td>Partial update</td><td>No</td><td>Usually not</td></tr><tr><td>DELETE</td><td>Remove</td><td>No</td><td>Yes</td></tr></table><p><b>Idempotent</b> means repeating the call leaves the same final state.</p>
+<h3>2. Status codes</h3><table><tr><th>Range</th><th>Meaning</th><th>Examples</th></tr><tr><td>2xx</td><td>Success</td><td>200 OK, 201 Created, 204 No Content</td></tr><tr><td>3xx</td><td>Redirect</td><td>301 Moved Permanently, 304 Not Modified</td></tr><tr><td>4xx</td><td>Client error</td><td>400 Bad Request, 401 Unauthorised, 403 Forbidden, 404 Not Found, 409 Conflict</td></tr><tr><td>5xx</td><td>Server error</td><td>500 Internal Error, 502 Bad Gateway, 503 Unavailable</td></tr></table>
+<h3>3. HTTPS</h3><p>HTTPS is HTTP over <b>TLS</b>. The client checks the server's certificate, both sides agree on a shared key, and the data is then encrypted with that symmetric key. It gives confidentiality, integrity and server authentication.</p>
+<h3>4. DNS</h3><p>DNS maps names to IP addresses. Resolution: browser and OS cache, then the resolver, then a root server, then the TLD server (.com), then the authoritative server for the domain. Records: <b>A</b> (IPv4), <b>AAAA</b> (IPv6), <b>CNAME</b> (alias), <b>MX</b> (mail), <b>NS</b> (name server), <b>TXT</b> (text). Results are cached for the record's TTL.</p>
+<h3>5. DHCP</h3><p>DHCP gives a device an IP address automatically through four steps, <b>DORA</b>: Discover, Offer, Request, Acknowledge. It also supplies the gateway, subnet mask and DNS server.</p>
+<h3>6. REST and curl</h3><p>REST: resources identified by URLs, standard methods, stateless calls, JSON representations.</p><pre class='cd'>curl https://api.example.com/users/1                 # GET
+curl -X POST -H "Content-Type: application/json" -d '{"name":"Asha"}' https://api.example.com/users</pre><p><b>GET vs POST:</b> GET reads and puts parameters in the URL; POST sends data in the body and changes server state.</p>`;
+
+FN["6_8"]=`<h3>1. Merge vs rebase</h3><table><tr><th></th><th>Merge</th><th>Rebase</th></tr><tr><td>Result</td><td>Merge commit joins two histories</td><td>Your commits replayed on top of the target; linear history</td></tr><tr><td>History</td><td>Preserved exactly</td><td>Rewritten (new commit IDs)</td></tr><tr><td>Rule</td><td>Safe on shared branches</td><td>Never rebase commits others already pulled</td></tr></table><pre class='cd'>git switch feature
+git merge main            # bring main into feature (merge commit if needed)
+git rebase main           # or: replay feature commits on top of main</pre>
+<h3>2. Resolving a conflict</h3><p>A conflict happens when both branches changed the same lines. Git marks the file:</p><pre class='cd'>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
 your version
 =======
 their version
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login</pre><p>Edit the file to the final text, remove the markers, then git add the file and continue the merge or rebase.</p><h3>3. Useful commands</h3><table><tr><th>Need</th><th>Command</th></tr><tr><td>Save work in progress</td><td>git stash, git stash pop</td></tr><tr><td>Take one commit from another branch</td><td>git cherry-pick HASH</td></tr><tr><td>Undo a commit safely on a shared branch</td><td>git revert HASH</td></tr><tr><td>Undo locally</td><td>git reset --soft / --mixed / --hard HEAD~1 (hard discards changes)</td></tr><tr><td>Find lost commits</td><td>git reflog</td></tr><tr><td>See history</td><td>git log --oneline --graph</td></tr><tr><td>Mark a release</td><td>git tag v1.0</td></tr></table><p><b>fetch vs pull:</b> fetch downloads changes only; pull is fetch plus merge. Keep a .gitignore, write messages that say what and why, and make small commits. <b>Task:</b> create a conflict on purpose between two branches and resolve it.</p>`;
-FN["6_9"]=`<h3>1. SDLC</h3><p>Phases: requirements, design, implementation, testing, deployment, maintenance.</p><table><tr><th></th><th>Waterfall</th><th>Agile</th></tr><tr><td>Flow</td><td>One phase after another</td><td>Short iterations with feedback</td></tr><tr><td>Change</td><td>Expensive</td><td>Welcomed</td></tr><tr><td>Delivery</td><td>At the end</td><td>Working software each iteration</td></tr><tr><td>Best when</td><td>Requirements are fixed</td><td>Requirements evolve</td></tr></table><h3>2. Scrum</h3><ul><li><b>Roles:</b> Product Owner (what and priority), Scrum Master (process and removing blockers), Developers.</li><li><b>Events:</b> Sprint (1 to 4 weeks), Sprint Planning, Daily Scrum (15 minutes), Sprint Review, Retrospective.</li><li><b>Artifacts:</b> Product Backlog, Sprint Backlog, Increment.</li><li><b>User story:</b> As a (user), I want (goal), so that (benefit). <b>Kanban</b> instead visualises work on a board and limits work in progress.</li></ul><h3>3. Testing</h3><ul><li><b>Levels:</b> unit, integration, system, acceptance.</li><li><b>Types:</b> functional, non-functional (performance, security), regression (did old features break?), smoke (does it start at all?).</li><li><b>Black-box</b> tests behaviour without the code; <b>white-box</b> uses knowledge of the code.</li><li><b>Test pyramid:</b> many unit tests, fewer integration tests, few end-to-end tests. <b>CI/CD</b> runs build and tests automatically on every push.</li></ul><p><b>Interview:</b> explain a sprint you would run for your Banking project, with 3 user stories.</p>`;
-FN["6_10"]=`<h3>Core CS self-test (answer aloud, then check)</h3><ol><li>Four OOP pillars, one line each. (Encapsulation hides data, inheritance reuses, polymorphism gives many forms, abstraction hides detail.)</li><li>Abstract class vs interface?</li><li>Overloading vs overriding? (compile-time vs runtime)</li><li>Primary key vs unique key vs foreign key?</li><li>What does 3NF remove? (transitive dependency)</li><li>ACID in one sentence each.</li><li>Why does an index speed up reads but slow writes?</li><li>Process vs thread.</li><li>FCFS vs SJF vs Round Robin: one strength each.</li><li>Four conditions for deadlock.</li><li>What is a page fault and what happens next?</li><li>TCP vs UDP, with one use for each.</li><li>What does DNS do, and what is DHCP's job?</li><li>HTTP status codes 200, 301, 404, 500.</li><li>Number of usable hosts in a /26.</li><li>Merge vs rebase.</li></ol><p>Score yourself out of 16 and add every miss to the Mistake Book.</p>`;
-FN["6_11"]=`<h3>Weak-area revision</h3><ol><li>List the topics from this month's Mistake Book and quiz misses, weakest first.</li><li>For each, write a one-page cheat sheet in your own words: definition, a diagram or example, and two interview questions.</li><li>Explain each topic aloud for 2 minutes without notes; if you stall, reread and repeat.</li><li>Redo the Core CS quiz and compare your score with the first attempt.</li><li>Add the revision dates to the Revision Queue (1, 7 and 15 days).</li></ol><p>Also tidy your notes and push any scripts to GitHub.</p>`;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature</pre><ul><li>Edit the file to the final text and delete the markers.</li><li>Run <b>git add file</b>, then <b>git commit</b> (merge) or <b>git rebase --continue</b>.</li><li>Abort at any time with <b>git merge --abort</b> or <b>git rebase --abort</b>.</li></ul>
+<h3>3. Useful commands</h3><table><tr><th>Command</th><th>Does</th></tr><tr><td>git stash / git stash pop</td><td>Shelve and restore uncommitted work</td></tr><tr><td>git cherry-pick ID</td><td>Copy one commit onto the current branch</td></tr><tr><td>git revert ID</td><td>New commit that undoes an old one (safe on shared branches)</td></tr><tr><td>git reset --soft / --mixed / --hard ID</td><td>Move HEAD; keep staged / keep files / discard everything</td></tr><tr><td>git reflog</td><td>History of where HEAD has been; recovers lost commits</td></tr><tr><td>git fetch vs git pull</td><td>Download only vs download and merge</td></tr></table>
+<h3>4. Pull request workflow</h3><ul><li>Branch from main, commit small changes, push the branch.</li><li>Open a pull request with a clear description; reviewers comment; CI runs the tests.</li><li>Fix feedback with new commits, then merge (merge, squash or rebase) and delete the branch.</li></ul>
+<h3>5. Branching strategies</h3><p><b>GitHub flow</b>: short-lived feature branches off main. <b>Git Flow</b>: develop, feature, release and hotfix branches. <b>Trunk-based</b>: very small changes merged to main daily behind feature flags.</p>`;
+
+FN["6_9"]=`<h3>1. SDLC phases</h3><p>Requirements, design, implementation, testing, deployment, maintenance.</p>
+<h3>2. Waterfall vs Agile</h3><table><tr><th></th><th>Waterfall</th><th>Agile</th></tr><tr><td>Flow</td><td>Sequential phases</td><td>Short iterations that repeat all phases</td></tr><tr><td>Change</td><td>Hard and costly</td><td>Welcomed</td></tr><tr><td>Customer feedback</td><td>At the end</td><td>Every iteration</td></tr><tr><td>Best for</td><td>Fixed, well-known requirements</td><td>Changing requirements</td></tr></table>
+<h3>3. Scrum</h3><table><tr><th>Part</th><th>Details</th></tr><tr><td>Roles</td><td>Product Owner (what and priority), Scrum Master (removes blockers, protects the process), Developers (build it)</td></tr><tr><td>Events</td><td>Sprint (1 to 4 weeks), Sprint Planning, Daily Scrum (15 minutes), Sprint Review (demo), Sprint Retrospective (improve the process)</td></tr><tr><td>Artefacts</td><td>Product Backlog, Sprint Backlog, Increment</td></tr></table><p>A <b>user story</b>: "As a customer, I want to reset my password so that I can regain access." Each story has acceptance criteria and a point estimate. <b>Kanban</b> uses a board with work-in-progress limits and no fixed sprints.</p>
+<h3>4. Testing levels and types</h3><table><tr><th>Level</th><th>Scope</th></tr><tr><td>Unit</td><td>One method or class, by developers</td></tr><tr><td>Integration</td><td>Modules working together</td></tr><tr><td>System</td><td>Whole application</td></tr><tr><td>Acceptance</td><td>Customer or business confirms it meets needs</td></tr></table><p>Other terms: <b>regression</b> (old features still work), <b>smoke</b> (quick check that the build is usable), black-box (no code knowledge) vs white-box (code-aware).</p>
+<h3>5. JUnit and TDD</h3><pre class='cd'>@Test
+void discountIsApplied() {
+    assertEquals(90.0, new Cart().total(100.0, 10), 0.001);
+}</pre><p><b>TDD</b>: write a failing test, make it pass, then refactor. <b>CI/CD</b>: every push builds and tests automatically; deployment is automated and repeatable.</p>
+<h3>6. Bug lifecycle</h3><p>New, assigned, in progress, fixed, retested, closed (or reopened if the fix fails).</p>`;
+
+FN["6_10"]=`<h3>Core CS quiz: 40 questions in 60 minutes</h3>
+<h3>1. Rules</h3><ul><li>Answer on paper or aloud; no notes.</li><li>10 questions each on OOP, DBMS, OS and CN. 90 seconds per question.</li><li>Mark each one: sure, unsure or blank. Review the unsure and blank ones.</li></ul>
+<h3>2. Self-check table (cover the right column)</h3><table><tr><th>Question</th><th>Core answer</th></tr><tr><td>Overloading vs overriding</td><td>Compile-time, same class vs runtime, parent and child</td></tr><tr><td>Abstract class vs interface</td><td>Shared state and code vs a capability contract</td></tr><tr><td>WHERE vs HAVING</td><td>Filter rows before grouping vs filter groups after</td></tr><tr><td>ACID</td><td>Atomicity, consistency, isolation, durability</td></tr><tr><td>Normalisation</td><td>Remove redundancy and anomalies (1NF to BCNF)</td></tr><tr><td>Process vs thread</td><td>Own memory vs shared memory inside a process</td></tr><tr><td>Deadlock conditions</td><td>Mutual exclusion, hold and wait, no preemption, circular wait</td></tr><tr><td>Paging</td><td>Fixed-size pages mapped to frames by a page table</td></tr><tr><td>TCP vs UDP</td><td>Reliable and ordered vs fast and best-effort</td></tr><tr><td>Three-way handshake</td><td>SYN, SYN-ACK, ACK</td></tr><tr><td>DNS</td><td>Name to IP address resolution</td></tr><tr><td>GET vs POST</td><td>Read, idempotent vs create or submit</td></tr></table>
+<h3>3. Scoring</h3><p>Count a question correct only if you could say the answer aloud in your own words. Record the score per subject; the lowest subject is your Day 12 focus.</p>`;
+
+FN["6_11"]=`<h3>Weak-area revision and notes cleanup</h3>
+<h3>1. Pick the three weakest topics</h3><p>Use the quiz score per subject and your mistake log. For each topic: re-read the lesson once, close it, then write a one-page summary from memory and compare.</p>
+<h3>2. One-page summary template</h3><ul><li>Definition in one sentence.</li><li>A small diagram or table.</li><li>One worked example or numerical.</li><li>Three likely interview questions with short answers.</li></ul>
+<h3>3. Comparison tables to rewrite from memory</h3><table><tr><th>Pair</th><th>Key difference</th></tr><tr><td>Process vs thread</td><td>Isolated memory vs shared memory</td></tr><tr><td>Mutex vs semaphore</td><td>Owned lock vs signalling counter</td></tr><tr><td>Paging vs segmentation</td><td>Fixed pages vs logical segments</td></tr><tr><td>FIFO vs LRU</td><td>Oldest loaded vs least recently used</td></tr><tr><td>TCP vs UDP</td><td>Reliable vs fast</td></tr><tr><td>Merge vs rebase</td><td>Preserves history vs rewrites it</td></tr><tr><td>Waterfall vs Agile</td><td>Sequential vs iterative</td></tr></table>
+<h3>4. Active recall</h3><p>Answer 5 questions aloud on each weak topic, then add the ones you missed to the Mistake Book and the Revision Queue.</p>`;
+
 draw();
 </script></body></html>
