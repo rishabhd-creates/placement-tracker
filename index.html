@@ -3156,5 +3156,184 @@ for (char ch : s.toCharArray()) if (!seen[ch]) { seen[ch] = true; sb.append(ch);
 <h3>J. Mastery test</h3><p>Without notes: draw the pool diagram for four lines of declarations, write palindrome, anagram, compression and Caesar cipher, and answer predict-the-output items 1 to 10 before running them.</p>`;
 
 
+/* PACK M1-W3-DEEP: Month 1 Week 3 (Classes/Objects, Encapsulation, Inheritance). Appends deep notes to the existing lessons. */
+
+FN["0_6"]+=`<hr><h2>DEEP DIVE: Classes, objects, constructors, this, static</h2>
+<h3>Day goal</h3><p>By tonight you can draw what happens in memory for Student s = new Student(...), write overloaded and chained constructors, explain static vs instance, and predict initialisation order.</p>
+<h3>A. What new really does (5 steps)</h3><pre class='cd'>Student s = new Student(1, "Asha", 82.5);
+1. JVM loads the class (once) and runs static blocks.
+2. Memory for one object is allocated on the HEAP.
+3. Fields get default values (0, false, null).
+4. Field initialisers and instance blocks run, then the constructor body.
+5. The reference (address) is stored in s on the STACK.
+
+STACK            HEAP
+s ---ref---&gt;    [ id=1 | name ---&gt; "Asha" | marks=82.5 ]
+Student t = s;   // t ---ref---&gt; the SAME object; no copy
+t.marks = 90;    // s.marks is 90 too
+s = null;        // s points nowhere; t still holds the object</pre><p>An object with no references left is eligible for <b>garbage collection</b>; you never free memory yourself. Using a null reference (s.display() when s is null) throws <b>NullPointerException</b>.</p>
+<h3>B. Fields vs local variables</h3><table><tr><th></th><th>Field (instance)</th><th>Local variable</th></tr><tr><td>Declared</td><td>In the class, outside methods</td><td>Inside a method or block</td></tr><tr><td>Default value</td><td>Yes (0, false, null)</td><td>No; must be assigned</td></tr><tr><td>Lives</td><td>As long as the object</td><td>Until the block ends</td></tr><tr><td>Stored</td><td>Heap, inside the object</td><td>Stack</td></tr></table>
+<h3>C. Constructors in depth</h3><pre class='cd'>class Student {
+    int id; String name; double marks;
+    Student() { this(0, "Unknown", 0); }                 // no-arg, chains to the 3-arg one
+    Student(int id, String name) { this(id, name, 0); }   // chaining
+    Student(int id, String name, double marks) {          // the "master" constructor
+        this.id = id; this.name = name; this.marks = marks;
+    }
+    Student(Student o) { this(o.id, o.name, o.marks); }   // copy constructor
+}
+Student a = new Student(1, "Asha", 80);
+Student b = new Student(a);       // independent copy: changing b does not change a</pre><ul><li>Name equals class name; no return type (a method with a return type and the class name is NOT a constructor).</li><li>Write nothing and Java adds a default no-arg constructor; write any constructor and the default disappears.</li><li><b>this(...)</b> must be the first statement and cannot be used together with super(...) in one constructor.</li><li>A constructor can be <b>private</b> (used by Singleton and utility classes).</li><li>Constructors are not inherited and cannot be static, final or abstract.</li><li>Put the real work in one master constructor and let the others call it: no duplicated validation.</li></ul>
+<h3>D. The five uses of this</h3><table><tr><th>Use</th><th>Example</th></tr><tr><td>Separate field from parameter</td><td>this.name = name;</td></tr><tr><td>Call another constructor</td><td>this(0, "Unknown", 0);</td></tr><tr><td>Call another method of the same object</td><td>this.display();</td></tr><tr><td>Pass the current object</td><td>printer.print(this);</td></tr><tr><td>Return the current object (method chaining)</td><td>return this;</td></tr></table><pre class='cd'>class Pizza {
+    String size, topping;
+    Pizza size(String s) { this.size = s; return this; }
+    Pizza topping(String t) { this.topping = t; return this; }
+}
+Pizza p = new Pizza().size("large").topping("corn");     // chained calls</pre><p>Bug to avoid: <b>name = name;</b> in a constructor assigns the parameter to itself and the field stays null.</p>
+<h3>E. static in depth</h3><table><tr><th></th><th>static</th><th>instance</th></tr><tr><td>Copies</td><td>One per class, shared</td><td>One per object</td></tr><tr><td>Created</td><td>When the class loads</td><td>Each time you call new</td></tr><tr><td>Access</td><td>ClassName.member</td><td>object.member</td></tr><tr><td>Can use this</td><td>No</td><td>Yes</td></tr></table><pre class='cd'>class Counter {
+    static int count = 0;            // shared by all objects
+    final int id;                    // each object has its own id
+    Counter() { id = ++count; }
+    static int total() { return count; }
+}
+new Counter(); new Counter(); new Counter();
+Counter.total();                     // 3  (ids are 1, 2, 3)</pre><ul><li>A static method can use only static members directly; to reach instance data it needs an object.</li><li>Static members are also called class variables and class methods. Constants: <b>static final double PI = 3.14159;</b></li><li>Math.max, Integer.parseInt and main are static: no object needed.</li></ul>
+<h3>F. Initialisation order (exam favourite)</h3><pre class='cd'>class Demo {
+    static int s = init("static field");
+    int i = init("instance field");
+    static { System.out.println("static block"); }
+    { System.out.println("instance block"); }
+    Demo() { System.out.println("constructor"); }
+    static int init(String m) { System.out.println(m); return 1; }
+}
+new Demo(); new Demo();
+OUTPUT:  static field, static block, instance field, instance block, constructor,
+         instance field, instance block, constructor</pre><p>Static parts run <b>once</b>, when the class first loads. Instance parts run for <b>every</b> object, before the constructor body.</p>
+<h3>G. Useful object habits</h3><pre class='cd'>@Override public String toString() { return id + " " + name + " " + marks; }
+System.out.println(s);                 // calls toString automatically
+Student[] arr = new Student[3];        // 3 null references, NOT 3 objects
+arr[0] = new Student(1, "A", 70);      // create each object before use
+new Student(2, "B", 60).display();     // anonymous object, used once
+a.equals(b)                            // default equals compares references, like ==</pre>
+<h3>H. Programs to write (with the idea)</h3><ul><li><b>Rectangle:</b> fields length, width; methods area(), perimeter(), isSquare(); two constructors.</li><li><b>BankAccount:</b> deposit, withdraw (reject overdraft), static counter for accounts opened.</li><li><b>Book and Library:</b> array of Book; search by title; display all.</li><li><b>Point:</b> distance(Point other) using Math.sqrt; a copy constructor.</li><li><b>Complex number:</b> add(Complex c) returning a new Complex.</li><li><b>Student ranking:</b> array of 5 students, find topmost and average.</li></ul>
+<h3>I. Predict the output</h3><pre class='cd'>1) Student a = new Student(1,"A",50); Student b = a; b.marks = 99; print(a.marks);   // 99
+2) static int c = 0; ... three objects created, each constructor does c++; print(c);  // 3
+3) Student s = null; s.display();                                                      // NullPointerException
+4) new Student(1,"A",50) == new Student(1,"A",50)                                      // false
+5) A class with only Student(int id) but code calls new Student();                    // compile error</pre>
+<h3>J. Debug these</h3><ul><li><b>name = name;</b> inside the constructor: field stays null.</li><li><b>void Student(){}</b> is a normal method, not a constructor.</li><li>Using an instance field from main without an object.</li><li><b>this(...)</b> placed on the second line of a constructor.</li></ul>
+<h3>K. 14 interview questions</h3><ul><li><b>Class vs object?</b> Blueprint vs instance.</li><li><b>Can constructors be overloaded? Inherited?</b> Overloaded yes; inherited no.</li><li><b>What if no constructor is written?</b> Java supplies a default no-arg one.</li><li><b>What is a copy constructor?</b> A constructor taking an object of the same class.</li><li><b>Can a constructor return a value?</b> No.</li><li><b>this vs super?</b> Current object vs parent part.</li><li><b>When is a static block run?</b> Once at class load.</li><li><b>Why is main static?</b> The JVM calls it before any object exists.</li><li><b>Can a static method be overridden?</b> No, only hidden.</li><li><b>Where are objects stored?</b> Heap.</li><li><b>What is garbage collection?</b> Automatic freeing of unreachable objects.</li><li><b>Difference between == and equals for objects?</b> Reference vs content (if overridden).</li><li><b>Can we create an object without new?</b> Yes: clone, deserialisation, reflection, factory methods.</li><li><b>What is an anonymous object?</b> An object with no reference variable.</li></ul>
+<h3>L. Mastery test</h3><p>Without notes: draw stack and heap for three lines of object code, write a class with three chained constructors, predict the Demo output above, and explain static vs instance in 30 seconds.</p>`;
+
+FN["0_7"]+=`<hr><h2>DEEP DIVE: Encapsulation, access modifiers, packages, immutability</h2>
+<h3>Day goal</h3><p>By tonight you can design a fully encapsulated class with validation, explain every access level, build a package structure, compile it from the terminal, and write a truly immutable class.</p>
+<h3>A. Why encapsulate</h3><ul><li><b>Control:</b> the class decides what values are legal (no negative salary).</li><li><b>Safety:</b> outside code cannot corrupt internal state.</li><li><b>Flexibility:</b> you can change the internal storage later without breaking users (store marks as an array instead of three fields; getters stay the same).</li><li><b>Read-only or write-only:</b> omit the setter to make a field read-only.</li></ul><p><b>Encapsulation vs abstraction:</b> encapsulation hides data and protects it (private fields plus methods); abstraction hides complexity and shows only what is needed (interfaces, abstract classes).</p>
+<h3>B. A complete encapsulated class</h3><pre class='cd'>public class Employee {
+    private final int id;                 // read-only: no setter
+    private String name;
+    private double salary;
+    private boolean active;
+
+    public Employee(int id, String name, double salary) {
+        this.id = id; setName(name); setSalary(salary); this.active = true;   // reuse validation
+    }
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public void setName(String name) {
+        if (name == null || name.isBlank()) throw new IllegalArgumentException("Name required");
+        this.name = name.trim();
+    }
+    public double getSalary() { return salary; }
+    public void setSalary(double s) {
+        if (s &lt; 0) throw new IllegalArgumentException("Salary cannot be negative");
+        this.salary = s;
+    }
+    public boolean isActive() { return active; }        // boolean getter uses "is"
+    public void raise(double percent) { setSalary(salary + salary * percent / 100); }   // behaviour, not just data
+    @Override public String toString() { return id + " " + name + " " + salary; }
+}</pre><p>Naming rules (JavaBeans): <b>getX</b>, <b>setX</b>, <b>isX</b> for booleans. Prefer meaningful methods (raise, deposit, withdraw) over exposing set for everything: a bank balance should change only through deposit and withdraw, never setBalance.</p>
+<h3>C. Access modifiers: full table with a test</h3><table><tr><th>Modifier</th><th>Same class</th><th>Same package</th><th>Subclass, other package</th><th>Other package</th></tr><tr><td>private</td><td>Yes</td><td>No</td><td>No</td><td>No</td></tr><tr><td>(default)</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr><tr><td>protected</td><td>Yes</td><td>Yes</td><td>Yes (through inheritance)</td><td>No</td></tr><tr><td>public</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr></table><ul><li>A top-level class can only be public or default (package-private).</li><li>Public class name must match the file name; one public class per file.</li><li>Rule of thumb: start with the most restrictive access and loosen only when needed.</li><li>private applies per <b>class</b>, not per object: a method can read another object's private field if both are the same class.</li></ul>
+<h3>D. Packages hands-on</h3><pre class='cd'>project/
+  src/com/bank/model/Account.java     -&gt; first line: package com.bank.model;
+  src/com/bank/service/BankService.java -&gt; package com.bank.service; import com.bank.model.Account;
+  src/com/bank/Main.java              -&gt; package com.bank; imports model and service
+
+Compile from project/ :   javac -d out src/com/bank/*.java src/com/bank/model/*.java src/com/bank/service/*.java
+Run:                      java -cp out com.bank.Main</pre><ul><li>Folder structure must match the package name; names are lowercase, usually reverse domain (com.company.app).</li><li><b>import</b> lets you skip the full name; <b>java.lang</b> (String, Math, System) is imported automatically.</li><li>import java.util.*; imports all classes of the package, not sub-packages.</li><li>Two classes with the same name can live in different packages; use the full name to tell them apart.</li><li>Without a package statement a class is in the unnamed default package (fine for small practice, avoid in projects).</li></ul>
+<h3>E. Immutable class, done properly</h3><pre class='cd'>public final class Course {                       // 1. final: no subclass can break immutability
+    private final String title;                   // 2. private final fields
+    private final List&lt;String&gt; topics;
+    public Course(String title, List&lt;String&gt; topics) {
+        this.title = title;
+        this.topics = new ArrayList&lt;&gt;(topics);     // 3. defensive copy IN
+    }
+    public String getTitle() { return title; }
+    public List&lt;String&gt; getTopics() { return new ArrayList&lt;&gt;(topics); }   // 4. defensive copy OUT
+    public Course withTitle(String t) { return new Course(t, topics); }   // 5. "change" returns a new object
+}</pre><p>No setters. Without the two defensive copies, a caller could keep a reference to the same list and change it later. Benefits: thread-safe, safe as map keys, simple to reason about. Examples: String, Integer, LocalDate.</p>
+<h3>F. Getter that leaks state</h3><pre class='cd'>class Bad  { private int[] marks = {1,2}; public int[] getMarks() { return marks; } }   // caller can change it
+class Good { private int[] marks = {1,2}; public int[] getMarks() { return marks.clone(); } }
+Bad b = new Bad(); b.getMarks()[0] = 99;     // corrupted the private data</pre>
+<h3>G. Predict the output and spot the errors</h3><pre class='cd'>1) Employee e = new Employee(1,"A",1000); e.setSalary(-5);        // IllegalArgumentException
+2) e.id = 5;  (from another class)                                   // compile error: private
+3) final field assigned twice                                         // compile error
+4) A getter returning the internal ArrayList directly                 // breaks encapsulation
+5) Two public classes in one file                                     // compile error</pre>
+<h3>H. Programs to write</h3><ul><li>Student with private marks (validate 0 to 100), method grade(), read-only roll number.</li><li>BankAccount where balance changes only through deposit and withdraw.</li><li>Split a three-class program across packages model, service, app; compile with javac -d.</li><li>An immutable Money class with amount and currency, and a plus() method returning a new object.</li><li>Test: try to access a private field from another class and read the compiler message.</li></ul>
+<h3>I. 14 interview questions</h3><ul><li><b>What is encapsulation?</b> Private data exposed through controlled public methods.</li><li><b>Real-world example?</b> An ATM: you press buttons; the cash internals are hidden.</li><li><b>Why not make fields public?</b> No validation and no freedom to change internals.</li><li><b>protected vs default?</b> protected also allows subclasses in other packages.</li><li><b>Can a class be private?</b> Only a nested class.</li><li><b>Is a class with all private fields and no setters immutable?</b> Not necessarily; mutable objects inside or returned getters can leak.</li><li><b>How to make a class immutable?</b> final class, private final fields, no setters, defensive copies.</li><li><b>Why is String immutable?</b> Security, pooling, thread safety, hashing.</li><li><b>What is a package?</b> A namespace grouping related classes.</li><li><b>Does import load the class?</b> No; it only shortens names for the compiler.</li><li><b>Tight vs loose coupling?</b> Depending on details vs depending on small public contracts.</li><li><b>Can private members be accessed via reflection?</b> Yes, but it is discouraged.</li><li><b>What is a JavaBean?</b> A class with a no-arg constructor, private fields and getters/setters.</li><li><b>Getter and setter for every field?</b> No; only what outside code genuinely needs.</li></ul>
+<h3>J. Mastery test</h3><p>Without notes: write Employee with validation, fill the access table from memory, list the five immutability rules, and compile a two-package program in the terminal.</p>`;
+
+FN["0_8"]+=`<hr><h2>DEEP DIVE: Inheritance, super, overriding, Object class, final</h2>
+<h3>Day goal</h3><p>By tonight you can write a multi-level hierarchy, trace the constructor call order, list every overriding rule, override toString, equals and hashCode correctly, and decide between inheritance and composition.</p>
+<h3>A. Types of inheritance</h3><table><tr><th>Type</th><th>Shape</th><th>In Java</th></tr><tr><td>Single</td><td>B extends A</td><td>Yes</td></tr><tr><td>Multilevel</td><td>C extends B, B extends A</td><td>Yes</td></tr><tr><td>Hierarchical</td><td>B and C both extend A</td><td>Yes</td></tr><tr><td>Multiple</td><td>C extends A and B</td><td>No for classes (diamond problem); use interfaces</td></tr></table>
+<h3>B. What is and is not inherited</h3><ul><li>Inherited: non-private fields and methods (private ones exist in the object but are not accessible by name).</li><li>NOT inherited: constructors, private members, and members of a different package if default access.</li><li>Static methods are inherited by access but cannot be overridden; a same-named static in the child <b>hides</b> the parent's.</li><li>Fields are <b>not</b> polymorphic: a field with the same name in the child hides the parent's field; the type of the reference decides which one you see.</li></ul>
+<h3>C. Constructor chaining traced</h3><pre class='cd'>class A { A() { System.out.println("A"); } }
+class B extends A { B() { System.out.println("B"); } }
+class C extends B { C() { System.out.println("C"); } }
+new C();   // prints A, then B, then C
+
+class Vehicle { Vehicle(String brand) { } }          // no no-arg constructor
+class Car extends Vehicle { Car() { } }              // COMPILE ERROR: super() not found
+class Car extends Vehicle { Car() { super("Tata"); } }   // fix: call it explicitly</pre><p>If you do not write <b>super(...)</b>, Java inserts <b>super()</b> as the first line. If the parent has no no-arg constructor you must call super(args) yourself. The parent part of an object is always built first.</p>
+<h3>D. Full example: Employee hierarchy</h3><pre class='cd'>class Employee {
+    protected String name; protected double baseSalary;
+    Employee(String name, double baseSalary) { this.name = name; this.baseSalary = baseSalary; }
+    double salary() { return baseSalary; }
+    @Override public String toString() { return name + " earns " + salary(); }
+}
+class Manager extends Employee {
+    private double bonus;
+    Manager(String name, double base, double bonus) { super(name, base); this.bonus = bonus; }
+    @Override double salary() { return super.salary() + bonus; }     // reuse the parent logic
+}
+class Intern extends Employee {
+    Intern(String name) { super(name, 10000); }
+    @Override double salary() { return baseSalary * 0.5; }
+}
+Employee e = new Manager("Ravi", 50000, 8000);
+System.out.println(e);        // Ravi earns 58000.0  (Manager.salary runs)</pre>
+<h3>E. Overriding rules (complete)</h3><table><tr><th>Rule</th><th>Detail</th></tr><tr><td>Signature</td><td>Same name and parameters</td></tr><tr><td>Access</td><td>Same or wider (protected can become public, never private)</td></tr><tr><td>Return type</td><td>Same, or a subtype (covariant return)</td></tr><tr><td>Exceptions</td><td>May throw fewer or narrower checked exceptions, never broader</td></tr><tr><td>Cannot override</td><td>private, static, final methods and constructors</td></tr><tr><td>@Override</td><td>Compiler checks you really override; always use it</td></tr></table>
+<h3>F. The Object class</h3><p>Every class extends Object. Key methods: <b>toString</b>, <b>equals</b>, <b>hashCode</b>, getClass, clone, finalize (obsolete).</p><pre class='cd'>@Override public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Student s = (Student) o;
+    return id == s.id &amp;&amp; Objects.equals(name, s.name);
+}
+@Override public int hashCode() { return Objects.hash(id, name); }</pre><p><b>Contract:</b> if a.equals(b) is true then a.hashCode() == b.hashCode(). Break it and HashMap and HashSet misbehave. Default equals is ==; default toString prints ClassName@hash.</p>
+<h3>G. final in three places</h3><table><tr><th>Where</th><th>Meaning</th></tr><tr><td>Variable</td><td>Assigned once (constant)</td></tr><tr><td>Method</td><td>Cannot be overridden</td></tr><tr><td>Class</td><td>Cannot be extended (String, Integer)</td></tr></table>
+<h3>H. IS-A vs HAS-A</h3><p>Inherit only when the child truly IS-A kind of parent (Car IS-A Vehicle). Use <b>composition</b> (a field) for HAS-A (Car HAS-A Engine). Composition is more flexible and avoids deep, fragile hierarchies: <b>prefer composition over inheritance</b>.</p><pre class='cd'>class Engine { void start() { } }
+class Car { private Engine engine = new Engine(); void start() { engine.start(); } }</pre>
+<h3>I. Preview of the next day</h3><p>A parent reference can hold a child object: <b>Employee e = new Manager(...)</b>. Only parent members are visible through e, but overridden methods run the child's version. Day 4 of Week 4 covers this as polymorphism.</p>
+<h3>J. Predict the output</h3><pre class='cd'>1) class P { void f(){print("P");} } class C extends P { void f(){print("C");} }  new C().f();   // C
+2) P p = new C(); p.f();                                                                       // C
+3) class P { int x = 1; } class C extends P { int x = 2; }  P p = new C(); print(p.x);        // 1 (fields hidden, not overridden)
+4) new C() where P prints "P" in its constructor and C prints "C"                              // P then C
+5) class P { final void f(){} } class C extends P { void f(){} }                               // compile error</pre>
+<h3>K. Debug these</h3><ul><li>Child constructor without super(args) when the parent has only a parameterised constructor.</li><li>Overriding with weaker access (public to protected).</li><li>Overriding equals but not hashCode.</li><li>Using extends just to reuse a few methods (should be composition).</li></ul>
+<h3>L. Programs to write</h3><ul><li>Shape (name) with Circle, Rectangle, Triangle each overriding area(); print all.</li><li>Person, then Student and Teacher extending it; Student adds marks, Teacher adds subject; override toString.</li><li>Three-level hierarchy Animal, Dog, Puppy with constructor prints to confirm order.</li><li>Override equals and hashCode in Student and show two equal objects in a HashSet are stored once.</li><li>Bank: Account, SavingsAccount (interest), CurrentAccount (overdraft) overriding withdraw().</li></ul>
+<h3>M. 14 interview questions</h3><ul><li><b>Why no multiple inheritance of classes?</b> Diamond ambiguity; use interfaces.</li><li><b>Is a constructor inherited?</b> No, but the parent constructor always runs.</li><li><b>Overloading vs overriding?</b> Compile time, same class vs runtime, parent and child.</li><li><b>Can we override a static method?</b> No, it is hidden.</li><li><b>Can we override a private method?</b> No; it is not visible to the child.</li><li><b>What does super do?</b> Refers to the parent part: constructor, methods, fields.</li><li><b>What is covariant return?</b> The overriding method may return a subtype.</li><li><b>Why use @Override?</b> Compiler catches typos and wrong signatures.</li><li><b>What is the root class?</b> java.lang.Object.</li><li><b>equals and hashCode relation?</b> Equal objects must have equal hash codes.</li><li><b>What does final class mean?</b> Cannot be subclassed.</li><li><b>Inheritance vs composition?</b> IS-A vs HAS-A; prefer composition.</li><li><b>Can a child call a parent's private method?</b> No.</li><li><b>How many classes can a class extend?</b> One.</li></ul>
+<h3>N. Mastery test</h3><p>Without notes: write the Employee/Manager example, predict constructor order for three levels, list the overriding rules, and explain why overriding equals needs hashCode.</p>`;
+
+
 draw();
 </script></body></html>
