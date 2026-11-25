@@ -3156,183 +3156,211 @@ for (char ch : s.toCharArray()) if (!seen[ch]) { seen[ch] = true; sb.append(ch);
 <h3>J. Mastery test</h3><p>Without notes: draw the pool diagram for four lines of declarations, write palindrome, anagram, compression and Caesar cipher, and answer predict-the-output items 1 to 10 before running them.</p>`;
 
 
-/* PACK M1-W3-DEEP: Month 1 Week 3 (Classes/Objects, Encapsulation, Inheritance). Appends deep notes to the existing lessons. */
+/* PACK M1-W1-DETAILED: Month 1 Week 1 (Java setup/types/IO, operators/conditions/switch, loops/patterns). Replaces FN 0_0, 0_1, 0_2. */
 
-FN["0_6"]+=`<hr><h2>DEEP DIVE: Classes, objects, constructors, this, static</h2>
-<h3>Day goal</h3><p>By tonight you can draw what happens in memory for Student s = new Student(...), write overloaded and chained constructors, explain static vs instance, and predict initialisation order.</p>
-<h3>A. What new really does (5 steps)</h3><pre class='cd'>Student s = new Student(1, "Asha", 82.5);
-1. JVM loads the class (once) and runs static blocks.
-2. Memory for one object is allocated on the HEAP.
-3. Fields get default values (0, false, null).
-4. Field initialisers and instance blocks run, then the constructor body.
-5. The reference (address) is stored in s on the STACK.
+FN["0_0"]=`<h3>Day goal</h3><p><b>Day 1:</b> install the JDK, explain what happens between typing code and seeing output, and use every primitive type. <b>Day 2:</b> predict outputs, fix broken code, read input in three ways, finish the report-card mini project.</p>
+<table><tr><th>Hour</th><th>Day 1 (learn)</th><th>Day 2 (practise)</th></tr><tr><td>1</td><td>Sections 1 to 5: read and type every example</td><td>Explain sections 1 to 7 aloud, then predict-output set</td></tr><tr><td>2</td><td>Sections 6 to 8 and programs A to F</td><td>Programs G to L, debug set, report card</td></tr><tr><td>3</td><td>DSA hour</td><td>DSA hour and revision</td></tr></table>
+<h3>1. What is Java and how a program runs</h3><p><b>Java</b> is a general-purpose, object-oriented, strongly typed language. Source code (.java) is compiled by <b>javac</b> into <b>bytecode</b> (.class), and the <b>JVM</b> runs the bytecode on any operating system: <i>write once, run anywhere</i>.</p>
+<table><tr><th>Term</th><th>Meaning</th></tr><tr><td>JVM</td><td>Virtual machine that runs bytecode. Parts: class loader (loads .class), bytecode verifier (safety check), interpreter plus <b>JIT compiler</b> (turns hot code into machine code), <b>garbage collector</b> (frees unused objects)</td></tr><tr><td>JRE</td><td>JVM plus standard libraries; enough to run programs</td></tr><tr><td>JDK</td><td>JRE plus javac, jar, javadoc, debugger; needed to write programs</td></tr></table>
+<p><b>JVM memory areas:</b> Heap (all objects, shared), Stack (one per thread; method frames with local variables), Metaspace (class data), PC register (current instruction), Native stack. <b>Editions:</b> Java SE (core), Jakarta EE (enterprise), Java ME (embedded). <b>Features:</b> platform independent, object-oriented, automatic memory management, secure (no pointers), multithreaded, robust (exception handling). LTS versions: 8, 11, 17, 21, 25; this plan uses JDK 21.</p>
+<h3>2. Setup and four ways to run</h3><ul><li>Install JDK 21, set <b>JAVA_HOME</b> to its folder and add its <b>bin</b> to PATH. Check: <b>java -version</b> and <b>javac -version</b>.</li><li>IDE: IntelliJ IDEA Community or VS Code with the Java extension.</li></ul>
+<table><tr><th>Way</th><th>Command</th></tr><tr><td>Compile then run</td><td>javac Hello.java then java Hello</td></tr><tr><td>Single-file launch (Java 11+)</td><td>java Hello.java</td></tr><tr><td>IDE</td><td>Run button (compiles automatically)</td></tr><tr><td>jshell (Java 9+)</td><td>Type one-line experiments with no class</td></tr></table>
+<table><tr><th>Error</th><th>Cause and fix</th></tr><tr><td>javac is not recognized</td><td>JDK missing or PATH wrong</td></tr><tr><td>Could not find or load main class</td><td>Wrong class name, case or folder; run from the folder holding the .class</td></tr><tr><td>class X is public, should be declared in X.java</td><td>File name must match the public class</td></tr><tr><td>cannot find symbol</td><td>Typo or missing import</td></tr></table>
+<p><b>Three kinds of error:</b> <b>compile-time</b> (syntax, caught by javac), <b>runtime</b> (exception while running, e.g. divide by zero) and <b>logical</b> (runs but gives wrong answer; the hardest).</p>
+<h3>3. Anatomy of a program</h3><pre class='cd'>import java.util.Scanner;               // imports: use classes from other packages
 
-STACK            HEAP
-s ---ref---&gt;    [ id=1 | name ---&gt; "Asha" | marks=82.5 ]
-Student t = s;   // t ---ref---&gt; the SAME object; no copy
-t.marks = 90;    // s.marks is 90 too
-s = null;        // s points nowhere; t still holds the object</pre><p>An object with no references left is eligible for <b>garbage collection</b>; you never free memory yourself. Using a null reference (s.display() when s is null) throws <b>NullPointerException</b>.</p>
-<h3>B. Fields vs local variables</h3><table><tr><th></th><th>Field (instance)</th><th>Local variable</th></tr><tr><td>Declared</td><td>In the class, outside methods</td><td>Inside a method or block</td></tr><tr><td>Default value</td><td>Yes (0, false, null)</td><td>No; must be assigned</td></tr><tr><td>Lives</td><td>As long as the object</td><td>Until the block ends</td></tr><tr><td>Stored</td><td>Heap, inside the object</td><td>Stack</td></tr></table>
-<h3>C. Constructors in depth</h3><pre class='cd'>class Student {
-    int id; String name; double marks;
-    Student() { this(0, "Unknown", 0); }                 // no-arg, chains to the 3-arg one
-    Student(int id, String name) { this(id, name, 0); }   // chaining
-    Student(int id, String name, double marks) {          // the "master" constructor
-        this.id = id; this.name = name; this.marks = marks;
+public class Hello {                   // class name = file name
+    public static void main(String[] args) {   // entry point
+        System.out.println("Hello, Java!");    // statement ends with ;
     }
-    Student(Student o) { this(o.id, o.name, o.marks); }   // copy constructor
-}
-Student a = new Student(1, "Asha", 80);
-Student b = new Student(a);       // independent copy: changing b does not change a</pre><ul><li>Name equals class name; no return type (a method with a return type and the class name is NOT a constructor).</li><li>Write nothing and Java adds a default no-arg constructor; write any constructor and the default disappears.</li><li><b>this(...)</b> must be the first statement and cannot be used together with super(...) in one constructor.</li><li>A constructor can be <b>private</b> (used by Singleton and utility classes).</li><li>Constructors are not inherited and cannot be static, final or abstract.</li><li>Put the real work in one master constructor and let the others call it: no duplicated validation.</li></ul>
-<h3>D. The five uses of this</h3><table><tr><th>Use</th><th>Example</th></tr><tr><td>Separate field from parameter</td><td>this.name = name;</td></tr><tr><td>Call another constructor</td><td>this(0, "Unknown", 0);</td></tr><tr><td>Call another method of the same object</td><td>this.display();</td></tr><tr><td>Pass the current object</td><td>printer.print(this);</td></tr><tr><td>Return the current object (method chaining)</td><td>return this;</td></tr></table><pre class='cd'>class Pizza {
-    String size, topping;
-    Pizza size(String s) { this.size = s; return this; }
-    Pizza topping(String t) { this.topping = t; return this; }
-}
-Pizza p = new Pizza().size("large").topping("corn");     // chained calls</pre><p>Bug to avoid: <b>name = name;</b> in a constructor assigns the parameter to itself and the field stays null.</p>
-<h3>E. static in depth</h3><table><tr><th></th><th>static</th><th>instance</th></tr><tr><td>Copies</td><td>One per class, shared</td><td>One per object</td></tr><tr><td>Created</td><td>When the class loads</td><td>Each time you call new</td></tr><tr><td>Access</td><td>ClassName.member</td><td>object.member</td></tr><tr><td>Can use this</td><td>No</td><td>Yes</td></tr></table><pre class='cd'>class Counter {
-    static int count = 0;            // shared by all objects
-    final int id;                    // each object has its own id
-    Counter() { id = ++count; }
-    static int total() { return count; }
-}
-new Counter(); new Counter(); new Counter();
-Counter.total();                     // 3  (ids are 1, 2, 3)</pre><ul><li>A static method can use only static members directly; to reach instance data it needs an object.</li><li>Static members are also called class variables and class methods. Constants: <b>static final double PI = 3.14159;</b></li><li>Math.max, Integer.parseInt and main are static: no object needed.</li></ul>
-<h3>F. Initialisation order (exam favourite)</h3><pre class='cd'>class Demo {
-    static int s = init("static field");
-    int i = init("instance field");
-    static { System.out.println("static block"); }
-    { System.out.println("instance block"); }
-    Demo() { System.out.println("constructor"); }
-    static int init(String m) { System.out.println(m); return 1; }
-}
-new Demo(); new Demo();
-OUTPUT:  static field, static block, instance field, instance block, constructor,
-         instance field, instance block, constructor</pre><p>Static parts run <b>once</b>, when the class first loads. Instance parts run for <b>every</b> object, before the constructor body.</p>
-<h3>G. Useful object habits</h3><pre class='cd'>@Override public String toString() { return id + " " + name + " " + marks; }
-System.out.println(s);                 // calls toString automatically
-Student[] arr = new Student[3];        // 3 null references, NOT 3 objects
-arr[0] = new Student(1, "A", 70);      // create each object before use
-new Student(2, "B", 60).display();     // anonymous object, used once
-a.equals(b)                            // default equals compares references, like ==</pre>
-<h3>H. Programs to write (with the idea)</h3><ul><li><b>Rectangle:</b> fields length, width; methods area(), perimeter(), isSquare(); two constructors.</li><li><b>BankAccount:</b> deposit, withdraw (reject overdraft), static counter for accounts opened.</li><li><b>Book and Library:</b> array of Book; search by title; display all.</li><li><b>Point:</b> distance(Point other) using Math.sqrt; a copy constructor.</li><li><b>Complex number:</b> add(Complex c) returning a new Complex.</li><li><b>Student ranking:</b> array of 5 students, find topmost and average.</li></ul>
-<h3>I. Predict the output</h3><pre class='cd'>1) Student a = new Student(1,"A",50); Student b = a; b.marks = 99; print(a.marks);   // 99
-2) static int c = 0; ... three objects created, each constructor does c++; print(c);  // 3
-3) Student s = null; s.display();                                                      // NullPointerException
-4) new Student(1,"A",50) == new Student(1,"A",50)                                      // false
-5) A class with only Student(int id) but code calls new Student();                    // compile error</pre>
-<h3>J. Debug these</h3><ul><li><b>name = name;</b> inside the constructor: field stays null.</li><li><b>void Student(){}</b> is a normal method, not a constructor.</li><li>Using an instance field from main without an object.</li><li><b>this(...)</b> placed on the second line of a constructor.</li></ul>
-<h3>K. 14 interview questions</h3><ul><li><b>Class vs object?</b> Blueprint vs instance.</li><li><b>Can constructors be overloaded? Inherited?</b> Overloaded yes; inherited no.</li><li><b>What if no constructor is written?</b> Java supplies a default no-arg one.</li><li><b>What is a copy constructor?</b> A constructor taking an object of the same class.</li><li><b>Can a constructor return a value?</b> No.</li><li><b>this vs super?</b> Current object vs parent part.</li><li><b>When is a static block run?</b> Once at class load.</li><li><b>Why is main static?</b> The JVM calls it before any object exists.</li><li><b>Can a static method be overridden?</b> No, only hidden.</li><li><b>Where are objects stored?</b> Heap.</li><li><b>What is garbage collection?</b> Automatic freeing of unreachable objects.</li><li><b>Difference between == and equals for objects?</b> Reference vs content (if overridden).</li><li><b>Can we create an object without new?</b> Yes: clone, deserialisation, reflection, factory methods.</li><li><b>What is an anonymous object?</b> An object with no reference variable.</li></ul>
-<h3>L. Mastery test</h3><p>Without notes: draw stack and heap for three lines of object code, write a class with three chained constructors, predict the Demo output above, and explain static vs instance in 30 seconds.</p>`;
+}</pre><ul><li><b>public</b>: JVM can call it from outside. <b>static</b>: no object needed. <b>void</b>: returns nothing. <b>String[] args</b>: command-line words.</li><li>Comments: <b>//</b> line, <b>/* */</b> block, <b>/** */</b> Javadoc.</li><li><b>Tokens:</b> keywords (class, int, if...), identifiers (names you choose), literals (5, 'A', "hi"), operators, separators ( ) { } [ ] ; , .</li><li><b>Identifier rules:</b> letters, digits, _ and $; cannot start with a digit; cannot be a keyword; case-sensitive. Convention: variables and methods camelCase, classes PascalCase, constants UPPER_CASE.</li></ul>
+<h3>4. Data types</h3><p>Two families: <b>primitive</b> (8, hold the value) and <b>reference</b> (class, interface, array, enum, String; hold an address). Range of an n-bit signed type: -2<sup>n-1</sup> to 2<sup>n-1</sup>-1.</p>
+<table><tr><th>Type</th><th>Bits</th><th>Range or values</th><th>Default</th><th>Wrapper</th></tr><tr><td>byte</td><td>8</td><td>-128 to 127</td><td>0</td><td>Byte</td></tr><tr><td>short</td><td>16</td><td>-32,768 to 32,767</td><td>0</td><td>Short</td></tr><tr><td>int</td><td>32</td><td>-2,147,483,648 to 2,147,483,647</td><td>0</td><td>Integer</td></tr><tr><td>long</td><td>64</td><td>about plus or minus 9.2 x 10^18 (write 5L)</td><td>0L</td><td>Long</td></tr><tr><td>float</td><td>32</td><td>about 7 digits precision (write 2.5f)</td><td>0.0f</td><td>Float</td></tr><tr><td>double</td><td>64</td><td>about 15 digits precision</td><td>0.0</td><td>Double</td></tr><tr><td>char</td><td>16</td><td>0 to 65,535 (Unicode, unsigned)</td><td>\\u0000</td><td>Character</td></tr><tr><td>boolean</td><td>JVM-defined</td><td>true or false</td><td>false</td><td>Boolean</td></tr></table>
+<p><b>Literal forms:</b> decimal 25, octal 031, hex 0x19, binary 0b11001, with underscores 1_000_000; long 5L; float 2.5f; double 2.5 or 1.5e3; char 'A' or 65 or '\\u0041'; String "hi"; boolean true; null. <b>Escapes:</b> \\n new line, \\t tab, \\\\ backslash, \\" quote. ASCII: 'A'=65, 'a'=97, '0'=48 (lower minus upper = 32).</p>
+<h3>5. Variables</h3><p>A variable is a named memory location with a type. Steps: declare, initialise, use.</p><pre class='cd'>int age = 20;  double price = 99.5;  char grade = 'A';  boolean ok = true;
+String name = "Asha";  final double PI = 3.14159;   // final = constant
+int a = 1, b = 2;  int x, y;  x = y = 7;            // many at once, chained
+var count = 10;                                      // Java 10+: type inferred (locals only)</pre>
+<table><tr><th>Kind</th><th>Declared</th><th>Default</th><th>Lives</th></tr><tr><td>Local</td><td>inside a method or block</td><td>none: must assign before use</td><td>until block ends</td></tr><tr><td>Instance</td><td>in class, no static</td><td>yes (0, false, null)</td><td>as long as the object</td></tr><tr><td>Static</td><td>in class with static</td><td>yes</td><td>whole program, one copy</td></tr></table>
+<h3>6. Type conversion</h3><ul><li><b>Widening (automatic):</b> byte, short, int, long, float, double. char also widens to int.</li><li><b>Narrowing (cast needed):</b> (int) 7.9 gives 7 (truncates, never rounds; use Math.round to round).</li><li><b>Promotion in expressions:</b> byte, short and char become int; then the wider operand wins. So byte + byte is int, int / int is int, int + double is double.</li><li><b>Compound assignment hides a cast:</b> b += 1 is legal for a byte, b = b + 1 is an error.</li><li><b>Overflow wraps around:</b> Integer.MAX_VALUE + 1 is -2147483648.</li><li><b>Strings:</b> Integer.parseInt("42"), Double.parseDouble("2.5"), String.valueOf(42). A wrapper (Integer) with autoboxing/unboxing converts between int and Integer automatically.</li></ul>
+<h3>7. Output</h3><table><tr><th>Method</th><th>Use</th></tr><tr><td>print</td><td>no new line</td></tr><tr><td>println</td><td>then new line</td></tr><tr><td>printf / String.format</td><td>formatted: %d int, %5d width 5, %-5d left aligned, %05d zero pad, %,d commas, %.2f 2 decimals, %s String, %c char, %b boolean, %x hex, %% percent, %n new line</td></tr><tr><td>System.err</td><td>error stream</td></tr></table><p><b>Concatenation trap:</b> 1 + 2 + "A" + 1 + 2 prints 3A12 (left to right; numbers add until a String appears).</p>
+<h3>8. Input: five ways</h3><table><tr><th>Way</th><th>Note</th></tr><tr><td>Scanner</td><td>Easy; nextInt, nextLong, nextDouble, nextBoolean, next (one word), nextLine (whole line), hasNext, hasNextInt. Slower for huge input.</td></tr><tr><td>BufferedReader</td><td>Fast; readLine returns String; convert with parseInt; handles IOException</td></tr><tr><td>Command-line args</td><td>java Prog 5 7 gives args[0]="5"</td></tr><tr><td>Console</td><td>System.console(); null in many IDEs</td></tr><tr><td>DataInputStream</td><td>Low level; rarely used</td></tr></table>
+<pre class='cd'>Scanner sc = new Scanner(System.in);
+int age = sc.nextInt();
+sc.nextLine();                    // clear the leftover Enter, otherwise the next nextLine is empty
+String name = sc.nextLine();
+char c = sc.next().charAt(0);     // reading one char
 
-FN["0_7"]+=`<hr><h2>DEEP DIVE: Encapsulation, access modifiers, packages, immutability</h2>
-<h3>Day goal</h3><p>By tonight you can design a fully encapsulated class with validation, explain every access level, build a package structure, compile it from the terminal, and write a truly immutable class.</p>
-<h3>A. Why encapsulate</h3><ul><li><b>Control:</b> the class decides what values are legal (no negative salary).</li><li><b>Safety:</b> outside code cannot corrupt internal state.</li><li><b>Flexibility:</b> you can change the internal storage later without breaking users (store marks as an array instead of three fields; getters stay the same).</li><li><b>Read-only or write-only:</b> omit the setter to make a field read-only.</li></ul><p><b>Encapsulation vs abstraction:</b> encapsulation hides data and protects it (private fields plus methods); abstraction hides complexity and shows only what is needed (interfaces, abstract classes).</p>
-<h3>B. A complete encapsulated class</h3><pre class='cd'>public class Employee {
-    private final int id;                 // read-only: no setter
-    private String name;
-    private double salary;
-    private boolean active;
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+int n = Integer.parseInt(br.readLine().trim());   // needs: throws IOException on main</pre><p>Wrong type typed (letters for nextInt) throws <b>InputMismatchException</b>.</p>
+<h3>9. Programs with results</h3><pre class='cd'>int a = 5, b = 3;
+int t = a; a = b; b = t;                  // swap with temp: a=3 b=5
+// without temp: a = a + b; b = a - b; a = a - b;   (can overflow)   or XOR: a ^= b; b ^= a; a ^= b;
+double si = 1000 * 5 * 2 / 100.0;         // simple interest = P x R x T / 100 = 100.0
+double ci = 1000 * Math.pow(1 + 5 / 100.0, 2);   // amount = P(1+R/100)^T = 1102.50
+double f = 37 * 9 / 5.0 + 32;             // Celsius to Fahrenheit = 98.6
+double area = Math.PI * 7 * 7;            // 153.94 ; circumference 2 x PI x r = 43.98
+int secs = 3725; int h = secs / 3600, m = secs % 3600 / 60, s = secs % 60;   // 1h 2m 5s
+int n3 = 347; int h1 = n3 / 100, t1 = n3 / 10 % 10, o1 = n3 % 10;           // 3 4 7, sum 14, reverse 743
+char up = (char) ('a' - 32);              // 'A' ; digit char to int: '7' - '0' = 7
+System.out.printf("Total: %.2f%n", 3 * 250.0 * 1.18);   // Total: 885.00
+Math.addExact(Integer.MAX_VALUE, 1);      // throws ArithmeticException: integer overflow</pre>
+<h3>10. Predict the output (Day 2)</h3><pre class='cd'>1) System.out.println(7 / 2);                       // 3
+2) System.out.println(7 / 2.0);                     // 3.5
+3) System.out.println(-7 % 3);                      // -1 (sign follows the left operand)
+4) System.out.println(1 + 2 + "A" + 1 + 2);         // 3A12
+5) char c = 'A'; c++; System.out.println(c + 1);    // 67 (int)  ; (char)(c + 1) is C
+6) byte b = 127; b++; System.out.println(b);        // -128
+7) System.out.println((int) -9.99);                 // -9 ; Math.round(9.5) is 10
+8) System.out.println(0.1 + 0.2);                   // 0.30000000000000004
+9) long x = 1000000 * 1000000;                      // -727379968 (int overflow first); 1000000L * 1000000 is right
+10) int a = 5; a += 3.7; System.out.println(a);     // 8 (hidden cast)
+11) System.out.println('a' + 'b');                  // 195 ; "" + 'a' + 'b' gives ab
+12) String s1 = "hi", s3 = new String("hi");        // s1 == s3 false, s1.equals(s3) true</pre>
+<h3>11. Debug the code</h3><ul><li><b>int x = 3.5;</b> lossy conversion: use double or (int) 3.5.</li><li><b>float f = 2.5;</b> write 2.5f. <b>long l = 3000000000;</b> write 3000000000L.</li><li><b>int n; print(n);</b> variable might not have been initialised.</li><li><b>String s = 'hello';</b> single quotes are for char only.</li><li>Scanner not imported gives cannot find symbol.</li></ul>
+<h3>12. Mini project: report card</h3><pre class='cd'>Scanner sc = new Scanner(System.in);
+System.out.print("Name: ");  String name = sc.nextLine();
+System.out.print("3 marks: "); int m1 = sc.nextInt(), m2 = sc.nextInt(), m3 = sc.nextInt();
+int total = m1 + m2 + m3;
+System.out.printf("%-10s: %s%n", "Name", name);
+System.out.printf("%-10s: %d / 300%n", "Total", total);
+System.out.printf("%-10s: %.2f%n", "Average", total / 3.0);
+System.out.printf("%-10s: %.1f%%%n", "Percent", total * 100.0 / 300);   // input 78 85 92: 255, 85.00, 85.0%</pre>
+<h3>13. Interview questions</h3><ul><li><b>Why platform independent?</b> Bytecode runs on a JVM built for each OS.</li><li><b>JDK vs JRE vs JVM?</b> Tools plus libraries plus machine, nested.</li><li><b>Is Java purely object-oriented?</b> No: 8 primitives and static members.</li><li><b>Why is main static?</b> The JVM calls it before any object exists.</li><li><b>Why is char 2 bytes?</b> It stores a UTF-16 Unicode unit.</li><li><b>Why is float f = 1.5 an error?</b> 1.5 is a double.</li><li><b>Can a file have two public classes?</b> No.</li><li><b>What is garbage collection?</b> Automatic freeing of unreachable objects.</li><li><b>Integer cache?</b> Integer values -128 to 127 are shared, so == works there but not for larger values; use equals.</li></ul>
+<h3>14. Common mistakes</h3><ul><li>Missing semicolon or brace; class and file name differ; 7/2 expected as 3.5; == on Strings; forgetting the nextLine after nextInt; using = instead of ==.</li></ul>
+<h3>Day-end checklist</h3><p>I can: draw source to bytecode to JVM; list all 8 primitives with size and default; explain widening, narrowing and promotion with an example each; use printf with width and decimals; read input three ways; write programs A to L without notes.</p>
+<hr><h2>DEEP DIVE</h2>
+<h3>A. Floating point (IEEE 754)</h3><p>float = 1 sign + 8 exponent + 23 mantissa bits; double = 1 + 11 + 52. Many decimals (0.1) have no exact binary form, so 0.1 + 0.2 != 0.3. Compare with Math.abs(a - b) &lt; 1e-9 and use <b>BigDecimal</b> for money. Special values: 5.0 / 0 is Infinity, 0.0 / 0 is NaN, and NaN != NaN (test with Double.isNaN). Integer / 0 throws ArithmeticException.</p>
+<h3>B. Two's complement</h3><p>Negative numbers: invert all bits and add 1. -5 in 8 bits: 00000101, invert 11111010, add 1 gives 11111011. So -x = ~x + 1, and MIN_VALUE has no positive twin (Math.abs(Integer.MIN_VALUE) stays negative).</p>
+<h3>C. Useful library calls</h3><table><tr><th>Call</th><th>Result</th></tr><tr><td>Math.ceil(4.2), Math.floor(4.8)</td><td>5.0, 4.0</td></tr><tr><td>Math.round(4.5), Math.round(-4.5)</td><td>5, -4</td></tr><tr><td>Math.sqrt(144), Math.pow(2, 10), Math.abs(-7)</td><td>12.0, 1024.0, 7</td></tr><tr><td>Math.floorMod(-7, 3)</td><td>2 (while -7 % 3 is -1)</td></tr><tr><td>Integer.toBinaryString(10), Integer.toHexString(255)</td><td>1010, ff</td></tr><tr><td>Integer.MAX_VALUE, Long.MAX_VALUE</td><td>2147483647, 9223372036854775807</td></tr></table><p>Random number in [min, max]: (int)(Math.random() * (max - min + 1)) + min.</p>`;
 
-    public Employee(int id, String name, double salary) {
-        this.id = id; setName(name); setSalary(salary); this.active = true;   // reuse validation
-    }
-    public int getId() { return id; }
-    public String getName() { return name; }
-    public void setName(String name) {
-        if (name == null || name.isBlank()) throw new IllegalArgumentException("Name required");
-        this.name = name.trim();
-    }
-    public double getSalary() { return salary; }
-    public void setSalary(double s) {
-        if (s &lt; 0) throw new IllegalArgumentException("Salary cannot be negative");
-        this.salary = s;
-    }
-    public boolean isActive() { return active; }        // boolean getter uses "is"
-    public void raise(double percent) { setSalary(salary + salary * percent / 100); }   // behaviour, not just data
-    @Override public String toString() { return id + " " + name + " " + salary; }
-}</pre><p>Naming rules (JavaBeans): <b>getX</b>, <b>setX</b>, <b>isX</b> for booleans. Prefer meaningful methods (raise, deposit, withdraw) over exposing set for everything: a bank balance should change only through deposit and withdraw, never setBalance.</p>
-<h3>C. Access modifiers: full table with a test</h3><table><tr><th>Modifier</th><th>Same class</th><th>Same package</th><th>Subclass, other package</th><th>Other package</th></tr><tr><td>private</td><td>Yes</td><td>No</td><td>No</td><td>No</td></tr><tr><td>(default)</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr><tr><td>protected</td><td>Yes</td><td>Yes</td><td>Yes (through inheritance)</td><td>No</td></tr><tr><td>public</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr></table><ul><li>A top-level class can only be public or default (package-private).</li><li>Public class name must match the file name; one public class per file.</li><li>Rule of thumb: start with the most restrictive access and loosen only when needed.</li><li>private applies per <b>class</b>, not per object: a method can read another object's private field if both are the same class.</li></ul>
-<h3>D. Packages hands-on</h3><pre class='cd'>project/
-  src/com/bank/model/Account.java     -&gt; first line: package com.bank.model;
-  src/com/bank/service/BankService.java -&gt; package com.bank.service; import com.bank.model.Account;
-  src/com/bank/Main.java              -&gt; package com.bank; imports model and service
+FN["0_1"]=`<h3>Day goal</h3><p><b>Day 1:</b> every operator, precedence, if-else forms and switch rules. <b>Day 2:</b> the classic programs, predict-output set, debug set and interview questions.</p>
+<h3>1. Operator words and the types</h3><p>An <b>operand</b> is a value; an <b>operator</b> acts on operands; together they form an <b>expression</b>. By operand count: <b>unary</b> (1), <b>binary</b> (2), <b>ternary</b> (3). By job: arithmetic, relational, logical, bitwise, shift, assignment, conditional, instanceof.</p>
+<h3>2. Arithmetic</h3><table><tr><th>Op</th><th>Example</th><th>Result and note</th></tr><tr><td>+</td><td>7 + 2</td><td>9; with a String it joins text</td></tr><tr><td>-</td><td>7 - 2</td><td>5</td></tr><tr><td>*</td><td>7 * 2</td><td>14</td></tr><tr><td>/</td><td>7 / 2 and 7 / 2.0</td><td>3 (int division drops the fraction) and 3.5</td></tr><tr><td>%</td><td>7 % 3, -7 % 3, 5.5 % 2</td><td>1, -1 (sign of the left operand), 1.5</td></tr></table><p>Uses of %: even/odd (n % 2), last digit (n % 10), wrap-around ((i + 1) % n). 5 / 0 throws ArithmeticException; 5.0 / 0 is Infinity.</p>
+<h3>3. Unary and pre/post increment</h3><pre class='cd'>int a = 5;
+int b = a++;   // post: use then add -> b=5, a=6
+int c = ++a;   // pre: add then use -> a=7, c=7
+int d = a-- + --a;   // 7 + 5 = 12, a ends 5
+int x = 5; x = x++;  // x stays 5 (old value is written back)
+// other unary: +x  -x  !flag  ~n (bitwise NOT, ~n = -n - 1)</pre>
+<h3>4. Relational and logical</h3><p>Relational (==, !=, &lt;, &gt;, &lt;=, &gt;=) always give boolean. There is no chain: write x &gt; 0 &amp;&amp; x &lt; 10, not 0 &lt; x &lt; 10. Strings use equals; doubles use a tolerance.</p>
+<table><tr><th>A</th><th>B</th><th>A &amp;&amp; B</th><th>A || B</th><th>A ^ B</th><th>!A</th></tr><tr><td>T</td><td>T</td><td>T</td><td>T</td><td>F</td><td>F</td></tr><tr><td>T</td><td>F</td><td>F</td><td>T</td><td>T</td><td>F</td></tr><tr><td>F</td><td>T</td><td>F</td><td>T</td><td>T</td><td>T</td></tr><tr><td>F</td><td>F</td><td>F</td><td>F</td><td>F</td><td>T</td></tr></table>
+<pre class='cd'>int x = 0;
+boolean r1 = (x != 0) &amp;&amp; (10 / x &gt; 1);  // false, right side SKIPPED (short circuit), no crash
+boolean r2 = (x == 0) || (++x &gt; 0);      // true, x stays 0
+boolean r3 = (x == 0) | (++x &gt; 0);       // non-short-circuit: both evaluated, x becomes 1
+// De Morgan: !(A &amp;&amp; B) == !A || !B     and     !(A || B) == !A &amp;&amp; !B</pre>
+<h3>5. Bitwise and shift</h3><table><tr><th>Expression</th><th>Binary working</th><th>Result</th></tr><tr><td>5 &amp; 3</td><td>0101 and 0011</td><td>1</td></tr><tr><td>5 | 3</td><td>0101 or 0011</td><td>7</td></tr><tr><td>5 ^ 3</td><td>0101 xor 0011</td><td>6</td></tr><tr><td>~5</td><td>flip every bit</td><td>-6</td></tr><tr><td>5 &lt;&lt; 1</td><td>shift left = x2</td><td>10</td></tr><tr><td>-8 &gt;&gt; 1</td><td>signed shift keeps sign</td><td>-4</td></tr><tr><td>-8 &gt;&gt;&gt; 1</td><td>unsigned shift fills 0</td><td>2147483644</td></tr></table>
+<p>Tricks: odd test <b>n &amp; 1</b>; power of two <b>n &gt; 0 &amp;&amp; (n &amp; (n - 1)) == 0</b>; ith bit <b>(n &gt;&gt; i) &amp; 1</b>; set <b>n | (1 &lt;&lt; i)</b>; clear <b>n &amp; ~(1 &lt;&lt; i)</b>; toggle <b>n ^ (1 &lt;&lt; i)</b>; a ^ a = 0 so XOR of all items finds the one unpaired number.</p>
+<h3>6. Assignment, ternary, instanceof</h3><pre class='cd'>int x = 10;  x += 5;  x -= 3;  x *= 2 + 3;   // compound ops: += -= *= /= %= &amp;= |= ^= &lt;&lt;= &gt;&gt;= &gt;&gt;&gt;=  (x*=5 -> 60)
+byte b = 10; b += 5;                        // fine (hidden cast); b = b + 5 is an error
+int max = (a &gt; b) ? a : b;                  // ternary: condition ? valueIfTrue : valueIfFalse
+String t = n &gt; 0 ? "pos" : n &lt; 0 ? "neg" : "zero";   // nested ternary
+System.out.println(true ? 1 : 2.0);         // 1.0 (both branches promoted to double)
+boolean is = obj instanceof String;         // type test, used with classes (Week 3)</pre>
+<h3>7. Precedence (high to low)</h3><table><tr><th>Level</th><th>Operators</th></tr><tr><td>1</td><td>postfix x++ x--, ( ), [ ], .</td></tr><tr><td>2</td><td>unary ++x --x +x -x ~ ! (and cast)</td></tr><tr><td>3 to 4</td><td>* / %  then  + -</td></tr><tr><td>5</td><td>&lt;&lt; &gt;&gt; &gt;&gt;&gt;</td></tr><tr><td>6 to 7</td><td>&lt; &gt; &lt;= &gt;= instanceof  then  == !=</td></tr><tr><td>8 to 10</td><td>&amp;  then  ^  then  |</td></tr><tr><td>11 to 12</td><td>&amp;&amp;  then  ||</td></tr><tr><td>13 to 14</td><td>?:  then  = += ...</td></tr></table><p>Same level runs left to right, except unary, ternary and assignment (right to left). Examples: 10 + 5 * 2 - 8 / 4 % 3 is 18; 1 + 2 &lt;&lt; 3 is 24. When in doubt, add brackets.</p>
+<h3>8. Decision statements (types)</h3><pre class='cd'>if (marks &gt;= 90) grade = 'A';                    // simple if
+if (n % 2 == 0) System.out.println("even"); else System.out.println("odd");   // if-else
+if (m &gt;= 90) g = 'A'; else if (m &gt;= 75) g = 'B'; else if (m &gt;= 50) g = 'C'; else g = 'F';   // ladder: first true wins
+if (a &gt; 0) { if (b &gt; 0) System.out.println("both"); }   // nested
+boolean leap = (y % 4 == 0 &amp;&amp; y % 100 != 0) || y % 400 == 0;   // 2000 yes, 1900 no, 2024 yes
+boolean tri = a + b &gt; c &amp;&amp; b + c &gt; a &amp;&amp; a + c &gt; b;         // triangle valid; then equal sides give equilateral/isosceles/scalene
+int D = b * b - 4 * a * c;   // D &gt; 0 two real roots, D == 0 equal roots, D &lt; 0 complex</pre><p>Rules: the condition must be boolean (if (x = 5) is an error for int); braces are safest; an else belongs to the nearest if (dangling else); a semicolon right after if (...) makes an empty body.</p>
+<h3>9. switch</h3><pre class='cd'>switch (day) {                       // allowed: byte short char int, their wrappers, String, enum
+    case 1: System.out.println("Mon"); break;
+    case 6: case 7: System.out.println("Weekend"); break;   // grouped cases
+    default: System.out.println("Weekday");
+}
+// Java 14+ arrow form: no fall-through, no break
+String type = switch (day) { case 6, 7 -&gt; "Weekend"; default -&gt; "Weekday"; };
+int len = switch (m) { case 2 -&gt; 28; case 4, 6, 9, 11 -&gt; 30; default -&gt; { int z = 31; yield z; } };</pre><ul><li>Not allowed: long, float, double, boolean. Case labels must be unique compile-time constants.</li><li><b>Fall-through:</b> without break execution continues into the next case. n = 2 with cases 1,2,3 each printing and a break only at case 3 prints: two three.</li><li>switch for fixed values; if-else for ranges and conditions.</li></ul>
+<h3>10. Predict the output (Day 2)</h3><pre class='cd'>1) 10 / 3 + " " + 10 % 3 + " " + (double) 10 / 3     // 3 1 3.3333333333333335
+2) -7 / 2 + " " + -7 % 2                             // -3 -1
+3) int x = 5; x++ + ++x                              // 12
+4) 6 &amp; 3 | 8 ^ 2                                      // 10
+5) 1 &lt;&lt; 3 + 1                                        // 16
+6) int i = 10; i += i++ + ++i;                       // 32
+7) char c = 'a'; c + 1 ; (char)(c + 1) ; c++         // 98  b  a
+8) byte b = (byte) 200;                              // -56
+9) 0.1 + 0.2 == 0.3                                  // false
+10) String a = "x"; a += 1 + 2;                      // x3
+11) int x = 0; if (x == 0 || ++x &gt; 0) {}  then x    // 0
+12) 10 &gt; 5 ? "yes" : 10 &lt; 5 ? "no" : "equal"      // yes</pre>
+<h3>11. Debug the code</h3><ul><li>if (x = 5) use ==. if (x &gt; 5); { } remove the stray semicolon.</li><li>if (s == "yes") use s.equals("yes"). if (0 &lt; x &lt; 10) use &amp;&amp;.</li><li>Missing break causes fall-through. switch on a double does not compile.</li><li>percent = (marks / total) * 100 gives 0 for ints; write marks * 100.0 / total.</li></ul>
+<h3>12. Interview questions</h3><ul><li><b>&amp; vs &amp;&amp;?</b> &amp; always evaluates both sides; &amp;&amp; stops early.</li><li><b>&gt;&gt; vs &gt;&gt;&gt;?</b> Keep the sign bit vs fill zeros.</li><li><b>i++ vs ++i?</b> Use then add vs add then use.</li><li><b>Why does b = b + 1 fail for byte?</b> The sum is int; += casts back.</li><li><b>Swap without a temp?</b> Arithmetic or XOR.</li><li><b>Is else if a keyword?</b> No, it is else followed by an if statement.</li><li><b>Can switch take a String or long?</b> String yes (Java 7), long no.</li><li><b>What does missing break do?</b> Falls into the next case.</li></ul>
+<h3>13. Practice set</h3><p>Largest of three, grade, leap year, vowel or consonant, char type (upper, lower, digit, special), triangle type, quadratic roots, electricity bill slabs, days in a month, calculator with switch, BMI category, number to weekday, power-of-two test, count set bits.</p>
+<h3>Day-end checklist</h3><p>I can: evaluate any mixed expression by precedence; explain short-circuit with a crash-avoiding example; use bit tricks; write if ladder, nested if and both switch styles; predict fall-through.</p>
+<hr><h2>DEEP DIVE</h2>
+<h3>A. Evaluation order</h3><p>Java evaluates operands strictly left to right, then applies the operator; precedence only decides grouping. In a + b * c, a is read first, then b, then c, then * and +. Overflow checks: Math.addExact, multiplyExact, toIntExact throw on overflow instead of wrapping.</p>
+<h3>B. Floating comparison and null safety</h3><p>Use Math.abs(a - b) &lt; 1e-9. Guard before use: s != null &amp;&amp; s.length() &gt; 0 (short circuit makes this safe). Count set bits: while (n != 0) { n &amp;= n - 1; c++; } or Integer.bitCount(n).</p>`;
 
-Compile from project/ :   javac -d out src/com/bank/*.java src/com/bank/model/*.java src/com/bank/service/*.java
-Run:                      java -cp out com.bank.Main</pre><ul><li>Folder structure must match the package name; names are lowercase, usually reverse domain (com.company.app).</li><li><b>import</b> lets you skip the full name; <b>java.lang</b> (String, Math, System) is imported automatically.</li><li>import java.util.*; imports all classes of the package, not sub-packages.</li><li>Two classes with the same name can live in different packages; use the full name to tell them apart.</li><li>Without a package statement a class is in the unnamed default package (fine for small practice, avoid in projects).</li></ul>
-<h3>E. Immutable class, done properly</h3><pre class='cd'>public final class Course {                       // 1. final: no subclass can break immutability
-    private final String title;                   // 2. private final fields
-    private final List&lt;String&gt; topics;
-    public Course(String title, List&lt;String&gt; topics) {
-        this.title = title;
-        this.topics = new ArrayList&lt;&gt;(topics);     // 3. defensive copy IN
-    }
-    public String getTitle() { return title; }
-    public List&lt;String&gt; getTopics() { return new ArrayList&lt;&gt;(topics); }   // 4. defensive copy OUT
-    public Course withTitle(String t) { return new Course(t, topics); }   // 5. "change" returns a new object
-}</pre><p>No setters. Without the two defensive copies, a caller could keep a reference to the same list and change it later. Benefits: thread-safe, safe as map keys, simple to reason about. Examples: String, Integer, LocalDate.</p>
-<h3>F. Getter that leaks state</h3><pre class='cd'>class Bad  { private int[] marks = {1,2}; public int[] getMarks() { return marks; } }   // caller can change it
-class Good { private int[] marks = {1,2}; public int[] getMarks() { return marks.clone(); } }
-Bad b = new Bad(); b.getMarks()[0] = 99;     // corrupted the private data</pre>
-<h3>G. Predict the output and spot the errors</h3><pre class='cd'>1) Employee e = new Employee(1,"A",1000); e.setSalary(-5);        // IllegalArgumentException
-2) e.id = 5;  (from another class)                                   // compile error: private
-3) final field assigned twice                                         // compile error
-4) A getter returning the internal ArrayList directly                 // breaks encapsulation
-5) Two public classes in one file                                     // compile error</pre>
-<h3>H. Programs to write</h3><ul><li>Student with private marks (validate 0 to 100), method grade(), read-only roll number.</li><li>BankAccount where balance changes only through deposit and withdraw.</li><li>Split a three-class program across packages model, service, app; compile with javac -d.</li><li>An immutable Money class with amount and currency, and a plus() method returning a new object.</li><li>Test: try to access a private field from another class and read the compiler message.</li></ul>
-<h3>I. 14 interview questions</h3><ul><li><b>What is encapsulation?</b> Private data exposed through controlled public methods.</li><li><b>Real-world example?</b> An ATM: you press buttons; the cash internals are hidden.</li><li><b>Why not make fields public?</b> No validation and no freedom to change internals.</li><li><b>protected vs default?</b> protected also allows subclasses in other packages.</li><li><b>Can a class be private?</b> Only a nested class.</li><li><b>Is a class with all private fields and no setters immutable?</b> Not necessarily; mutable objects inside or returned getters can leak.</li><li><b>How to make a class immutable?</b> final class, private final fields, no setters, defensive copies.</li><li><b>Why is String immutable?</b> Security, pooling, thread safety, hashing.</li><li><b>What is a package?</b> A namespace grouping related classes.</li><li><b>Does import load the class?</b> No; it only shortens names for the compiler.</li><li><b>Tight vs loose coupling?</b> Depending on details vs depending on small public contracts.</li><li><b>Can private members be accessed via reflection?</b> Yes, but it is discouraged.</li><li><b>What is a JavaBean?</b> A class with a no-arg constructor, private fields and getters/setters.</li><li><b>Getter and setter for every field?</b> No; only what outside code genuinely needs.</li></ul>
-<h3>J. Mastery test</h3><p>Without notes: write Employee with validation, fill the access table from memory, list the five immutability rules, and compile a two-package program in the terminal.</p>`;
+FN["0_2"]=`<h3>Day goal</h3><p><b>Day 1:</b> all loop types, jump statements, tracing, number programs. <b>Day 2:</b> pattern printing, predict-output set, debugging and complexity of loops.</p>
+<h3>1. Loop vocabulary and types</h3><p>A <b>loop</b> repeats a block (the body). Each repeat is an <b>iteration</b>; the total is the <b>trip count</b>. Parts: initialisation, condition, update.</p>
+<table><tr><th>Type</th><th>Checks condition</th><th>Runs at least once?</th><th>Use when</th></tr><tr><td>for</td><td>before (entry-controlled)</td><td>no</td><td>count known</td></tr><tr><td>while</td><td>before</td><td>no</td><td>repeat until something changes</td></tr><tr><td>do-while</td><td>after (exit-controlled)</td><td>yes</td><td>menus, input validation</td></tr><tr><td>for-each</td><td>over every element</td><td>no</td><td>arrays and collections</td></tr></table><p>By control idea: <b>counter-controlled</b> (i from 1 to n), <b>sentinel-controlled</b> (stop at 0 or -1), <b>flag-controlled</b> (boolean found), <b>infinite</b> (for (;;) or while (true) with a break), <b>nested</b> (loop inside loop).</p>
+<h3>2. The loops in code</h3><pre class='cd'>for (int i = 1; i &lt;= 5; i++) System.out.print(i + " ");      // order: init once, condition, body, update, condition...
+for (int i = 10; i &gt; 0; i -= 3) { }                         // 10 7 4 1 ; trips = ceil((end - start) / step)
+for (int i = 0, j = 9; i &lt; j; i++, j--) { }                 // two variables
+for (char c = 'a'; c &lt;= 'e'; c++) System.out.print(c);      // abcde
+for (int v : arr) System.out.print(v);                       // for-each: no index, cannot change the array items
 
-FN["0_8"]+=`<hr><h2>DEEP DIVE: Inheritance, super, overriding, Object class, final</h2>
-<h3>Day goal</h3><p>By tonight you can write a multi-level hierarchy, trace the constructor call order, list every overriding rule, override toString, equals and hashCode correctly, and decide between inheritance and composition.</p>
-<h3>A. Types of inheritance</h3><table><tr><th>Type</th><th>Shape</th><th>In Java</th></tr><tr><td>Single</td><td>B extends A</td><td>Yes</td></tr><tr><td>Multilevel</td><td>C extends B, B extends A</td><td>Yes</td></tr><tr><td>Hierarchical</td><td>B and C both extend A</td><td>Yes</td></tr><tr><td>Multiple</td><td>C extends A and B</td><td>No for classes (diamond problem); use interfaces</td></tr></table>
-<h3>B. What is and is not inherited</h3><ul><li>Inherited: non-private fields and methods (private ones exist in the object but are not accessible by name).</li><li>NOT inherited: constructors, private members, and members of a different package if default access.</li><li>Static methods are inherited by access but cannot be overridden; a same-named static in the child <b>hides</b> the parent's.</li><li>Fields are <b>not</b> polymorphic: a field with the same name in the child hides the parent's field; the type of the reference decides which one you see.</li></ul>
-<h3>C. Constructor chaining traced</h3><pre class='cd'>class A { A() { System.out.println("A"); } }
-class B extends A { B() { System.out.println("B"); } }
-class C extends B { C() { System.out.println("C"); } }
-new C();   // prints A, then B, then C
+int n = 5; while (n &gt; 0) { System.out.print(n + " "); n--; }  // forgetting n-- is an infinite loop
 
-class Vehicle { Vehicle(String brand) { } }          // no no-arg constructor
-class Car extends Vehicle { Car() { } }              // COMPILE ERROR: super() not found
-class Car extends Vehicle { Car() { super("Tata"); } }   // fix: call it explicitly</pre><p>If you do not write <b>super(...)</b>, Java inserts <b>super()</b> as the first line. If the parent has no no-arg constructor you must call super(args) yourself. The parent part of an object is always built first.</p>
-<h3>D. Full example: Employee hierarchy</h3><pre class='cd'>class Employee {
-    protected String name; protected double baseSalary;
-    Employee(String name, double baseSalary) { this.name = name; this.baseSalary = baseSalary; }
-    double salary() { return baseSalary; }
-    @Override public String toString() { return name + " earns " + salary(); }
+int x;
+do { x = sc.nextInt(); } while (x &lt; 0);                      // note the ; after while: runs once, then checks</pre><p>The loop variable declared in for belongs to the loop only. Execution of the three parts can be omitted: for (;;) is infinite.</p>
+<h3>3. Jump statements</h3><table><tr><th>Statement</th><th>Effect</th></tr><tr><td>break</td><td>leaves the nearest loop or switch</td></tr><tr><td>continue</td><td>skips to the next iteration (in for it runs the update; in while it jumps to the condition, so update first!)</td></tr><tr><td>return</td><td>leaves the whole method</td></tr><tr><td>break label / continue label</td><td>acts on the named outer loop</td></tr></table><pre class='cd'>outer:
+for (int i = 1; i &lt;= 3; i++)
+    for (int j = 1; j &lt;= 3; j++) {
+        if (j == 2) continue outer;
+        System.out.print(i + "" + j + " ");      // 11 21 31
+    }</pre>
+<h3>4. Tracing (dry run)</h3><p>Write one column per variable and one row per iteration. Digit sum of 1234:</p><table><tr><th>n</th><th>d = n % 10</th><th>sum</th><th>n / 10</th></tr><tr><td>1234</td><td>4</td><td>4</td><td>123</td></tr><tr><td>123</td><td>3</td><td>7</td><td>12</td></tr><tr><td>12</td><td>2</td><td>9</td><td>1</td></tr><tr><td>1</td><td>1</td><td>10</td><td>0 (stop)</td></tr></table>
+<h3>5. Number programs</h3><pre class='cd'>int sum = 0, rev = 0, cnt = 0;
+for (int t = n; t &gt; 0; t /= 10) { int d = t % 10; sum += d; rev = rev * 10 + d; cnt++; }   // 1234: 10, 4321, 4 digits
+// palindrome: rev == n.   sum 1..n = n(n+1)/2.   power: multiply base in a loop (long)
+long f = 1; for (int i = 2; i &lt;= n; i++) f *= i;        // factorial; 20! fits in long, 21! overflows
+
+boolean prime = n &gt; 1;
+for (int i = 2; (long) i * i &lt;= n; i++) if (n % i == 0) { prime = false; break; }   // test up to sqrt(n)
+
+int a = 48, b = 18; while (b != 0) { int t = a % b; a = b; b = t; }   // GCD (Euclid) = 6 ; LCM = x * y / gcd
+int p = 0, q = 1; for (int i = 0; i &lt; 8; i++) { System.out.print(p + " "); int s = p + q; p = q; q = s; }  // 0 1 1 2 3 5 8 13
+String bin = ""; for (int t = 10; t &gt; 0; t /= 2) bin = t % 2 + bin;   // decimal to binary: 1010
+double h = 0; for (int i = 1; i &lt;= 5; i++) h += 1.0 / i;           // 1 + 1/2 + ... = 2.2833</pre>
+<table><tr><th>Special number</th><th>Rule</th><th>Examples</th></tr><tr><td>Palindrome</td><td>reads the same reversed</td><td>121, 1331</td></tr><tr><td>Armstrong</td><td>sum of digits each raised to digit-count equals the number</td><td>153, 370, 371, 407</td></tr><tr><td>Perfect</td><td>sum of proper divisors equals the number</td><td>6, 28, 496</td></tr><tr><td>Strong</td><td>sum of digit factorials equals the number</td><td>145 (1 + 24 + 120)</td></tr><tr><td>Harshad</td><td>divisible by its digit sum</td><td>18, 21</td></tr><tr><td>Neon</td><td>digit sum of the square equals the number</td><td>9 (81 gives 8 + 1)</td></tr><tr><td>Automorphic</td><td>square ends with the number</td><td>25 (625), 76 (5776)</td></tr></table><p>More: digital root (987 gives 24 gives 6), count divisors, trailing zeros of n! = n/5 + n/25 + ... (100! has 24).</p>
+<h3>6. Pattern method</h3><p>Outer loop = rows, inner loop = columns. For row i of n decide: spaces, symbols, as formulas of i.</p><table><tr><th>Pattern</th><th>Spaces in row i</th><th>Symbols in row i</th></tr><tr><td>Right triangle</td><td>0</td><td>i</td></tr><tr><td>Right-aligned triangle</td><td>n - i</td><td>i</td></tr><tr><td>Pyramid</td><td>n - i</td><td>2i - 1</td></tr><tr><td>Inverted pyramid</td><td>i - 1</td><td>2(n - i) + 1</td></tr><tr><td>Diamond</td><td>pyramid then inverted pyramid of n-1 rows</td><td></td></tr><tr><td>Hollow square</td><td>inside only</td><td>star if first or last row or column</td></tr></table>
+<pre class='cd'>for (int i = 1; i &lt;= n; i++) {                  // pyramid, n = 4
+    for (int s = 1; s &lt;= n - i; s++) System.out.print(" ");
+    for (int k = 1; k &lt;= 2 * i - 1; k++) System.out.print("*");
+    System.out.println();
 }
-class Manager extends Employee {
-    private double bonus;
-    Manager(String name, double base, double bonus) { super(name, base); this.bonus = bonus; }
-    @Override double salary() { return super.salary() + bonus; }     // reuse the parent logic
-}
-class Intern extends Employee {
-    Intern(String name) { super(name, 10000); }
-    @Override double salary() { return baseSalary * 0.5; }
-}
-Employee e = new Manager("Ravi", 50000, 8000);
-System.out.println(e);        // Ravi earns 58000.0  (Manager.salary runs)</pre>
-<h3>E. Overriding rules (complete)</h3><table><tr><th>Rule</th><th>Detail</th></tr><tr><td>Signature</td><td>Same name and parameters</td></tr><tr><td>Access</td><td>Same or wider (protected can become public, never private)</td></tr><tr><td>Return type</td><td>Same, or a subtype (covariant return)</td></tr><tr><td>Exceptions</td><td>May throw fewer or narrower checked exceptions, never broader</td></tr><tr><td>Cannot override</td><td>private, static, final methods and constructors</td></tr><tr><td>@Override</td><td>Compiler checks you really override; always use it</td></tr></table>
-<h3>F. The Object class</h3><p>Every class extends Object. Key methods: <b>toString</b>, <b>equals</b>, <b>hashCode</b>, getClass, clone, finalize (obsolete).</p><pre class='cd'>@Override public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    Student s = (Student) o;
-    return id == s.id &amp;&amp; Objects.equals(name, s.name);
-}
-@Override public int hashCode() { return Objects.hash(id, name); }</pre><p><b>Contract:</b> if a.equals(b) is true then a.hashCode() == b.hashCode(). Break it and HashMap and HashSet misbehave. Default equals is ==; default toString prints ClassName@hash.</p>
-<h3>G. final in three places</h3><table><tr><th>Where</th><th>Meaning</th></tr><tr><td>Variable</td><td>Assigned once (constant)</td></tr><tr><td>Method</td><td>Cannot be overridden</td></tr><tr><td>Class</td><td>Cannot be extended (String, Integer)</td></tr></table>
-<h3>H. IS-A vs HAS-A</h3><p>Inherit only when the child truly IS-A kind of parent (Car IS-A Vehicle). Use <b>composition</b> (a field) for HAS-A (Car HAS-A Engine). Composition is more flexible and avoids deep, fragile hierarchies: <b>prefer composition over inheritance</b>.</p><pre class='cd'>class Engine { void start() { } }
-class Car { private Engine engine = new Engine(); void start() { engine.start(); } }</pre>
-<h3>I. Preview of the next day</h3><p>A parent reference can hold a child object: <b>Employee e = new Manager(...)</b>. Only parent members are visible through e, but overridden methods run the child's version. Day 4 of Week 4 covers this as polymorphism.</p>
-<h3>J. Predict the output</h3><pre class='cd'>1) class P { void f(){print("P");} } class C extends P { void f(){print("C");} }  new C().f();   // C
-2) P p = new C(); p.f();                                                                       // C
-3) class P { int x = 1; } class C extends P { int x = 2; }  P p = new C(); print(p.x);        // 1 (fields hidden, not overridden)
-4) new C() where P prints "P" in its constructor and C prints "C"                              // P then C
-5) class P { final void f(){} } class C extends P { void f(){} }                               // compile error</pre>
-<h3>K. Debug these</h3><ul><li>Child constructor without super(args) when the parent has only a parameterised constructor.</li><li>Overriding with weaker access (public to protected).</li><li>Overriding equals but not hashCode.</li><li>Using extends just to reuse a few methods (should be composition).</li></ul>
-<h3>L. Programs to write</h3><ul><li>Shape (name) with Circle, Rectangle, Triangle each overriding area(); print all.</li><li>Person, then Student and Teacher extending it; Student adds marks, Teacher adds subject; override toString.</li><li>Three-level hierarchy Animal, Dog, Puppy with constructor prints to confirm order.</li><li>Override equals and hashCode in Student and show two equal objects in a HashSet are stored once.</li><li>Bank: Account, SavingsAccount (interest), CurrentAccount (overdraft) overriding withdraw().</li></ul>
-<h3>M. 14 interview questions</h3><ul><li><b>Why no multiple inheritance of classes?</b> Diamond ambiguity; use interfaces.</li><li><b>Is a constructor inherited?</b> No, but the parent constructor always runs.</li><li><b>Overloading vs overriding?</b> Compile time, same class vs runtime, parent and child.</li><li><b>Can we override a static method?</b> No, it is hidden.</li><li><b>Can we override a private method?</b> No; it is not visible to the child.</li><li><b>What does super do?</b> Refers to the parent part: constructor, methods, fields.</li><li><b>What is covariant return?</b> The overriding method may return a subtype.</li><li><b>Why use @Override?</b> Compiler catches typos and wrong signatures.</li><li><b>What is the root class?</b> java.lang.Object.</li><li><b>equals and hashCode relation?</b> Equal objects must have equal hash codes.</li><li><b>What does final class mean?</b> Cannot be subclassed.</li><li><b>Inheritance vs composition?</b> IS-A vs HAS-A; prefer composition.</li><li><b>Can a child call a parent's private method?</b> No.</li><li><b>How many classes can a class extend?</b> One.</li></ul>
-<h3>N. Mastery test</h3><p>Without notes: write the Employee/Manager example, predict constructor order for three levels, list the overriding rules, and explain why overriding equals needs hashCode.</p>`;
+//    *       Floyd (int k = 1; print k++):   1        Numbers: 1 / 12 / 123  (print j)
+//   ***                                      2 3      Repeat:  1 / 22 / 333  (print i)
+//  *****                                     4 5 6    Alphabet: A / AB / ABC (print (char)('A' + j - 1))
+// *******                                    7 8 9 10
+// Pascal row i: c = 1; for j = 0..i: print c; c = c * (i - j) / (j + 1);   -> 1 4 6 4 1 for i = 4</pre>
+<h3>7. Input-driven loop patterns</h3><pre class='cd'>do {                                           // menu-driven program
+    System.out.println("1 Add  2 Show  0 Exit");
+    choice = sc.nextInt();
+    switch (choice) { case 1: /* add */ break; case 2: /* show */ break; }
+} while (choice != 0);
+while (sc.hasNextInt()) total += sc.nextInt();   // read until non-number or end of input</pre>
+<h3>8. Predict the output (Day 2)</h3><pre class='cd'>1) for i 0..4: if (i == 2) continue; if (i == 4) break; print i     // 0 1 3
+2) int i = 0; while (i++ &lt; 3) print i                              // 1 2 3 (i is 4 afterwards)
+3) for (int i = 0; i &lt; 3; i++); print "x"                          // x once (the ; is the body)
+4) int n = 0; do { n++; } while (n &lt; 0); print n                   // 1
+5) for (i = 1; i &lt;= 10; i += 3) s += i                             // 22 (1 + 4 + 7 + 10)
+6) for i 1..3, for j 1..i: print i * j                             // 1 2 4 3 6 9
+7) count++ for i 0..9, j i..9                                      // 55
+8) for (i = 1; i &lt;= 100; i *= 2) count++                           // 7
+9) int x = 10; while (x &gt; 0) x -= 3; print x                       // -2
+10) for (char c = 'a'; c &lt;= 'e'; c += 2) print c                   // ace
+11) int i = 0; for (;;) { if (++i &gt; 3) break; } print i            // 4</pre>
+<h3>9. Common errors</h3><ul><li><b>Infinite loop:</b> missing update, wrong direction, condition never false; a double counter (d != 1.0 with d += 0.1) never hits exactly 1.0; byte b &lt;= 127 never fails because b wraps to -128.</li><li><b>Off by one:</b> i &lt;= arr.length throws ArrayIndexOutOfBoundsException; use i &lt; arr.length.</li><li>Semicolon after for or while; changing the loop variable inside the body; int overflow in sums and factorials (use long); statement after break is unreachable (compile error); while (n != 0) loops forever for negative n if you divide by 2 wrongly.</li></ul>
+<h3>10. Interview questions</h3><ul><li><b>for vs while vs do-while?</b> Count known vs condition-driven vs run-once-first.</li><li><b>break vs continue?</b> Leave the loop vs skip one iteration.</li><li><b>Why test primes only to sqrt(n)?</b> Factors come in pairs; one is at most sqrt(n).</li><li><b>Can a for loop have no body or no parts?</b> Yes, for (;;) { } is legal.</li><li><b>What is a labeled break?</b> It exits an outer loop from inside an inner one.</li><li><b>Why is a for-each unable to change elements?</b> It gives a copy of each item.</li></ul>
+<h3>Day-end checklist</h3><p>I can: choose the right loop type and justify it; trace any loop in a table; write digit, prime, GCD, Fibonacci and factorial programs; print pyramid, diamond, hollow square, Floyd and Pascal from the row formulas; predict output of nested and labeled loops.</p>
+<hr><h2>DEEP DIVE</h2>
+<h3>A. Complexity of loops (how many times the body runs)</h3><table><tr><th>Loop</th><th>Trips</th><th>Big-O</th></tr><tr><td>for i = 1..n</td><td>n</td><td>O(n)</td></tr><tr><td>i *= 2 while i &lt; n</td><td>log2 n</td><td>O(log n)</td></tr><tr><td>i * i &lt;= n</td><td>sqrt n</td><td>O(sqrt n)</td></tr><tr><td>nested n by n, or j from 1 to i</td><td>n squared, or n(n+1)/2</td><td>O(n squared)</td></tr><tr><td>outer n, inner doubling</td><td>n log n</td><td>O(n log n)</td></tr></table><p>Rough limits for online tests (about 10^8 simple steps per second): n up to 10^8 for O(n), 10^6 for O(n log n), 5000 for O(n squared), 500 for O(n cubed), 20 for O(2^n).</p>
+<h3>B. Overflow inside loop conditions</h3><p>For n near 2 billion, i * i overflows int and the test breaks. Write (long) i * i &lt;= n or i &lt;= n / i.</p>`;
 
 
 draw();
