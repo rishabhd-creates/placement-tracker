@@ -2841,5 +2841,320 @@ FN["6_11"]=`<h3>Weak-area revision and notes cleanup</h3>
 <h3>3. Comparison tables to rewrite from memory</h3><table><tr><th>Pair</th><th>Key difference</th></tr><tr><td>Process vs thread</td><td>Isolated memory vs shared memory</td></tr><tr><td>Mutex vs semaphore</td><td>Owned lock vs signalling counter</td></tr><tr><td>Paging vs segmentation</td><td>Fixed pages vs logical segments</td></tr><tr><td>FIFO vs LRU</td><td>Oldest loaded vs least recently used</td></tr><tr><td>TCP vs UDP</td><td>Reliable vs fast</td></tr><tr><td>Merge vs rebase</td><td>Preserves history vs rewrites it</td></tr><tr><td>Waterfall vs Agile</td><td>Sequential vs iterative</td></tr></table>
 <h3>4. Active recall</h3><p>Answer 5 questions aloud on each weak topic, then add the ones you missed to the Mistake Book and the Revision Queue.</p>`;
 
+/* PACK M1-W2-DETAILED: paste ABOVE the last line  draw();  Replaces lessons for Month 1 Week 2 (Methods, Arrays, Strings). */
+
+FN["0_3"]=`<h3>Day goal</h3><p>By tonight you can write, call, overload and trace methods, explain pass-by-value with an object example, and write simple recursion with a stack drawing.</p>
+<h3>1. Anatomy of a method</h3><pre class='cd'>public static int add(int a, int b) {   // modifiers  returnType  name(parameters)
+    int sum = a + b;                    // body
+    return sum;                         // must match the return type
+}
+int r = add(3, 4);                      // call with arguments: r = 7</pre><ul><li><b>Parameters</b> = variables in the definition. <b>Arguments</b> = values in the call. Order, number and types must match.</li><li><b>void</b> methods return nothing; a bare <b>return;</b> may end them early.</li><li>Every path of a non-void method must return, otherwise: "missing return statement".</li><li>Code after a return in the same block is unreachable (compile error).</li><li>Why methods: reuse, readability, testing one piece, hiding details.</li></ul>
+<h3>2. Four method shapes (know all)</h3><table><tr><th>Takes input?</th><th>Returns?</th><th>Example</th></tr><tr><td>No</td><td>No</td><td>static void greet()</td></tr><tr><td>Yes</td><td>No</td><td>static void printSquare(int n)</td></tr><tr><td>No</td><td>Yes</td><td>static int roll()</td></tr><tr><td>Yes</td><td>Yes</td><td>static int max(int a, int b)</td></tr></table>
+<h3>3. Pass by value (the favourite interview question)</h3><pre class='cd'>static void change(int x) { x = 99; }
+int a = 5; change(a);
+System.out.println(a);                         // 5: the method changed its own copy
+
+static void addBang(StringBuilder sb) { sb.append("!"); }     // follows the reference
+static void reassign(StringBuilder sb) { sb = new StringBuilder("new"); }  // only the copy moves
+StringBuilder s = new StringBuilder("hi");
+addBang(s);   // s is "hi!"
+reassign(s);  // s is still "hi!"</pre><p><b>Rule:</b> Java copies the value of the argument. For objects that value is the <b>reference</b> (an address). Both names point to one object, so changing its contents shows outside; pointing the copy elsewhere does not. A swap(int a, int b) method can never swap the caller's variables; return values or use an array instead.</p>
+<h3>4. Overloading</h3><pre class='cd'>static int area(int s)               { return s * s; }
+static double area(double r)         { return Math.PI * r * r; }
+static int area(int l, int b)        { return l * b; }
+// area(5) -&gt; int version, area(2.5) -&gt; double version, area(3, 4) -&gt; two-argument version</pre><ul><li>Same name, different <b>parameter list</b> (type, count or order). Return type alone is NOT enough (compile error).</li><li>Chosen at <b>compile time</b> by the argument types: this is compile-time polymorphism.</li><li>If no exact match, Java widens (int to long to double) before giving an error. area(5) with only area(double) available calls the double version.</li></ul>
+<h3>5. Scope and lifetime</h3><pre class='cd'>for (int i = 0; i &lt; 3; i++) { int sq = i * i; }
+// i and sq are gone here
+int x = 10;
+{ /* int x = 5; would be an error: x already exists in this method */ }</pre><p>A local variable lives only inside its block, has no default value, and must be assigned before use. You cannot redeclare the same name in a nested block of one method. Fields (declared in the class) live as long as the object or class.</p>
+<h3>6. Recursion step by step</h3><p>A method calling itself. Needs a <b>base case</b> (stops) and a <b>smaller problem</b> (moves toward it).</p><pre class='cd'>static long fact(int n) {
+    if (n &lt;= 1) return 1;            // base case
+    return n * fact(n - 1);          // smaller problem
+}
+static int sumDigits(int n) { return n == 0 ? 0 : n % 10 + sumDigits(n / 10); }
+static long power(int b, int e) { return e == 0 ? 1 : b * power(b, e - 1); }</pre><table><tr><th>Call</th><th>Waits for</th><th>Returns</th></tr><tr><td>fact(4)</td><td>4 * fact(3)</td><td>24 (last)</td></tr><tr><td>fact(3)</td><td>3 * fact(2)</td><td>6</td></tr><tr><td>fact(2)</td><td>2 * fact(1)</td><td>2</td></tr><tr><td>fact(1)</td><td>base case</td><td>1 (first)</td></tr></table><ul><li>Calls stack up on the call stack, then unwind in reverse order.</li><li>No base case or never reaching it: <b>StackOverflowError</b>.</li><li>Recursion uses O(depth) memory; a loop is cheaper for simple repetition. Naive fib(n) recursion is O(2^n) because it repeats work.</li></ul>
+<h3>7. Worked utility class</h3><pre class='cd'>class MathUtil {
+    static boolean isPrime(int n) {
+        if (n &lt; 2) return false;
+        for (int i = 2; i * i &lt;= n; i++) if (n % i == 0) return false;
+        return true;
+    }
+    static int gcd(int a, int b) { return b == 0 ? a : gcd(b, a % b); }   // Euclid: gcd(48,18) = 6
+    static int reverse(int n) { int r = 0; while (n &gt; 0) { r = r * 10 + n % 10; n /= 10; } return r; }
+    static boolean isArmstrong(int n) {
+        int t = n, digits = String.valueOf(n).length(), s = 0;
+        while (t &gt; 0) { s += (int) Math.pow(t % 10, digits); t /= 10; }
+        return s == n;                                                     // 153 -&gt; true
+    }
+}</pre>
+<h3>8. Practice set (do all, then compare)</h3><ul><li>Write max of three, isEven, factorial (loop and recursive), fibonacci(n) returning the nth term.</li><li>Overload area() for a circle, rectangle and triangle; call each with different arguments.</li><li>Prove pass-by-value: write change(int) and show the caller is unchanged; write one that changes an array element and show it IS changed.</li><li>Trace fact(5) and power(2, 5) on paper with a call-stack table.</li></ul>
+<h3>9. Interview questions with short answers</h3><ul><li><b>Is Java pass by value or reference?</b> Always by value; for objects the value is a reference copy.</li><li><b>Can we overload by return type?</b> No; the parameter list must differ.</li><li><b>Why is main static?</b> The JVM calls it before any object exists.</li><li><b>Recursion vs loop?</b> Recursion is clearer for tree-like problems but costs stack space.</li></ul>
+<h3>10. Common mistakes</h3><ul><li>Missing return on one branch; unreachable code after return.</li><li>Expecting a swap method to change the caller's ints.</li><li>Two methods differing only by return type.</li><li>Recursion with a base case that is never reached.</li><li>Calling an instance method from main without an object.</li></ul>
+<h3>Day-end checklist</h3><p>I can: name the parts of a method; explain pass-by-value; write three overloads; draw a call stack; write isPrime, gcd and factorial without notes.</p>`;
+
+FN["0_4"]=`<h3>Day goal</h3><p>By tonight you can create, traverse and modify 1-D and 2-D arrays, use the Arrays class, and solve the standard array questions in one pass.</p>
+<h3>1. Declaring and creating</h3><pre class='cd'>int[] a = new int[5];              // {0,0,0,0,0}
+int[] b = {4, 2, 9, 7};            // literal, length 4
+String[] names = new String[3];    // {null,null,null}
+int n = b.length;                  // 4  (field, no brackets)
+a[0] = 10;  int x = b[3];          // index starts at 0</pre><ul><li>Fixed size once created. All elements one type. Stored together in the heap; the variable holds a reference.</li><li>Defaults: 0 (numbers), false (boolean), '\\u0000' (char), null (objects).</li><li>Last index = length - 1. Index outside it throws <b>ArrayIndexOutOfBoundsException</b>. Negative size throws NegativeArraySizeException.</li></ul>
+<h3>2. Traversal</h3><pre class='cd'>for (int i = 0; i &lt; b.length; i++) System.out.print(b[i] + " ");
+for (int v : b) System.out.print(v + " ");        // cannot change elements through v
+for (int i = b.length - 1; i &gt;= 0; i--) { }       // backwards</pre>
+<h3>3. Core algorithms (with the idea)</h3><pre class='cd'>// Sum, average, max, min
+int sum = 0, max = b[0], min = b[0];
+for (int v : b) { sum += v; if (v &gt; max) max = v; if (v &lt; min) min = v; }
+double avg = (double) sum / b.length;
+
+// Second largest, one pass
+int first = Integer.MIN_VALUE, second = Integer.MIN_VALUE;
+for (int v : b) {
+    if (v &gt; first) { second = first; first = v; }
+    else if (v &gt; second &amp;&amp; v != first) second = v;
+}
+
+// Reverse in place: swap from both ends
+for (int i = 0, j = b.length - 1; i &lt; j; i++, j--) { int t = b[i]; b[i] = b[j]; b[j] = t; }
+
+// Move zeros to end: write pointer
+int pos = 0;
+for (int i = 0; i &lt; b.length; i++) if (b[i] != 0) b[pos++] = b[i];
+while (pos &lt; b.length) b[pos++] = 0;
+
+// Rotate right by k: reverse all, reverse first k, reverse the rest
+k = k % n;  reverse(b, 0, n - 1); reverse(b, 0, k - 1); reverse(b, k, n - 1);
+
+// Linear search
+int idx = -1;
+for (int i = 0; i &lt; b.length; i++) if (b[i] == key) { idx = i; break; }</pre><p>Dry run reverse on {1,2,3,4}: swap(0,3) gives 4,2,3,1; swap(1,2) gives 4,3,2,1; stop when i &gt;= j.</p>
+<h3>4. The Arrays class</h3><table><tr><th>Method</th><th>Use</th></tr><tr><td>Arrays.toString(a)</td><td>Print a 1-D array: [4, 2, 9]</td></tr><tr><td>Arrays.deepToString(m)</td><td>Print a 2-D array</td></tr><tr><td>Arrays.sort(a) / sort(a, from, to)</td><td>Sort ascending in place</td></tr><tr><td>Arrays.fill(a, v)</td><td>Set all elements</td></tr><tr><td>Arrays.copyOf(a, n) / copyOfRange(a, i, j)</td><td>New array (longer pads with zeros)</td></tr><tr><td>Arrays.equals(a, b)</td><td>Compare contents (== compares references)</td></tr><tr><td>Arrays.binarySearch(a, k)</td><td>Needs a SORTED array; negative result if absent</td></tr></table><p><b>b = a</b> copies the reference; both names share one array. Use <b>a.clone()</b> or <b>Arrays.copyOf</b> for a real copy. To sort descending use Integer[] with Collections.reverseOrder().</p>
+<h3>5. 2-D arrays</h3><pre class='cd'>int[][] g = {{1,2,3},{4,5,6}};                // 2 rows, 3 columns
+int rows = g.length, cols = g[0].length;
+for (int i = 0; i &lt; rows; i++) {
+    for (int j = 0; j &lt; cols; j++) System.out.print(g[i][j] + " ");
+    System.out.println();
+}
+// Transpose (rows and columns swap)
+int[][] t = new int[cols][rows];
+for (int i = 0; i &lt; rows; i++) for (int j = 0; j &lt; cols; j++) t[j][i] = g[i][j];
+// Matrix addition: c[i][j] = a[i][j] + b[i][j]  (same sizes needed)
+// Matrix multiplication (a: m x n, b: n x p)
+for (int i = 0; i &lt; m; i++) for (int j = 0; j &lt; p; j++)
+    for (int k = 0; k &lt; n; k++) c[i][j] += a[i][k] * b[k][j];</pre><table><tr><th>Need</th><th>Rule</th></tr><tr><td>Row sum</td><td>add g[i][j] over j</td></tr><tr><td>Column sum</td><td>add g[i][j] over i</td></tr><tr><td>Main diagonal</td><td>cells where i == j</td></tr><tr><td>Anti-diagonal</td><td>cells where i + j == n - 1</td></tr></table><p>A <b>jagged</b> array has rows of different lengths: <b>int[][] j = new int[3][];</b> then j[0] = new int[2]; and so on.</p>
+<h3>6. Frequency array</h3><pre class='cd'>int[] f = new int[26];
+for (char c : "banana".toCharArray()) f[c - 'a']++;   // a:3 b:1 n:2</pre><p>Counts letters in O(n) with no map; it is the base of anagram, duplicate and first-unique questions.</p>
+<h3>7. Complexity cheat-sheet</h3><table><tr><th>Operation</th><th>Cost</th></tr><tr><td>Read or write a[i]</td><td>O(1)</td></tr><tr><td>Linear search</td><td>O(n)</td></tr><tr><td>Binary search (sorted)</td><td>O(log n)</td></tr><tr><td>Insert or delete in the middle</td><td>O(n) (shifting)</td></tr><tr><td>Arrays.sort</td><td>O(n log n)</td></tr></table>
+<h3>8. Practice set</h3><ul><li>Max, min, sum, average, second largest, count of even numbers.</li><li>Reverse, rotate by k, move zeros, remove duplicates from a sorted array, check if sorted.</li><li>Matrix: add, transpose, row and column sums, both diagonals, multiply a 2x3 by a 3x2.</li><li>Find the missing number in 1..n using the sum formula n(n+1)/2.</li></ul>
+<h3>9. Interview questions</h3><ul><li><b>Array vs ArrayList?</b> Fixed size, fast and can hold primitives vs resizable, objects only.</li><li><b>Why does b = a not copy?</b> It copies the reference.</li><li><b>Default values?</b> 0, false, null.</li><li><b>Find the second largest without sorting?</b> Track two values in one pass.</li></ul>
+<h3>10. Common mistakes</h3><ul><li>Loop condition <b>i &lt;= a.length</b> causes an index error.</li><li>Printing an array directly gives something like [I@1b6d3586.</li><li>a.length() instead of a.length (the method form is for Strings).</li><li>Rotating without k % n; forgetting an empty array.</li></ul>
+<h3>Day-end checklist</h3><p>I can: write all core algorithms without notes; transpose a matrix; explain array copy vs reference; use Arrays.toString and sort.</p>`;
+
+FN["0_5"]=`<h3>Day goal</h3><p>By tonight you can explain string immutability and the pool, use the main String methods, choose StringBuilder correctly, and solve palindrome, anagram, vowel and frequency questions.</p>
+<h3>1. Immutability and the pool</h3><pre class='cd'>String a = "hi", b = "hi";
+String c = new String("hi");
+a == b           // true   (both point to one pooled literal)
+a == c           // false  (new always makes a separate object)
+a.equals(c)      // true   (same characters)
+c.intern() == a  // true</pre><p>A String never changes; methods return a NEW String. So <b>s.toUpperCase();</b> alone does nothing; write <b>s = s.toUpperCase();</b>. Immutability gives safety, thread safety, safe hashing (good map keys) and allows the pool to share objects.</p>
+<h3>2. Comparing</h3><table><tr><th>Need</th><th>Use</th></tr><tr><td>Same content</td><td>equals</td></tr><tr><td>Ignore case</td><td>equalsIgnoreCase</td></tr><tr><td>Order (0 equal, negative smaller, positive larger)</td><td>compareTo</td></tr><tr><td>Same object</td><td>==</td></tr></table>
+<h3>3. Method reference with results on "Java Programming"</h3><table><tr><th>Method</th><th>Example</th><th>Result</th></tr><tr><td>length()</td><td>s.length()</td><td>16</td></tr><tr><td>charAt(i)</td><td>s.charAt(0)</td><td>'J'</td></tr><tr><td>substring(b)</td><td>s.substring(5)</td><td>"Programming"</td></tr><tr><td>substring(b, e)</td><td>s.substring(0, 4)</td><td>"Java" (end excluded)</td></tr><tr><td>indexOf / lastIndexOf</td><td>s.indexOf("a")</td><td>1 (3 for lastIndexOf; -1 if absent)</td></tr><tr><td>contains / startsWith / endsWith</td><td>s.contains("gram")</td><td>true</td></tr><tr><td>replace(a, b)</td><td>s.replace('a', 'o')</td><td>"Jovo Progromming"</td></tr><tr><td>split(" ")</td><td>s.split(" ")</td><td>["Java", "Programming"]</td></tr><tr><td>trim / strip</td><td>"  x ".trim()</td><td>"x"</td></tr><tr><td>toUpperCase / toLowerCase</td><td>s.toUpperCase()</td><td>"JAVA PROGRAMMING"</td></tr><tr><td>toCharArray()</td><td>s.toCharArray()</td><td>char[]</td></tr><tr><td>isEmpty / isBlank</td><td>"".isEmpty()</td><td>true</td></tr><tr><td>String.valueOf / join / format</td><td>String.join("-", "a", "b")</td><td>"a-b"</td></tr></table><p>charAt or substring out of range throws StringIndexOutOfBoundsException. split uses a regular expression, so split("\\\\.") is needed for a dot.</p>
+<h3>4. StringBuilder</h3><pre class='cd'>StringBuilder sb = new StringBuilder();
+for (int i = 1; i &lt;= 5; i++) sb.append(i).append(',');   // 1,2,3,4,5,
+sb.deleteCharAt(sb.length() - 1);                         // remove trailing comma
+sb.insert(0, "[").append("]");                            // [1,2,3,4,5]
+sb.reverse();  sb.setCharAt(0, 'X');  String out = sb.toString();</pre><table><tr><th></th><th>String</th><th>StringBuilder</th><th>StringBuffer</th></tr><tr><td>Mutable</td><td>No</td><td>Yes</td><td>Yes</td></tr><tr><td>Thread-safe</td><td>Yes (immutable)</td><td>No</td><td>Yes (synchronized, slower)</td></tr><tr><td>Use for</td><td>Fixed text</td><td>Building text in loops</td><td>Shared between threads</td></tr></table><p>Each <b>+=</b> on a String in a loop makes a new object: O(n squared). StringBuilder append is amortised O(1).</p>
+<h3>5. Worked solutions</h3><pre class='cd'>// Reverse (two ways)
+String r1 = new StringBuilder(s).reverse().toString();
+String r2 = ""; for (int i = s.length() - 1; i &gt;= 0; i--) r2 += s.charAt(i);
+
+// Palindrome (ignore case, two pointers)
+boolean pal = true;
+for (int i = 0, j = s.length() - 1; i &lt; j; i++, j--)
+    if (Character.toLowerCase(s.charAt(i)) != Character.toLowerCase(s.charAt(j))) { pal = false; break; }
+
+// Vowel and consonant count
+int v = 0, c = 0;
+for (char ch : s.toLowerCase().toCharArray()) {
+    if (ch &gt;= 'a' &amp;&amp; ch &lt;= 'z') { if ("aeiou".indexOf(ch) != -1) v++; else c++; }
+}
+
+// Anagram (frequency array)
+int[] f = new int[26];
+for (char ch : s1.toCharArray()) f[ch - 'a']++;
+for (char ch : s2.toCharArray()) f[ch - 'a']--;
+boolean ana = s1.length() == s2.length();
+for (int x : f) if (x != 0) ana = false;
+
+// First non-repeating character
+int[] cnt = new int[256];
+for (char ch : s.toCharArray()) cnt[ch]++;
+for (char ch : s.toCharArray()) if (cnt[ch] == 1) { System.out.println(ch); break; }
+
+// Word count and reverse words
+String[] w = s.trim().split("\\\\s+");
+System.out.println(w.length);
+
+// Character frequency print
+for (int i = 0; i &lt; 26; i++) if (f[i] &gt; 0) System.out.println((char) ('a' + i) + " = " + f[i]);</pre>
+<h3>6. Character class helpers</h3><p>Character.isDigit, isLetter, isLetterOrDigit, isUpperCase, toUpperCase, getNumericValue. Chars are numbers: 'a' = 97, 'A' = 65, '0' = 48; so (ch - '0') converts a digit char to its value.</p>
+<h3>7. Practice set</h3><ul><li>Reverse, palindrome, vowel count, remove spaces, count words, count uppercase and digits.</li><li>Anagram check, first non-repeating, character frequency, remove duplicate characters keeping order.</li><li>Longest word in a sentence; capitalise the first letter of each word; check if one string is a rotation of another (s2 appears in s1 + s1).</li><li>Show with code that == and equals differ for new String objects.</li></ul>
+<h3>8. Interview questions</h3><ul><li><b>Why is String immutable?</b> Security, thread safety, pooling and safe hashing.</li><li><b>== vs equals?</b> Reference vs content.</li><li><b>String vs StringBuilder vs StringBuffer?</b> Immutable vs mutable fast vs mutable synchronized.</li><li><b>How many objects: String s = new String("a")?</b> Up to two: the pooled literal and the heap object.</li></ul>
+<h3>9. Common mistakes</h3><ul><li>Using == for content; ignoring the returned String of toUpperCase or replace.</li><li>substring end index is exclusive; split on "." without escaping.</li><li>Building text with += inside long loops.</li><li>Calling charAt on an empty string without checking length.</li></ul>
+<h3>Day-end checklist</h3><p>I can: explain the pool with == examples; list ten String methods with results; write palindrome, anagram and frequency solutions from scratch; choose the right one of String, StringBuilder and StringBuffer.</p>`;
+
+
+/* PACK M1-W2-DEEPDIVE: paste BELOW pack-m1-week2-detailed.js and ABOVE the last line  draw();  It appends deep notes to the same three lessons. */
+
+FN["0_3"]+=`<hr><h2>DEEP DIVE: Methods</h2>
+<h3>A. What really happens in memory</h3><p>Every call creates a <b>stack frame</b> holding parameters, local variables and the return address. When the method returns, its frame is popped. Objects live on the <b>heap</b>; a local variable holds only a reference to them.</p><table><tr><th>Step for int r = add(3, 4)</th><th>Stack</th></tr><tr><td>main starts</td><td>[main: r]</td></tr><tr><td>add called</td><td>[main: r] [add: a=3, b=4, sum]</td></tr><tr><td>add returns 7</td><td>[main: r=7] (add frame gone)</td></tr></table><p>Because each call has its own frame, recursive calls each get their own copy of n. That is why fact(3) and fact(4) do not overwrite each other.</p>
+<h3>B. Static vs instance methods</h3><table><tr><th></th><th>static</th><th>instance</th></tr><tr><td>Belongs to</td><td>The class</td><td>An object</td></tr><tr><td>Call as</td><td>MathUtil.gcd(4, 6)</td><td>obj.deposit(50)</td></tr><tr><td>Can use this</td><td>No</td><td>Yes</td></tr><tr><td>Can read instance fields</td><td>Only through an object</td><td>Directly</td></tr></table><p>Why error "non-static method cannot be referenced from a static context"? main is static and no object exists yet; create one with new, or mark the method static.</p>
+<h3>C. Varargs and returning arrays</h3><pre class='cd'>static int sum(int... nums) { int s = 0; for (int x : nums) s += x; return s; }
+sum(); sum(1); sum(1, 2, 3);              // 0, 1, 6  (nums is an int[] inside)
+static int[] minMax(int[] a) {            // a method can return only ONE value: use an array
+    int mn = a[0], mx = a[0];
+    for (int v : a) { mn = Math.min(mn, v); mx = Math.max(mx, v); }
+    return new int[]{mn, mx};
+}</pre><p>Varargs must be the last parameter and only one is allowed per method.</p>
+<h3>D. Types of recursion</h3><table><tr><th>Type</th><th>Example</th><th>Note</th></tr><tr><td>Linear</td><td>factorial</td><td>one call per level, depth n</td></tr><tr><td>Binary / tree</td><td>fib(n-1) + fib(n-2)</td><td>two calls, O(2^n) naive</td></tr><tr><td>Tail</td><td>fact(n, acc)</td><td>call is the last action; Java does NOT optimise it, so depth still grows</td></tr><tr><td>Mutual</td><td>isEven calls isOdd</td><td>two methods call each other</td></tr></table><pre class='cd'>static boolean isEven(int n) { return n == 0 ? true : isOdd(n - 1); }
+static boolean isOdd(int n)  { return n == 0 ? false : isEven(n - 1); }
+static void printDown(int n) { if (n == 0) return; System.out.print(n + " "); printDown(n - 1); }  // 5 4 3 2 1
+static void printUp(int n)   { if (n == 0) return; printUp(n - 1); System.out.print(n + " "); }    // 1 2 3 4 5</pre><p>Print before the call = going down; print after the call = coming back up. This difference is tested often.</p>
+<h3>E. Recursion vs loop</h3><table><tr><th></th><th>Recursion</th><th>Loop</th></tr><tr><td>Memory</td><td>O(depth) stack</td><td>O(1)</td></tr><tr><td>Speed</td><td>Call overhead</td><td>Faster</td></tr><tr><td>Best for</td><td>Trees, divide and conquer, backtracking</td><td>Simple counting and sums</td></tr></table>
+<h3>F. Predict the output (write answers first, then run)</h3><pre class='cd'>1) static void f(int x){ x++; }  int a=1; f(a); print(a);                 // 1
+2) static int g(int x){ return x * 2; }  print(g(g(3)));                    // 12
+3) static void h(int[] a){ a[0]=9; }  int[] z={1,2}; h(z); print(z[0]);   // 9
+4) static void p(int n){ if(n&gt;0){ p(n-1); print(n); } }  p(3);             // 1 2 3
+5) static int q(int n){ return n&lt;=1 ? 1 : n + q(n-1); }  print(q(4));      // 4+3+2+1 = 10</pre>
+<h3>G. Debug these (find the bug)</h3><ul><li><b>int f(int n){ if(n&gt;0) return 1; }</b> missing return when n &lt;= 0.</li><li><b>int fact(int n){ return n * fact(n-1); }</b> no base case: StackOverflowError.</li><li><b>void area(int r){ return r*r; }</b> void cannot return a value.</li><li><b>int add(int a, int b){} int add(int x, int y){}</b> same signature: duplicate method.</li></ul>
+<h3>H. 12 interview questions</h3><ul><li><b>Method vs function?</b> In Java every function is a method inside a class.</li><li><b>Can main be overloaded?</b> Yes, but the JVM calls only main(String[]).</li><li><b>Can a method return two values?</b> No; return an array, a list or an object.</li><li><b>What is method signature?</b> Name plus parameter types (not return type).</li><li><b>Can a static method be overloaded?</b> Yes.</li><li><b>What is the base case?</b> The condition that stops recursion.</li><li><b>StackOverflowError cause?</b> Too-deep or infinite recursion.</li><li><b>Parameter vs argument?</b> Definition variable vs call value.</li><li><b>What does varargs become inside?</b> An array.</li><li><b>Is recursion always slower?</b> Usually yes, due to call overhead.</li><li><b>Can overloaded methods have different return types?</b> Yes, if the parameters also differ.</li><li><b>Is Java pass-by-reference?</b> No, always by value.</li></ul>
+<h3>I. Extra programs to write</h3><p>Binary representation of n (recursive), sum of an array (recursive), count digits, check palindrome number using reverse(), print Fibonacci with memo array, power with O(log n) (square when exponent is even), isPerfect(n), nCr using a factorial method.</p>
+<h3>J. Mastery test</h3><p>Without notes: explain the frame diagram for fact(3), write gcd, prove pass-by-value, and list three overload examples that compile and two that do not.</p>`;
+
+FN["0_4"]+=`<hr><h2>DEEP DIVE: Arrays</h2>
+<h3>A. Memory picture</h3><pre class='cd'>int[] a = {10, 20, 30};
+STACK              HEAP
+a  ---ref--->  [ 10 | 20 | 30 ]   index 0 1 2
+int[] b = a;       // b ---ref---&gt; the SAME array
+b[0] = 99;         // a[0] is now 99 too</pre><p>Elements sit in one continuous block, so a[i] is found by address arithmetic (start + i x size): that is why access is O(1). A 2-D array is an array of references to row arrays, which is why rows can differ in length (jagged).</p>
+<h3>B. Exceptions to know</h3><table><tr><th>Exception</th><th>Cause</th></tr><tr><td>ArrayIndexOutOfBoundsException</td><td>index &lt; 0 or &gt;= length</td></tr><tr><td>NegativeArraySizeException</td><td>new int[-1]</td></tr><tr><td>NullPointerException</td><td>array variable is null and you use it</td></tr><tr><td>ArrayStoreException</td><td>Object[] o = new String[1]; o[0] = 5;</td></tr></table>
+<h3>C. Sorting by hand (understand, then use Arrays.sort)</h3><pre class='cd'>// Bubble sort: repeatedly swap neighbours; largest bubbles to the end. O(n^2)
+for (int i = 0; i &lt; n - 1; i++) {
+    boolean swapped = false;
+    for (int j = 0; j &lt; n - 1 - i; j++)
+        if (a[j] &gt; a[j + 1]) { int t = a[j]; a[j] = a[j + 1]; a[j + 1] = t; swapped = true; }
+    if (!swapped) break;                       // already sorted: best case O(n)
+}
+// Selection sort: find minimum of the rest, place it at i. O(n^2), at most n-1 swaps
+for (int i = 0; i &lt; n - 1; i++) {
+    int m = i;
+    for (int j = i + 1; j &lt; n; j++) if (a[j] &lt; a[m]) m = j;
+    int t = a[i]; a[i] = a[m]; a[m] = t;
+}
+// Insertion sort: grow a sorted prefix by inserting each element. O(n^2), O(n) if nearly sorted
+for (int i = 1; i &lt; n; i++) {
+    int key = a[i], j = i - 1;
+    while (j &gt;= 0 &amp;&amp; a[j] &gt; key) { a[j + 1] = a[j]; j--; }
+    a[j + 1] = key;
+}</pre><p><b>Bubble trace</b> on {5, 3, 1}: pass 1 gives 3, 1, 5; pass 2 gives 1, 3, 5; pass 3 has no swap, stop.</p><table><tr><th>Sort</th><th>Best</th><th>Worst</th><th>Stable</th></tr><tr><td>Bubble</td><td>O(n)</td><td>O(n^2)</td><td>Yes</td></tr><tr><td>Selection</td><td>O(n^2)</td><td>O(n^2)</td><td>No</td></tr><tr><td>Insertion</td><td>O(n)</td><td>O(n^2)</td><td>Yes</td></tr></table>
+<h3>D. Binary search by hand (sorted array only)</h3><pre class='cd'>int l = 0, r = a.length - 1;
+while (l &lt;= r) {
+    int mid = l + (r - l) / 2;
+    if (a[mid] == key) return mid;
+    if (a[mid] &lt; key) l = mid + 1; else r = mid - 1;
+}
+return -1;</pre><p>Trace for {2,5,8,12,16,23}, key 16: l=0,r=5,mid=2 (8 &lt; 16) so l=3; mid=4 (16) found. At most log2(n) steps.</p>
+<h3>E. More must-know algorithms</h3><pre class='cd'>// Prefix sum: pre[i+1] = pre[i] + a[i]; range sum a[l..r] = pre[r+1] - pre[l]
+// Kadane: maximum subarray sum in O(n)
+int best = a[0], cur = a[0];
+for (int i = 1; i &lt; n; i++) { cur = Math.max(a[i], cur + a[i]); best = Math.max(best, cur); }
+// {-2,1,-3,4,-1,2,1,-5,4} gives 6 (subarray 4,-1,2,1)
+
+// Merge two sorted arrays
+int i = 0, j = 0, k = 0; int[] c = new int[a.length + b.length];
+while (i &lt; a.length &amp;&amp; j &lt; b.length) c[k++] = a[i] &lt;= b[j] ? a[i++] : b[j++];
+while (i &lt; a.length) c[k++] = a[i++];
+while (j &lt; b.length) c[k++] = b[j++];
+
+// Missing number in 0..n: expected sum minus actual sum
+int miss = n * (n + 1) / 2; for (int v : a) miss -= v;
+
+// Remove duplicates from SORTED array (write pointer)
+int w = 1; for (int x = 1; x &lt; n; x++) if (a[x] != a[x - 1]) a[w++] = a[x];   // w = new length
+
+// Majority element (Boyer-Moore): cancel pairs of different values
+int cand = 0, count = 0;
+for (int v : a) { if (count == 0) cand = v; count += (v == cand) ? 1 : -1; }
+
+// Second largest, leaders, check sorted
+boolean sorted = true; for (int p = 1; p &lt; n; p++) if (a[p] &lt; a[p - 1]) { sorted = false; break; }</pre>
+<h3>F. 2-D extras</h3><pre class='cd'>// Spiral and diagonal patterns: control four borders top, bottom, left, right and shrink them
+// Rotate a square matrix 90 degrees clockwise = transpose, then reverse every row
+// Search in a row-sorted and column-sorted matrix: start top-right; if bigger go left, if smaller go down</pre>
+<h3>G. Predict the output</h3><pre class='cd'>1) int[] a = {1,2,3}; int[] b = a; b[0] = 9; print(a[0]);                    // 9
+2) int[] a = {1,2,3}; int[] b = a.clone(); b[0] = 9; print(a[0]);             // 1
+3) int[] a = new int[3]; print(a[1]);                                          // 0
+4) int[] a = {1,2,3}; print(a.length);                                         // 3
+5) int[][] m = new int[2][3]; print(m.length + " " + m[0].length);            // 2 3
+6) print(Arrays.equals(new int[]{1,2}, new int[]{1,2}));                       // true
+7) print(new int[]{1,2} == new int[]{1,2});                                    // false</pre>
+<h3>H. Edge-case checklist (test every solution with these)</h3><ul><li>Empty array and length 1.</li><li>All equal values; all negative values.</li><li>Already sorted and reverse sorted.</li><li>Maximum and minimum int values (overflow in sums: use long).</li><li>k bigger than n (rotation) or k = 0.</li></ul>
+<h3>I. 12 interview questions</h3><ul><li><b>Array vs ArrayList?</b> Fixed and primitive-friendly vs dynamic and objects.</li><li><b>Is an array an object?</b> Yes; it has a length field and extends Object.</li><li><b>Why is access O(1)?</b> Contiguous memory and address arithmetic.</li><li><b>Why insert in the middle O(n)?</b> Elements must shift.</li><li><b>How to copy an array?</b> clone, Arrays.copyOf, System.arraycopy.</li><li><b>How to sort descending?</b> Integer[] with Collections.reverseOrder().</li><li><b>Find duplicates?</b> Sort and compare neighbours, or HashSet.</li><li><b>Time of binary search?</b> O(log n), needs sorted data.</li><li><b>What is a jagged array?</b> Rows of different lengths.</li><li><b>Can array size change?</b> No; make a new bigger array.</li><li><b>Default values?</b> 0, false, null.</li><li><b>arr.length vs arr.length()?</b> Field for arrays, method for Strings.</li></ul>
+<h3>J. Mastery test</h3><p>Without notes: write bubble sort and binary search, rotate by k, Kadane, merge two sorted arrays, transpose, and explain why b = a does not copy.</p>`;
+
+FN["0_5"]+=`<hr><h2>DEEP DIVE: Strings</h2>
+<h3>A. Memory picture</h3><pre class='cd'>String a = "hi";               // pool holds "hi"; a ---&gt; pool object
+String b = "hi";               // b ---&gt; the same pool object
+String c = new String("hi");   // heap holds a second object; c ---&gt; heap object
+String d = a + "!";            // new object "hi!" created at runtime (not pooled)
+a = a + "x";                   // a now points to a NEW string; old "hi" is unchanged</pre><p>Compile-time constants like "a" + "b" are joined by the compiler and pooled, so "a" + "b" == "ab" is true; a runtime join is not.</p>
+<h3>B. A String is a char sequence</h3><p>Internally a String stores characters (Unicode, UTF-16). Each char is a 16-bit number: 'A' = 65, 'a' = 97, '0' = 48. Arithmetic works: 'a' + 1 gives int 98; (char) ('a' + 1) gives 'b'. This powers frequency arrays and ciphers.</p>
+<h3>C. compareTo traced</h3><pre class='cd'>"apple".compareTo("apricot")   // first difference at index 2: 'p' (112) - 'r' (114) = -2 (negative: apple is smaller)
+"abc".compareTo("abcd")        // no difference, so length difference: 3 - 4 = -1
+"b".compareTo("a")             // 1</pre><p>Sign of the result is what matters; do not depend on the exact number.</p>
+<h3>D. StringBuilder internals</h3><p>It keeps a char array with a <b>capacity</b> (default 16). When full it grows to (old x 2) + 2 and copies. Pass an expected size, new StringBuilder(1000), to avoid growth. Methods: append, insert(i, x), delete(s, e), deleteCharAt, replace(s, e, str), reverse, setCharAt, length, capacity, indexOf, charAt. StringBuilder has no equals override: sb1.equals(sb2) is false; compare with sb1.toString().equals(sb2.toString()).</p>
+<h3>E. Formatting and text</h3><pre class='cd'>String.format("%5d|%-5d|%05d", 42, 42, 42);   // "   42|42   |00042"
+String.format("%.2f", 3.14159);               // "3.14"
+String.format("%s is %d", "Asha", 20);        // "Asha is 20"
+"a-b-c".split("-", 2);                        // ["a", "b-c"]  (limit = 2 parts)
+"  hi  ".strip();  "ab".repeat(3);            // "hi"  "ababab"
+String text = """
+    multi-line
+    text block""";                            // Java 15+
+Integer.parseInt("42");  String.valueOf(42);  Integer.toString(42);  Double.parseDouble("2.5");</pre><p>Strings in switch: switch (cmd) { case "add": ... } works (uses equals); null throws NullPointerException.</p>
+<h3>F. More programs with the idea</h3><pre class='cd'>// 1. String compression: aabbbc -&gt; a2b3c1
+StringBuilder sb = new StringBuilder(); int count = 1;
+for (int i = 1; i &lt;= s.length(); i++) {
+    if (i &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(i - 1)) count++;
+    else { sb.append(s.charAt(i - 1)).append(count); count = 1; }
+}
+// 2. Caesar cipher (shift 3), lowercase letters
+for (char ch : s.toCharArray()) sb.append((char) ((ch - 'a' + 3) % 26 + 'a'));
+// 3. Is s2 a rotation of s1?
+boolean rot = s1.length() == s2.length() &amp;&amp; (s1 + s1).contains(s2);
+// 4. Longest common prefix of an array of strings
+String p = strs[0];
+for (String x : strs) while (!x.startsWith(p)) p = p.substring(0, p.length() - 1);
+// 5. Count words, reverse each word, capitalise each word
+for (String w : s.trim().split("\\\\s+")) sb.append(Character.toUpperCase(w.charAt(0))).append(w.substring(1)).append(' ');
+// 6. Remove duplicate characters, keep first occurrence
+boolean[] seen = new boolean[256];
+for (char ch : s.toCharArray()) if (!seen[ch]) { seen[ch] = true; sb.append(ch); }
+// 7. Check if two strings are one edit apart, or if a string has all unique characters (Set or boolean[256])
+// 8. Valid number string: loop with Character.isDigit; or try parseInt inside try/catch NumberFormatException</pre>
+<h3>G. Predict the output</h3><pre class='cd'>1) "Java".charAt(1) + "Java".charAt(2)                 // 98 + 118 = 216 (chars add as numbers!)
+2) "" + 'a' + 'b'                                       // "ab"
+3) 1 + 2 + "3"                                          // "33"
+4) "1" + 2 + 3                                          // "123"
+5) String s = "hi"; s.concat("!"); print(s);            // hi  (result ignored)
+6) "hello".substring(1, 3)                              // "el"
+7) "Hello".indexOf('z')                                 // -1
+8) new String("a") == new String("a")                   // false
+9) "a".equals(null)                                     // false (no exception)
+10) String s = null; s.length();                        // NullPointerException</pre>
+<h3>H. Debug these</h3><ul><li><b>if (name == "Asha")</b> use equals.</li><li><b>s.replace("a", "b");</b> result thrown away; assign it.</li><li><b>for (int i = 0; i &lt;= s.length(); i++) s.charAt(i)</b> index error at the last step.</li><li><b>"a.b".split(".")</b> returns an empty array; use split("\\\\.").</li><li><b>str.equals(input)</b> throws if str is null; write "literal".equals(input) instead.</li></ul>
+<h3>I. 14 interview questions</h3><ul><li><b>Why is String final and immutable?</b> Pool safety, security, caching of hashCode, thread safety.</li><li><b>What is the string pool?</b> A shared area that reuses identical literals.</li><li><b>How many objects: String s = "a" + "b"?</b> One (constant folded by the compiler).</li><li><b>intern() does what?</b> Returns the pooled instance of equal content.</li><li><b>StringBuilder vs StringBuffer?</b> Same API; Buffer is synchronized and slower.</li><li><b>Is String thread-safe?</b> Yes, being immutable.</li><li><b>equals vs ==?</b> Content vs reference.</li><li><b>How to reverse a string?</b> StringBuilder.reverse or a two-pointer swap on a char array.</li><li><b>What does hashCode of equal strings give?</b> The same value.</li><li><b>How to check a palindrome?</b> Two pointers, O(n) time, O(1) space.</li><li><b>Why prefer StringBuilder in loops?</b> Avoids creating a new object per +=.</li><li><b>Can a String be used in switch?</b> Yes, since Java 7.</li><li><b>How to convert String to int?</b> Integer.parseInt, throws NumberFormatException.</li><li><b>trim vs strip?</b> strip handles Unicode whitespace (Java 11+).</li></ul>
+<h3>J. Mastery test</h3><p>Without notes: draw the pool diagram for four lines of declarations, write palindrome, anagram, compression and Caesar cipher, and answer predict-the-output items 1 to 10 before running them.</p>`;
+
+
 draw();
 </script></body></html>
